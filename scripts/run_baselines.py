@@ -1,6 +1,7 @@
 import argparse
 import json
 import time
+from multiprocessing import Pool
 import numpy as np
 import pandas as pd
 import yaml
@@ -12,6 +13,9 @@ from homefleet.eval.episode import summarize
 TZ = "America/Chicago"
 MODES = {
     "B0_fixed": dict(mode="fixed"),
+    "B0_fixed10": dict(mode="fixed", fixed_frac=0.10),
+    "B0_fixed30": dict(mode="fixed", fixed_frac=0.30),
+    "B0_fixed50": dict(mode="fixed", fixed_frac=0.50),
     "B0h_fixed_hold90": dict(mode="fixed", idle_target_frac=0.9),
     "B1_storm_watch": dict(mode="storm_watch"),
     "B2_az_tier": dict(mode="az_tier"),
@@ -38,6 +42,18 @@ def windows_for_year(d, year, weeks=2, events=None):
     return out
 
 
+def _job(args):
+    bundle, start, n_steps, homes, presets, seed, S, spec, kw, wname, vname = args
+    d = FleetData(bundle)
+    env = HomeFleetEnv(d)
+    env.reset(start, n_steps, homes, presets, seed=seed, tiers_h=None)
+    t = time.time()
+    res = run_controller(env, S=S, **{**spec, **kw})
+    s = summarize(res, env.dt)
+    s.update({"window": wname, "start": str(d.index[start]), "controller": vname, "sec": round(time.time() - t, 1)})
+    return s
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--metro", default="houston")
@@ -50,6 +66,7 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--windows", default="all", help="all | events | wNN,...")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--procs", type=int, default=6)
     a = ap.parse_args()
     sp = yaml.safe_load(open(CONFIGS / "splits.yaml"))
     d = FleetData(DATA_PROC / f"{a.metro}_{a.year}.npz")
@@ -62,8 +79,9 @@ def main():
     rng = np.random.default_rng(a.seed)
     homes = rng.integers(0, d.N_pool, a.n)
     presets = list(rng.choice(["gen2_single", "gen2_double", "core"], a.n, p=[0.6, 0.2, 0.2]))
-    rows = []
     out = EXPERIMENTS / (a.out or f"baselines_{a.metro}_{a.year}_n{a.n}_s{a.seed}.csv")
+    bundle = DATA_PROC / f"{a.metro}_{a.year}.npz"
+    jobs = []
     for wname, start, n_steps in wins:
         for mname in a.modes:
             spec = MODES[mname]
@@ -73,15 +91,14 @@ def main():
             if spec["mode"] == "chance":
                 variants = [(f"{mname}_eps{e:g}", {"eps_cc": e}) for e in a.eps_grid]
             for vname, kw in variants:
-                env = HomeFleetEnv(d)
-                env.reset(start, n_steps, homes, presets, seed=a.seed, tiers_h=np.full(a.n, 5.0))
-                t = time.time()
-                res = run_controller(env, S=a.S, **{**spec, **kw})
-                s = summarize(res, env.dt)
-                s.update({"window": wname, "start": str(d.index[start]), "controller": vname, "metro": a.metro, "year": a.year, "n": a.n, "seed": a.seed, "sec": round(time.time() - t, 1)})
-                rows.append(s)
-                print(wname, vname, round(s["margin_per_home_week"], 2), round(s["unserved_kwh_per_home"], 2), s["promise_rate"], s["sec"], flush=True)
-        pd.DataFrame(rows).to_csv(out, index=False)
+                jobs.append((bundle, start, n_steps, homes, presets, a.seed, a.S, spec, kw, wname, vname))
+    rows = []
+    with Pool(a.procs) as pool:
+        for s in pool.imap_unordered(_job, jobs):
+            s.update({"metro": a.metro, "year": a.year, "n": a.n, "seed": a.seed})
+            rows.append(s)
+            print(s["window"], s["controller"], round(s["margin_per_home_week"], 2), round(s["unserved_kwh_per_home"], 2), round(s["promise_rate"], 3), s["sec"], flush=True)
+            pd.DataFrame(rows).to_csv(out, index=False)
     print(out)
 
 

@@ -35,14 +35,21 @@ def forward_positive_energy(net_kw, steps, dt=0.25):
     return c[j] - c[i]
 
 
-def slot_quantile(values, index, q=0.9, window_slots=2):
-    # quantile of `values` by 15-min slot of day pooled over days and +-window slots (a&z style), returns 96-vector
+def slot_groups(index):
+    # positions per 15-min slot, computed once and reused across homes/tiers
     slots = slot_of_day(index)
+    order = np.argsort(slots, kind="stable")
+    ss = slots[order]
+    bounds = np.searchsorted(ss, np.arange(97))
+    return [order[bounds[s]:bounds[s + 1]] for s in range(96)]
+
+
+def slot_quantile(values, index_or_groups, q=0.9, window_slots=2):
+    # quantile of `values` by 15-min slot of day pooled over days and +-window slots (a&z style), returns 96-vector
+    groups = index_or_groups if isinstance(index_or_groups, list) else slot_groups(index_or_groups)
     v = np.asarray(values, dtype=float)
     out = np.zeros(96)
     for s in range(96):
-        mask = np.zeros(len(v), dtype=bool)
-        for w in range(-window_slots, window_slots + 1):
-            mask |= slots == (s + w) % 96
-        out[s] = np.quantile(v[mask], q) if mask.any() else 0.0
+        idx = np.concatenate([groups[(s + w) % 96] for w in range(-window_slots, window_slots + 1)])
+        out[s] = np.quantile(v[idx], q) if len(idx) else 0.0
     return out

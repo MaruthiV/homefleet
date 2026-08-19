@@ -5,7 +5,7 @@ from homefleet.paths import CONFIGS
 from homefleet.sim.battery import make_fleet, clip_power, step_energy, envelope
 from homefleet.sim.tariff import load_tariff, firm_margin
 from homefleet.sim.outage import draw_outages
-from homefleet.sim.profiles import forward_positive_energy, slot_quantile, slot_of_day
+from homefleet.sim.profiles import forward_positive_energy, slot_quantile, slot_of_day, slot_groups
 from homefleet.control.qp_layer import priority_disaggregate
 
 TZ = "America/Chicago"
@@ -30,6 +30,7 @@ class FleetData:
         self.zone = str(z["zone"])
         self.year = int(z["year"])
         self.slot = slot_of_day(self.index)
+        self.groups = slot_groups(self.index)
         self.T, self.N_pool = self.load.shape
 
     def county_idx(self, home_idx):
@@ -84,13 +85,22 @@ class HomeFleetEnv:
         self.tier_lut = {}
         for j in range(self.N):
             fe = forward_positive_energy(full_net[:, j], steps, self.dt)
-            self.need_lut[:, j] = slot_quantile(fe, self.d.index, q=0.9) / self.params.eta_d
-        self.tiers_h = tiers_h
-        if tiers_h is not None:
-            for j in range(self.N):
-                st = int(round(tiers_h[j] / self.dt))
+            self.need_lut[:, j] = slot_quantile(fe, self.d.groups, q=0.9) / self.params.eta_d
+        # a&z: each home gets its longest feasible tier (reserve never above 80% of capacity); tiers_h overrides
+        E = self.params.energy_kwh * self.soh
+        menu = [24, 12, 8, 6, 4, 2] if tiers_h is None else None
+        self.tiers_h = np.zeros(self.N)
+        for j in range(self.N):
+            cands = menu if menu is not None else [float(tiers_h[j])]
+            chosen = None
+            for T in cands:
+                st = int(round(T / self.dt))
                 fe = forward_positive_energy(full_net[:, j], st, self.dt)
-                self.tier_lut[j] = slot_quantile(fe, self.d.index, q=0.9) / self.params.eta_d
+                lut = slot_quantile(fe, self.d.groups, q=0.9) / self.params.eta_d
+                if lut.max() <= 0.8 * E[j] or T == cands[-1]:
+                    chosen = (T, np.minimum(lut, 0.8 * E[j]))
+                    break
+            self.tiers_h[j], self.tier_lut[j] = chosen
 
     def need_now(self, k=None):
         k = self.k if k is None else k
@@ -133,10 +143,10 @@ class HomeFleetEnv:
         return margin, unserved, done
 
     def floor_from_u(self, u_r):
-        # learned reserve: fraction of the 90th-pct need, never below the hard min, never above capacity
+        # learned reserve: fraction of the 90th-pct need, never below the hard min, never above 90% of capacity
         E = self.params.energy_kwh * self.soh
         rmin = self.cfg.get("floor_hard_min", 0.10) * E
-        return np.clip(u_r * self.need_now(), rmin, E)
+        return np.clip(u_r * self.need_now(), rmin, 0.9 * E)
 
     def act(self, u_p, floor):
         # aggregate action in [-1,1] of envelope -> priority disaggregation -> step
@@ -150,11 +160,17 @@ class HomeFleetEnv:
         thr = float(self.log["pc"][-1].sum() + self.log["pd"][-1].sum()) * self.dt
         return {"margin": float(margin.sum()), "unserved": float(unserved.sum()), "throughput_kwh": thr, "shield": float(abs(shield))}, done
 
-    def rl_step(self, action, lam_r, deg_cost_per_kwh=0.0, shield_pen=0.01):
-        # action = [u_p in [-1,1], u_r in [0,1]]; reward per home
+    def rl_step(self, action, lam_r, deg_cost_per_kwh=0.0, shield_pen=0.01, reserve_mode="learned"):
+        # action = [u_p in [-1,1], u_r in [0,1]]; reward per home; reserve_mode: learned (b6) | fixed (b5) | none (b4)
         u_p = float(np.clip(action[0], -1, 1))
         u_r = float(np.clip(action[1], 0, 1))
-        floor = self.floor_from_u(u_r)
+        E = self.params.energy_kwh * self.soh
+        if reserve_mode == "learned":
+            floor = self.floor_from_u(u_r)
+        elif reserve_mode == "fixed":
+            floor = self.cfg.get("floor_fixed", 0.20) * E
+        else:
+            floor = self.emin()
         terms, done = self.act(u_p, floor)
         r = (terms["margin"] - lam_r * terms["unserved"] - deg_cost_per_kwh * terms["throughput_kwh"] - shield_pen * terms["shield"]) / self.N
         return self.obs(), r, done, terms

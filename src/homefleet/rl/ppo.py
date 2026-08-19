@@ -1,6 +1,7 @@
 import json
 import time
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 from homefleet.env import FleetData, HomeFleetEnv
@@ -57,9 +58,16 @@ def to_env_action(a):
 
 
 class EpisodeSampler:
-    # random training episodes across bundles; half start near an outage event window
-    def __init__(self, bundles, episode_steps, n_range, presets, rng, event_frac=0.5, dropout_max=0.1, cfg=None):
+    # random training episodes across bundles; half start near an outage event window; holdout windows are never sampled
+    def __init__(self, bundles, episode_steps, n_range, presets, rng, event_frac=0.5, dropout_max=0.1, cfg=None, holdouts=None):
         self.data = [FleetData(b) for b in bundles]
+        self.holdouts = []
+        for i, d in enumerate(self.data):
+            for h in (holdouts or []):
+                a = d.index.get_indexer([pd.Timestamp(h["start"], tz="America/Chicago")])[0]
+                b = d.index.get_indexer([pd.Timestamp(h["end"], tz="America/Chicago")])[0]
+                if a >= 0 or b >= 0:
+                    self.holdouts.append((i, max(a, 0), b if b >= 0 else d.T))
         self.ep = episode_steps
         self.n_range = n_range
         self.presets = presets
@@ -72,13 +80,19 @@ class EpisodeSampler:
             f = d.frac.max(axis=1).to_numpy()
             self.events += [(i, s) for s, e in event_windows(f, 0.01) if s > 96 * 2]
 
+    def _overlaps_holdout(self, i, start):
+        return any(hi == i and start < b and start + self.ep > a for hi, a, b in self.holdouts)
+
     def new_env(self, seed):
-        if self.events and self.rng.random() < self.event_frac:
-            i, s = self.events[self.rng.integers(len(self.events))]
-            start = max(0, min(s - self.rng.integers(0, 96 * 3), self.data[i].T - self.ep - 1))
-        else:
-            i = self.rng.integers(len(self.data))
-            start = self.rng.integers(96 * 28, self.data[i].T - self.ep - 1)
+        for _ in range(100):
+            if self.events and self.rng.random() < self.event_frac:
+                i, s = self.events[self.rng.integers(len(self.events))]
+                start = max(0, min(s - self.rng.integers(0, 96 * 3), self.data[i].T - self.ep - 1))
+            else:
+                i = self.rng.integers(len(self.data))
+                start = self.rng.integers(96 * 28, self.data[i].T - self.ep - 1)
+            if not self._overlaps_holdout(i, start):
+                break
         d = self.data[i]
         n = int(self.rng.integers(self.n_range[0], self.n_range[1] + 1))
         homes = self.rng.integers(0, d.N_pool, n)
@@ -91,10 +105,11 @@ class EpisodeSampler:
 
 def train(bundles, out_dir, total_steps=2_000_000, n_envs=16, rollout=256, epochs=6, minibatch=1024, lr=3e-4, gamma=0.997, lam=0.95,
           clip=0.2, ent=0.0, vf=0.5, lam_r=5.0, episode_steps=96 * 14, n_range=(50, 200), presets=("gen2_single", "gen2_double", "core"),
-          seed=0, log_every=1, cfg=None, device="cpu"):
+          seed=0, log_every=1, cfg=None, device="cpu", holdouts=None, reserve_mode="learned", threads=2):
+    torch.set_num_threads(threads)
     rng = np.random.default_rng(seed)
     torch.manual_seed(seed)
-    sampler = EpisodeSampler(bundles, episode_steps, n_range, list(presets), rng, cfg=cfg)
+    sampler = EpisodeSampler(bundles, episode_steps, n_range, list(presets), rng, cfg=cfg, holdouts=holdouts)
     envs = [sampler.new_env(seed * 1000 + i) for i in range(n_envs)]
     obs_dim = envs[0].obs().shape[0]
     agent = Agent(obs_dim, 2).to(device)
@@ -129,7 +144,7 @@ def train(bundles, out_dir, total_steps=2_000_000, n_envs=16, rollout=256, epoch
             rews = np.zeros(n_envs)
             dones = np.zeros(n_envs)
             for i, e in enumerate(envs):
-                o, r, done, _ = e.rl_step(to_env_action(a[i]), lam_r=lam_r)
+                o, r, done, _ = e.rl_step(to_env_action(a[i]), lam_r=lam_r, reserve_mode=reserve_mode)
                 rews[i] = r
                 ep_cur[i] += r
                 if done:
@@ -180,7 +195,7 @@ def train(bundles, out_dir, total_steps=2_000_000, n_envs=16, rollout=256, epoch
             hist.append(rec)
             print(json.dumps(rec), flush=True)
     out_dir.mkdir(parents=True, exist_ok=True)
-    torch.save({"state_dict": agent.state_dict(), "obs_mean": ostat.mean, "obs_var": ostat.var, "obs_dim": obs_dim, "lam_r": lam_r}, out_dir / "policy.pt")
+    torch.save({"state_dict": agent.state_dict(), "obs_mean": ostat.mean, "obs_var": ostat.var, "obs_dim": obs_dim, "lam_r": lam_r, "reserve_mode": reserve_mode}, out_dir / "policy.pt")
     json.dump(hist, open(out_dir / "train_log.json", "w"))
     return agent, ostat
 
@@ -195,7 +210,7 @@ def load_policy(path, device="cpu"):
     return agent, st
 
 
-def run_policy(env, agent, ostat, deterministic=True, lam_r=5.0):
+def run_policy(env, agent, ostat, deterministic=True, lam_r=5.0, reserve_mode="learned"):
     o = env.obs()
     done = False
     while not done:
@@ -203,5 +218,5 @@ def run_policy(env, agent, ostat, deterministic=True, lam_r=5.0):
         with torch.no_grad():
             mean = agent.actor_mean(x)
             a = mean.numpy() if deterministic else agent.act(x)[0].numpy()
-        o, r, done, _ = env.rl_step(to_env_action(a), lam_r=lam_r)
+        o, r, done, _ = env.rl_step(to_env_action(a), lam_r=lam_r, reserve_mode=reserve_mode)
     return env.results()

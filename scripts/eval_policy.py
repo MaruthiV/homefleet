@@ -25,7 +25,9 @@ def main():
     d = FleetData(DATA_PROC / f"{a.metro}_{a.year}.npz")
     agent, ostat = load_policy(a.policy)
     import torch
-    lam_r = a.lam_r if a.lam_r is not None else float(torch.load(a.policy, weights_only=False)["lam_r"])
+    ck = torch.load(a.policy, weights_only=False)
+    lam_r = a.lam_r if a.lam_r is not None else float(ck["lam_r"])
+    reserve_mode = ck.get("reserve_mode", "learned")
     wins = windows_for_year(d, a.year, events=sp["events"])
     if a.windows == "events":
         wins = [w for w in wins if not w[0].startswith("w")]
@@ -40,9 +42,9 @@ def main():
     out = EXPERIMENTS / (a.out or f"policy_{name}_{a.metro}_{a.year}_n{a.n}_s{a.seed}.csv")
     for wname, start, n_steps in wins:
         env = HomeFleetEnv(d)
-        env.reset(start, n_steps, homes, presets, seed=a.seed, tiers_h=np.full(a.n, 5.0))
+        env.reset(start, n_steps, homes, presets, seed=a.seed, tiers_h=None)
         t = time.time()
-        res = run_policy(env, agent, ostat, lam_r=lam_r)
+        res = run_policy(env, agent, ostat, lam_r=lam_r, reserve_mode=reserve_mode)
         s = summarize(res, env.dt)
         s.update({"window": wname, "start": str(d.index[start]), "controller": f"B6_{name}", "metro": a.metro, "year": a.year, "n": a.n, "seed": a.seed, "sec": round(time.time() - t, 1)})
         rows.append(s)

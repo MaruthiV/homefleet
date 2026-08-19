@@ -93,7 +93,8 @@ def run_controller(env, mode, H=96, resolve_every=HOUR_STEPS, S=40, lam_r=0.0, e
                 hz = np.stack([hazard_step_probs(env.hz[k][c], d.hazard_h, Hk, env.dt) for c in range(env.hz.shape[1])], axis=1)
                 if mode == "chance":
                     cum = np.stack([np.maximum.accumulate(np.cumsum(hz[:, c])) for c in range(hz.shape[1])], axis=1)
-                    floors = np.where(cum >= eps_cc, np.maximum(need, emin[None, :]), floors)
+                    capped = np.minimum(np.maximum(need, emin[None, :]), 0.9 * E[None, :])
+                    floors = np.where(cum >= eps_cc, capped, floors)
                     hz = None; need = None
             if mode == "oracle":
                 floors = np.full((Hk, env.N), emin)
