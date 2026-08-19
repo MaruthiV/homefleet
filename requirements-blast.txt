@@ -1,0 +1,4 @@
+# separate env: blast-lite pins numpy<2 and python<=3.12
+blast-lite==1.1.1
+numpy<2
+pandas

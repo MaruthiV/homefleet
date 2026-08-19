@@ -1,0 +1,20 @@
+# base power hardware presets, lfp; rte 0.90 split sqrt per direction
+gen2_single:
+  energy_kwh: 25.0
+  p_charge_kw: 11.4
+  p_discharge_kw: 11.4
+gen2_double:
+  energy_kwh: 50.0
+  p_charge_kw: 11.4
+  p_discharge_kw: 11.4
+core:
+  energy_kwh: 39.2
+  p_charge_kw: 20.0
+  p_discharge_kw: 20.0
+common:
+  eta_charge: 0.9486833
+  eta_discharge: 0.9486833
+  soc_min_physical: 0.05
+  floor_fixed: 0.20
+  floor_hard_min: 0.10
+  replacement_usd_per_kwh: 300.0
