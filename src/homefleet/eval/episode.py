@@ -1,9 +1,10 @@
 import numpy as np
 from homefleet.sim.outage import episodes
 from homefleet.eval.metrics import cvar
+from homefleet.eval.degradation_report import episode_degradation
 
 
-def summarize(res, dt, subscription_usd_week=0.0, promise_hours=5.0):
+def summarize(res, dt, subscription_usd_week=0.0, promise_hours=5.0, params=None, soh=None):
     # res = env.results(); returns dict of fleet-level metrics for one episode
     margin = res["margin"]
     unserved = res["unserved"]
@@ -33,4 +34,4 @@ def summarize(res, dt, subscription_usd_week=0.0, promise_hours=5.0):
         "throughput_kwh_per_home": float((res["pc"].sum() + res["pd"].sum()) * dt / N),
         "mean_soc_frac": float(np.mean(res["e"]) / np.mean(res["e"].max(axis=0))) if "e" in res else float("nan"),
         "shield_abs_mean_kw": float(np.mean(np.abs(res["shield"]))) if "shield" in res and len(res["shield"]) else 0.0,
-    }
+    } | (episode_degradation(res, params, soh, dt) if params is not None else {})

@@ -49,7 +49,7 @@ def _job(args):
     env.reset(start, n_steps, homes, presets, seed=seed, tiers_h=None)
     t = time.time()
     res = run_controller(env, S=S, **{**spec, **kw})
-    s = summarize(res, env.dt)
+    s = summarize(res, env.dt, params=env.params, soh=env.soh)
     s.update({"window": wname, "start": str(d.index[start]), "controller": vname, "sec": round(time.time() - t, 1)})
     return s
 

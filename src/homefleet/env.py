@@ -74,6 +74,7 @@ class HomeFleetEnv:
         self.hz = None if self.d.hazard is None else self.d.hazard[win][:, self.cidx, :]
         self._build_luts(need_hours, tiers_h)
         self.k = 0
+        self.out_age = np.zeros(self.N)
         self.log = {"margin": [], "unserved": [], "pc": [], "pd": [], "e": [], "out": [], "shield": [], "floor_viol": []}
         return self.obs()
 
@@ -129,6 +130,8 @@ class HomeFleetEnv:
         pc = np.where(out, pc_i, pc)
         pd_ = np.where(out, pd_i, pd_)
         unserved = np.where(out, self.dt * np.maximum(island_need - pd_, 0.0), 0.0)
+        self.out_age = np.where(out, self.out_age + 1, 0)
+        self.unserved_promise = np.where(self.out_age <= int(round(5.0 / self.dt)), unserved, 0.0)
         p = pd_ - pc
         margin = firm_margin(self.load[k], self.pv[k], p, self.price[k], self.tariff, self.dt, islanded=out)
         self.e = step_energy(self.e, pc, pd_, self.params, self.dt)
@@ -160,7 +163,7 @@ class HomeFleetEnv:
         thr = float(self.log["pc"][-1].sum() + self.log["pd"][-1].sum()) * self.dt
         return {"margin": float(margin.sum()), "unserved": float(unserved.sum()), "throughput_kwh": thr, "shield": float(abs(shield))}, done
 
-    def rl_step(self, action, lam_r, deg_cost_per_kwh=0.0, shield_pen=0.01, reserve_mode="learned"):
+    def rl_step(self, action, lam_r, deg_cost_per_kwh=0.0, shield_pen=0.01, reserve_mode="learned", promise_cost=False):
         # action = [u_p in [-1,1], u_r in [0,1]]; reward per home; reserve_mode: learned (b6) | fixed (b5) | none (b4)
         u_p = float(np.clip(action[0], -1, 1))
         u_r = float(np.clip(action[1], 0, 1))
@@ -172,7 +175,8 @@ class HomeFleetEnv:
         else:
             floor = self.emin()
         terms, done = self.act(u_p, floor)
-        r = (terms["margin"] - lam_r * terms["unserved"] - deg_cost_per_kwh * terms["throughput_kwh"] - shield_pen * terms["shield"]) / self.N
+        cost = float(self.unserved_promise.sum()) if promise_cost else terms["unserved"]
+        r = (terms["margin"] - lam_r * cost - deg_cost_per_kwh * terms["throughput_kwh"] - shield_pen * terms["shield"]) / self.N
         return self.obs(), r, done, terms
 
     def obs(self):

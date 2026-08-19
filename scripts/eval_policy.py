@@ -45,7 +45,7 @@ def main():
         env.reset(start, n_steps, homes, presets, seed=a.seed, tiers_h=None)
         t = time.time()
         res = run_policy(env, agent, ostat, lam_r=lam_r, reserve_mode=reserve_mode)
-        s = summarize(res, env.dt)
+        s = summarize(res, env.dt, params=env.params, soh=env.soh)
         s.update({"window": wname, "start": str(d.index[start]), "controller": f"B6_{name}", "metro": a.metro, "year": a.year, "n": a.n, "seed": a.seed, "sec": round(time.time() - t, 1)})
         rows.append(s)
         print(wname, round(s["margin_per_home_week"], 2), round(s["unserved_kwh_per_home"], 2), s["promise_rate"], s["sec"], flush=True)
