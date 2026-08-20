@@ -163,7 +163,7 @@ class HomeFleetEnv:
         thr = float(self.log["pc"][-1].sum() + self.log["pd"][-1].sum()) * self.dt
         return {"margin": float(margin.sum()), "unserved": float(unserved.sum()), "throughput_kwh": thr, "shield": float(abs(shield))}, done
 
-    def rl_step(self, action, lam_r, deg_cost_per_kwh=0.0, shield_pen=0.01, reserve_mode="learned", promise_cost=False):
+    def rl_step(self, action, lam_r, deg_cost_per_kwh=0.0, shield_pen=0.01, reserve_mode="learned", promise_cost=False, floor_override=None):
         # action = [u_p in [-1,1], u_r in [0,1]]; reward per home; reserve_mode: learned (b6) | fixed (b5) | none (b4)
         u_p = float(np.clip(action[0], -1, 1))
         u_r = float(np.clip(action[1], 0, 1))
@@ -174,6 +174,8 @@ class HomeFleetEnv:
             floor = self.cfg.get("floor_fixed", 0.20) * E
         else:
             floor = self.emin()
+        if floor_override is not None:
+            floor = np.maximum(floor, floor_override)
         terms, done = self.act(u_p, floor)
         cost = float(self.unserved_promise.sum()) if promise_cost else terms["unserved"]
         r = (terms["margin"] - lam_r * cost - deg_cost_per_kwh * terms["throughput_kwh"] - shield_pen * terms["shield"]) / self.N

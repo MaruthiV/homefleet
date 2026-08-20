@@ -1,6 +1,9 @@
 # claude-generated planning, notes, lit reviews, paper plans stay local
 docs/
 
+# paper: manuscript, figures, template — never pushed; only code goes to github
+paper/
+
 # data and experiment outputs
 data/
 experiments/
@@ -23,11 +26,3 @@ __pycache__/
 .pytest_cache/
 *.egg-info/
 envs/
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.bbl
-paper/*.blg
-paper/*.fls
-paper/*.fdb_latexmk
-paper/*.synctex.gz

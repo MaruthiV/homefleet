@@ -105,7 +105,7 @@ class EpisodeSampler:
 
 def train(bundles, out_dir, total_steps=2_000_000, n_envs=16, rollout=256, epochs=6, minibatch=1024, lr=3e-4, gamma=0.997, lam=0.95,
           clip=0.2, ent=0.0, vf=0.5, lam_r=5.0, episode_steps=96 * 14, n_range=(50, 200), presets=("gen2_single", "gen2_double", "core"),
-          seed=0, log_every=1, cfg=None, device="cpu", holdouts=None, reserve_mode="learned", threads=2):
+          seed=0, log_every=1, cfg=None, device="cpu", holdouts=None, reserve_mode="learned", threads=2, promise_cost=False):
     torch.set_num_threads(threads)
     rng = np.random.default_rng(seed)
     torch.manual_seed(seed)
@@ -144,7 +144,7 @@ def train(bundles, out_dir, total_steps=2_000_000, n_envs=16, rollout=256, epoch
             rews = np.zeros(n_envs)
             dones = np.zeros(n_envs)
             for i, e in enumerate(envs):
-                o, r, done, _ = e.rl_step(to_env_action(a[i]), lam_r=lam_r, reserve_mode=reserve_mode)
+                o, r, done, _ = e.rl_step(to_env_action(a[i]), lam_r=lam_r, reserve_mode=reserve_mode, promise_cost=promise_cost)
                 rews[i] = r
                 ep_cur[i] += r
                 if done:
@@ -195,7 +195,7 @@ def train(bundles, out_dir, total_steps=2_000_000, n_envs=16, rollout=256, epoch
             hist.append(rec)
             print(json.dumps(rec), flush=True)
     out_dir.mkdir(parents=True, exist_ok=True)
-    torch.save({"state_dict": agent.state_dict(), "obs_mean": ostat.mean, "obs_var": ostat.var, "obs_dim": obs_dim, "lam_r": lam_r, "reserve_mode": reserve_mode}, out_dir / "policy.pt")
+    torch.save({"state_dict": agent.state_dict(), "obs_mean": ostat.mean, "obs_var": ostat.var, "obs_dim": obs_dim, "lam_r": lam_r, "reserve_mode": reserve_mode, "promise_cost": promise_cost}, out_dir / "policy.pt")
     json.dump(hist, open(out_dir / "train_log.json", "w"))
     return agent, ostat
 
@@ -210,7 +210,7 @@ def load_policy(path, device="cpu"):
     return agent, st
 
 
-def run_policy(env, agent, ostat, deterministic=True, lam_r=5.0, reserve_mode="learned"):
+def run_policy(env, agent, ostat, deterministic=True, lam_r=5.0, reserve_mode="learned", guardrail=False):
     o = env.obs()
     done = False
     while not done:
@@ -218,5 +218,10 @@ def run_policy(env, agent, ostat, deterministic=True, lam_r=5.0, reserve_mode="l
         with torch.no_grad():
             mean = agent.actor_mean(x)
             a = mean.numpy() if deterministic else agent.act(x)[0].numpy()
-        o, r, done, _ = env.rl_step(to_env_action(a), lam_r=lam_r, reserve_mode=reserve_mode)
+        ea = to_env_action(a)
+        override = None
+        if guardrail and env.alert[env.k].any():
+            # storm-mode clamp: alert active -> hold near full capacity, like storm watch
+            override = 0.9 * env.params.energy_kwh * env.soh
+        o, r, done, _ = env.rl_step(ea, lam_r=lam_r, reserve_mode=reserve_mode, floor_override=override)
     return env.results()

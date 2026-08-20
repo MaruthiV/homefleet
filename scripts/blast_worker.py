@@ -9,6 +9,12 @@ def main():
     soc = z["soc"]
     temp = z["temp_c"]
     dt_s = float(z["dt_s"])
+    # tile the episode to >= 1 year so sqrt-time calendar kinetics are honest
+    steps_yr = int(round(365 * 24 * 3600 / dt_s))
+    if soc.shape[0] < steps_yr:
+        reps = int(np.ceil(steps_yr / soc.shape[0]))
+        soc = np.tile(soc, (reps, 1))[:steps_yr]
+        temp = np.tile(temp, reps)[:steps_yr]
     T, N = soc.shape
     t = np.arange(T) * dt_s
     fade = np.zeros(N)
