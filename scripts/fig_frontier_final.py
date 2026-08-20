@@ -51,9 +51,14 @@ def main():
         g = g.sort_values("promise")
         ax.errorbar(g.promise, g.dm, yerr=[g.dm - g.lo, g.hi - g.dm], fmt="o-" if len(g) > 1 and famname in ("fixed", "risk-priced", "chance") else "o",
                     color=COLOR[famname], capsize=2.5, ms=5, lw=1.1, label=famname, alpha=0.95)
+    SHORT = {"B6_ppo_learned_lam1_s1": "learned λ=1", "B6_ppo_pc_lam5_s1": "learned λ=5 (pc)",
+             "B6_ppo_pc_lam20_s1": "learned λ=20 (pc)", "B6_ppo_pc_lam20_s1_guard": "learned λ=20 + guardrail"}
+    NUDGE = {"B3b_chance_eps0.02": (4, -9), "B6_ppo_pc_lam5_s1": (5, -10), "B3a_risk_priced_lam20": (6, -3),
+             "B6_ppo_pc_lam20_s1_guard": (-30, 9), "B0h_fixed_hold90": (4, -9), "B6_ppo_learned_lam1_s1": (-6, 9)}
     for _, r in t.iterrows():
-        name = LABEL.get(r.controller, r.controller.replace("B3a_risk_priced_lam", "λ=").replace("B3b_chance_eps", "ε=").replace("B6_ppo_", ""))
-        ax.annotate(name, (r.promise, r.dm), fontsize=6.8, xytext=(4, 3), textcoords="offset points")
+        name = SHORT.get(r.controller) or LABEL.get(r.controller, r.controller.replace("B3a_risk_priced_lam", "λ=").replace("B3b_chance_eps", "ε=").replace("B6_ppo_", ""))
+        dx, dy = NUDGE.get(r.controller, (4, 3))
+        ax.annotate(name, (r.promise, r.dm), fontsize=6.8, xytext=(dx, dy), textcoords="offset points")
     ax.axhline(0, color="k", lw=0.6)
     ax.set_xlabel("promise rate (first 5 h of every outage served)")
     ax.set_ylabel("Δ margin vs 20% floor ($/home-year, paired, 95% CI)")

@@ -25,7 +25,7 @@ def main():
     ap.add_argument("--S", type=int, default=32)
     a = ap.parse_args()
     sp = yaml.safe_load(open(CONFIGS / "splits.yaml"))
-    fig, axes = plt.subplots(3, len(PANELS), figsize=(4.2 * len(PANELS), 7.2), sharex="col", height_ratios=[1, 1, 1.3])
+    fig, axes = plt.subplots(3, len(PANELS), figsize=(4.2 * len(PANELS), 6.1), sharex="col", height_ratios=[1, 1, 1.3])
     for col, (ev, metro, year, title) in enumerate(PANELS):
         d = FleetData(DATA_PROC / f"{metro}_{year}.npz")
         st = pd.Timestamp(sp["events"][ev]["start"], tz=TZ) - pd.Timedelta(days=2)
@@ -36,7 +36,8 @@ def main():
         homes = rng.integers(0, d.N_pool, a.n)
         presets = list(rng.choice(["gen2_single", "gen2_double", "core"], a.n, p=[0.6, 0.2, 0.2]))
         ax_p, ax_h, ax_s = axes[0, col], axes[1, col], axes[2, col]
-        ax_p.plot(idx, d.price_rt[start:start + n_steps], color="k", lw=0.7)
+        pr = np.maximum(d.price_rt[start:start + n_steps], 1.0)
+        ax_p.plot(idx, pr, color="k", lw=0.7)
         ax_p.set_yscale("log")
         ax_p.set_title(title, fontsize=10)
         hz = d.hazard[start:start + n_steps, :, -1].mean(axis=1)

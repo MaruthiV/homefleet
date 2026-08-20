@@ -29,8 +29,8 @@ def main():
     # (a) year and metro transfer of the delta-margin
     panels = {"Houston'24\n(val)": ("experiments/baselines_houston_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1*houston_2024.csv"),
               "Houston'25\n(test)": ("experiments/baselines_houston_2025_n100_s0.csv", "experiments/policy_*pc_lam20_s1_houston_2025.csv"),
-              "DFW'24": ("experiments/baselines_dfw_2024_n100_s0.csv", None),
-              "SanAnt'24": ("experiments/baselines_san_antonio_2024_n100_s0.csv", None)}
+              "DFW'24": ("experiments/baselines_dfw_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1_dfw_2024.csv"),
+              "SanAnt'24": ("experiments/baselines_san_antonio_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1_san_antonio_2024.csv")}
     ax = axes[0]
     xs = np.arange(len(panels))
     ctrls = ["B3b_chance_eps0.1", "B3a_risk_priced_lam5", "B6_ppo_pc_lam20_s1"]
