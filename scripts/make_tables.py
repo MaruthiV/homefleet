@@ -52,15 +52,32 @@ def t1_frontier():
 
 
 def t2_configs():
-    runs = [("raw $\\lambda{=}1$", "learned", 0, True), ("raw $\\lambda{=}1$", "learned", 1, False),
-            ("raw $\\lambda{=}5$", "learned", 0, True), ("raw $\\lambda{=}5$", "learned", 1, False), ("raw $\\lambda{=}5$", "learned", 2, False),
-            ("raw $\\lambda{=}20$", "learned", 0, True), ("raw $\\lambda{=}20$", "learned", 1, True),
-            ("promise $\\lambda{=}5$", "learned", 1, False), ("promise $\\lambda{=}20$", "learned", 1, False),
-            ("raw $\\lambda{=}5$", "fixed floor", 0, True), ("raw $\\lambda{=}5$", "fixed floor", 1, False),
-            ("raw $\\lambda{=}5$", "no floor", 0, True), ("raw $\\lambda{=}5$", "no floor", 1, False)]
-    lines = [r"\begin{tabular}{llcc}", r"\toprule", r"cost & reserve mode & seed & collapsed? \\", r"\midrule"]
-    for cost, mode, seed, coll in runs:
-        lines.append(f"{cost} & {mode} & {seed} & {'yes' if coll else 'no'} \\\\")
+    b = pd.read_csv("experiments/baselines_houston_2024_n100_s0.csv")
+    base = b[b.controller == "B0_fixed"].set_index("window").margin_per_home_week
+    runs = [("raw $\\lambda{=}1$", "learned", 0, "collapsed"), ("raw $\\lambda{=}1$", "learned", 1, "ok"),
+            ("raw $\\lambda{=}5$", "learned", 0, "collapsed"), ("raw $\\lambda{=}5$", "learned", 1, "ok"), ("raw $\\lambda{=}5$", "learned", 2, "ok"),
+            ("raw $\\lambda{=}20$", "learned", 0, "collapsed"), ("raw $\\lambda{=}20$", "learned", 1, "collapsed"),
+            ("raw $\\lambda{=}5$", "fixed floor", 0, "collapsed"), ("raw $\\lambda{=}5$", "fixed floor", 1, "ok"),
+            ("raw $\\lambda{=}5$", "no floor", 0, "collapsed"), ("raw $\\lambda{=}5$", "no floor", 1, "hold-high"),
+            ("promise $\\lambda{=}5$", "learned", 1, "ok"), ("promise $\\lambda{=}5$", "learned", 2, "ok"),
+            ("promise $\\lambda{=}5$", "learned", 3, "ok"), ("promise $\\lambda{=}5$", "learned", 4, "ok"), ("promise $\\lambda{=}5$", "learned", 5, "low-SOC"),
+            ("promise $\\lambda{=}20$", "learned", 1, "ok"), ("promise $\\lambda{=}20$", "learned", 2, "ok"),
+            ("promise $\\lambda{=}20$", "learned", 3, "ok"), ("promise $\\lambda{=}20$", "learned", 4, "ok"), ("promise $\\lambda{=}20$", "learned", 5, "low-SOC")]
+    FILE = {("raw $\\lambda{=}1$", "learned"): "learned_lam1", ("raw $\\lambda{=}5$", "learned"): "learned_lam5",
+            ("raw $\\lambda{=}20$", "learned"): "learned_lam20", ("raw $\\lambda{=}5$", "fixed floor"): "fixed_lam5",
+            ("raw $\\lambda{=}5$", "no floor"): "none_lam5", ("promise $\\lambda{=}5$", "learned"): "pc_lam5",
+            ("promise $\\lambda{=}20$", "learned"): "pc_lam20"}
+    lines = [r"\begin{tabular}{llcllr}", r"\toprule",
+             r"cost & reserve mode & seed & outcome & $\Delta$margin \$/home-yr & promise \\", r"\midrule"]
+    for cost, mode, seed, outcome in runs:
+        f = EXPERIMENTS / f"policy_{FILE[(cost, mode)]}_s{seed}_houston_2024.csv"
+        dm = pr = "--"
+        if f.exists():
+            g = pd.read_csv(f)
+            d = (g.set_index("window").margin_per_home_week - base.reindex(g.window.to_numpy())).dropna()
+            dm = f"{d.mean() * 52:+.0f}"
+            pr = f"{1 - g.promise_failures.sum() / max(g.outage_episodes.sum(), 1):.2f}"
+        lines.append(f"{cost} & {mode} & {seed} & {outcome} & {dm} & {pr} \\\\")
     lines += [r"\bottomrule", r"\end{tabular}"]
     (OUT / "t2_collapse.tex").write_text("\n".join(lines))
     print("t2 done")

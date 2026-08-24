@@ -58,7 +58,7 @@ def hazard_step_probs(hz_row, horizons_h, H, dt):
 
 
 def run_controller(env, mode, H=96, resolve_every=HOUR_STEPS, S=40, lam_r=0.0, eps_cc=0.05, fixed_frac=0.20, deg_cost_per_kwh=0.0, price_fc="da",
-                   idle_target_frac=None, idle_penalty_per_kwh=0.02):
+                   idle_target_frac=None, idle_penalty_per_kwh=0.02, oracle_hazard=False):
     # mode in {fixed, storm_watch, az_tier, risk_priced, chance, oracle}; oracle uses realized prices/loads
     # idle_target_frac: base-style hold-high preference (e.g. 0.9) on top of any floor
     d = env.d
@@ -67,6 +67,12 @@ def run_controller(env, mode, H=96, resolve_every=HOUR_STEPS, S=40, lam_r=0.0, e
     fc_load = SlotMedianForecaster(env.load, slots)
     fc_pv = SlotMedianForecaster(env.pv, slots)
     fc_price = SlotMedianForecaster(env.price[:, None], slots)
+    onset = None
+    if oracle_hazard:
+        # realized county onsets replace the hazard forecast, same objective
+        fr = d.frac.to_numpy()[env.t0:env.t0 + env.T][:, env.cidx] >= 0.01
+        onset = fr.copy()
+        onset[1:] &= ~fr[:-1]
     E = env.params.energy_kwh * env.soh
     emin = env.emin()
     plan_p = None
@@ -88,9 +94,12 @@ def run_controller(env, mode, H=96, resolve_every=HOUR_STEPS, S=40, lam_r=0.0, e
                 floors = np.stack([env.tier_reserve_now(min(k + h, env.T - 1)) for h in range(Hk)])
             if mode in ("risk_priced", "chance"):
                 need = np.stack([env.need_now(min(k + h, env.T - 1)) for h in range(Hk)])
-                if env.hz is None:
-                    raise ValueError("hazard missing in data bundle")
-                hz = np.stack([hazard_step_probs(env.hz[k][c], d.hazard_h, Hk, env.dt) for c in range(env.hz.shape[1])], axis=1)
+                if oracle_hazard:
+                    hz = onset[k:k + Hk].astype(float)
+                else:
+                    if env.hz is None:
+                        raise ValueError("hazard missing in data bundle")
+                    hz = np.stack([hazard_step_probs(env.hz[k][c], d.hazard_h, Hk, env.dt) for c in range(env.hz.shape[1])], axis=1)
                 if mode == "chance":
                     cum = np.stack([np.maximum.accumulate(np.cumsum(hz[:, c])) for c in range(hz.shape[1])], axis=1)
                     capped = np.minimum(np.maximum(need, emin[None, :]), 0.9 * E[None, :])

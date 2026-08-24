@@ -20,6 +20,7 @@ MODES = {
     "B1_storm_watch": dict(mode="storm_watch"),
     "B2_az_tier": dict(mode="az_tier"),
     "B3a_risk_priced": dict(mode="risk_priced"),
+    "B3aOH_risk_priced_oh": dict(mode="risk_priced", oracle_hazard=True),
     "B3b_chance": dict(mode="chance"),
     "B7_oracle": dict(mode="oracle"),
 }
