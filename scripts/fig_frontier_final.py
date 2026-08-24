@@ -21,6 +21,7 @@ def fam(c):
     if c.startswith("B6"): return "learned"
     return "oracle"
 
+KEY_LEARNED = {"B6_ppo_pc_lam20_s1_guard"}
 COLOR = {"fixed": "0.45", "storm": "tab:orange", "tier": "tab:purple", "risk-priced": "tab:blue", "chance": "tab:cyan", "learned": "tab:green", "oracle": "goldenrod"}
 
 
@@ -46,25 +47,37 @@ def main():
         promise = 1 - g.promise_failures.sum() / max(g.outage_episodes.sum(), 1)
         rows.append(dict(controller=c, family=fam(c), dm=d.mean() * 52, lo=np.quantile(bs, 0.025) * 52, hi=np.quantile(bs, 0.975) * 52, promise=promise))
     t = pd.DataFrame(rows)
-    fig, ax = plt.subplots(figsize=(7.2, 4.6))
+    plt.rcParams.update({"font.size": 7, "axes.labelsize": 7, "xtick.labelsize": 6.5, "ytick.labelsize": 6.5})
+    fig, ax = plt.subplots(figsize=(5.5, 2.0))
     for famname, g in t.groupby("family"):
         g = g.sort_values("promise")
+        if famname == "learned":
+            key = g[g.controller.isin(KEY_LEARNED)]
+            rest = g[~g.controller.isin(KEY_LEARNED)]
+            ax.errorbar(key.promise, key.dm, yerr=[key.dm - key.lo, key.hi - key.dm], fmt="o", color=COLOR[famname], capsize=2, ms=4.5, lw=1.0, label="learned (best seed)", alpha=0.95)
+            ax.scatter(rest.promise, rest.dm, s=9, color=COLOR[famname], alpha=0.55, label="learned (other seeds)", zorder=3)
+            continue
         ax.errorbar(g.promise, g.dm, yerr=[g.dm - g.lo, g.hi - g.dm], fmt="o-" if len(g) > 1 and famname in ("fixed", "risk-priced", "chance") else "o",
-                    color=COLOR[famname], capsize=2.5, ms=5, lw=1.1, label=famname, alpha=0.95)
-    SHORT = {"B6_ppo_learned_lam1_s1": "learned λ=1", "B6_ppo_pc_lam5_s1": "learned λ=5 (pc)",
-             "B6_ppo_pc_lam20_s1": "learned λ=20 (pc)", "B6_ppo_pc_lam20_s1_guard": "learned λ=20 + guardrail"}
-    NUDGE = {"B3b_chance_eps0.02": (4, -9), "B6_ppo_pc_lam5_s1": (5, -10), "B3a_risk_priced_lam20": (6, -3),
-             "B6_ppo_pc_lam20_s1_guard": (-30, 9), "B0h_fixed_hold90": (4, -9), "B6_ppo_learned_lam1_s1": (-6, 9)}
+                    color=COLOR[famname], capsize=2, ms=4, lw=1.0, label=famname, alpha=0.95)
+    SHORT = {"B6_ppo_pc_lam20_s1_guard": "learned λ=20 + guard"}
+    NUDGE = {"B3a_risk_priced_lam20": (5, -9), "B6_ppo_pc_lam20_s1_guard": (-76, 12),
+             "B0h_fixed_hold90": (-34, -10), "B0_fixed50": (-36, -9),
+             "B1_storm_watch": (-47, -3), "B2_az_tier": (-46, -4), "B3b_chance_eps0.1": (2, 7)}
+    NOLABEL = {"B3b_chance_eps0.02", "B3a_risk_priced_lam1", "B3a_risk_priced_lam5", "B0_fixed30"}
     for _, r in t.iterrows():
+        if r.controller in NOLABEL:
+            continue
+        if r.family == "learned" and r.controller not in SHORT:
+            continue
         name = SHORT.get(r.controller) or LABEL.get(r.controller, r.controller.replace("B3a_risk_priced_lam", "λ=").replace("B3b_chance_eps", "ε=").replace("B6_ppo_", ""))
         dx, dy = NUDGE.get(r.controller, (4, 3))
-        ax.annotate(name, (r.promise, r.dm), fontsize=6.8, xytext=(dx, dy), textcoords="offset points")
+        ax.annotate(name, (r.promise, r.dm), fontsize=6, xytext=(dx, dy), textcoords="offset points")
     ax.axhline(0, color="k", lw=0.6)
     ax.set_xlabel("promise rate (first 5 h of every outage served)")
-    ax.set_ylabel("Δ margin vs 20% floor ($/home-year, paired, 95% CI)")
-    ax.set_title(a.title, fontsize=10)
+    ax.set_ylabel("Δ margin vs 20% floor ($/home-yr)")
     ax.grid(alpha=0.25)
-    ax.legend(fontsize=7.5, loc="lower left", ncol=2)
+    ax.set_xlim(right=1.0)
+    ax.legend(fontsize=6, loc="lower left", ncol=2, framealpha=0.9)
     fig.tight_layout()
     (EXPERIMENTS / "figs").mkdir(exist_ok=True)
     fig.savefig(EXPERIMENTS / "figs" / a.out, dpi=170)

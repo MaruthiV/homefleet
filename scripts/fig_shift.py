@@ -25,12 +25,13 @@ def promise(df):
 
 
 def main():
-    fig, axes = plt.subplots(1, 3, figsize=(12.5, 3.6))
+    plt.rcParams.update({"font.size": 6.5, "axes.labelsize": 6.5, "xtick.labelsize": 6, "ytick.labelsize": 6})
+    fig, axes = plt.subplots(1, 3, figsize=(5.5, 1.55))
     # (a) year and metro transfer of the delta-margin
-    panels = {"Houston'24\n(val)": ("experiments/baselines_houston_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1*houston_2024.csv"),
-              "Houston'25\n(test)": ("experiments/baselines_houston_2025_n100_s0.csv", "experiments/policy_*pc_lam20_s1_houston_2025.csv"),
-              "DFW'24": ("experiments/baselines_dfw_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1_dfw_2024.csv"),
-              "SanAnt'24": ("experiments/baselines_san_antonio_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1_san_antonio_2024.csv")}
+    panels = {"H'24": ("experiments/baselines_houston_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1*houston_2024.csv"),
+              "H'25": ("experiments/baselines_houston_2025_n100_s0.csv", "experiments/policy_*pc_lam20_s1_houston_2025.csv"),
+              "DFW": ("experiments/baselines_dfw_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1_dfw_2024.csv"),
+              "SA": ("experiments/baselines_san_antonio_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1_san_antonio_2024.csv")}
     ax = axes[0]
     xs = np.arange(len(panels))
     ctrls = ["B3b_chance_eps0.1", "B3a_risk_priced_lam5", "B6_ppo_pc_lam20_s1"]
@@ -46,10 +47,10 @@ def main():
             vals.append(dm(df).get(c, np.nan))
         ax.bar(xs + (k - 1) * width, vals, width, label=KEY[c][0], color=KEY[c][1])
     ax.axhline(0, color="k", lw=0.6)
-    ax.set_xticks(xs, list(panels), fontsize=8)
+    ax.set_xticks(xs, list(panels), fontsize=5.4)
     ax.set_ylabel("Δ margin vs floor-20 ($/home-yr)")
-    ax.set_title("(a) year and metro transfer", fontsize=9)
-    ax.legend(fontsize=7)
+    ax.set_title("(a) year and metro transfer", fontsize=7)
+    ax.legend(fontsize=5.2, loc="lower right")
     ax.grid(alpha=0.25, axis="y")
     # (b) fleet-size / dropout / composition (learned policy, 2024 events)
     ax = axes[1]
@@ -69,27 +70,33 @@ def main():
     ax2 = ax.twinx()
     ax2.plot(x, proms, "ko-", ms=4, lw=1)
     ax2.set_ylim(0.8, 1.02)
-    ax2.set_ylabel("promise rate", fontsize=8)
-    ax.set_xticks(x, labels, fontsize=8, rotation=20)
-    ax.set_ylabel("margin ($/home-wk, events)")
-    ax.set_title("(b) fleet shift (learned, 2024 events)", fontsize=9)
+    ax2.set_ylabel("promise rate", fontsize=6.5)
+    ax.set_xticks(x, labels, fontsize=5.6, rotation=25)
+    ax.set_ylabel("margin ($/home-wk)")
+    ax.set_title("(b) fleet shift (learned, 2024 events)", fontsize=7)
     ax.grid(alpha=0.25, axis="y")
     # (c) Uri: margin vs promise for key controllers
     ax = axes[2]
+    CLAB = {"B0_fixed": ("floor 20%", "0.45"), "B1_storm_watch": ("storm watch", "tab:orange"),
+            "B3a_risk_priced_lam5": ("risk-priced", "tab:blue"), "B7_oracle": ("oracle", "goldenrod"),
+            "B6_ppo_pc_lam20_s1": ("best learned", "tab:green"), "B6_ppo_pc_lam20_s1_guard": ("+ guardrail", "darkgreen")}
     u = pd.read_csv("experiments/baselines_houston_2021_events_n100_s0.csv")
     upol = pd.concat([pd.read_csv(f) for f in glob.glob("experiments/policy_*houston_2021ev.csv")], ignore_index=True)
     u = pd.concat([u, upol], ignore_index=True)
-    show = {"B0_fixed": KEY["B0_fixed"], "B1_storm_watch": KEY["B1_storm_watch"], "B3a_risk_priced_lam5": KEY["B3a_risk_priced_lam5"],
-            "B6_ppo_pc_lam20_s1": KEY["B6_ppo_pc_lam20_s1"], "B6_ppo_pc_lam20_s1_guard": KEY["B6_ppo_pc_lam20_s1_guard"], "B7_oracle": ("oracle", "goldenrod")}
-    for c, (lab, col) in show.items():
+    for c, (lab, col) in CLAB.items():
         g = u[u.controller == c]
         if len(g) == 0:
             continue
-        ax.scatter(g.promise_rate.mean(), g.margin_per_home_week.mean(), color=col, s=40, zorder=5)
-        ax.annotate(lab, (g.promise_rate.mean(), g.margin_per_home_week.mean()), fontsize=7, xytext=(5, 3), textcoords="offset points")
+        ax.scatter(g.promise_rate.mean(), g.margin_per_home_week.mean(), color=col, s=20, zorder=5, label=lab)
+    other = pd.concat([pd.read_csv(f) for f in glob.glob("experiments/policy_pc_lam*_houston_2021_events.csv")], ignore_index=True)
+    other = other[other.window == "uri_2021"]
+    op = other.groupby("controller").agg(pr=("promise_rate", "mean"), m=("margin_per_home_week", "mean"))
+    ax.scatter(op.pr, op.m, s=6, color="tab:green", alpha=0.5, zorder=4, label="other seeds")
+    ax.legend(fontsize=4.8, loc="upper left", framealpha=0.9, handletextpad=0.3, borderpad=0.4, labelspacing=0.35)
+    ax.set_ylim(top=-95)
     ax.set_xlabel("promise rate in Uri")
     ax.set_ylabel("margin in Uri ($/home-wk)")
-    ax.set_title("(c) the joint extreme (Winter Storm Uri)", fontsize=9)
+    ax.set_title("(c) joint extreme (Uri)", fontsize=7)
     ax.grid(alpha=0.25)
     fig.tight_layout()
     fig.savefig(EXPERIMENTS / "figs" / "fig5_shift.png", dpi=170)
