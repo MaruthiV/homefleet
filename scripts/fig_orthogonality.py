@@ -22,7 +22,7 @@ def main():
     d = d[d.index >= "2021-01-01"]
     d["out_frac"] = d.out_peak
     plt.rcParams.update({"font.size": 7, "axes.labelsize": 7, "xtick.labelsize": 6.5, "ytick.labelsize": 6.5})
-    fig, ax = plt.subplots(figsize=(2.5, 2.05))
+    fig, ax = plt.subplots(figsize=(2.5, 1.92))
     ax.scatter(d.out_peak / 1e6, d.pmax, s=8, alpha=0.35, color="tab:gray", edgecolors="none", label="days 2021–2025")
     ax.axhline(1000, color="tab:red", lw=0.8, ls="--")
     ax.axvline(0.25, color="tab:blue", lw=0.8, ls="--")
@@ -34,11 +34,10 @@ def main():
         r = d.loc[i]
         ax.scatter(r.out_peak / 1e6, r.pmax, s=30, color="tab:red" if "Uri" in name else "tab:blue", zorder=5)
         short = name.split(" (")[0]
-        dx, dy = (3, 3)
-        if "Heat" in name: dx, dy = (3, -9)
-        if "Uri" in name: dx, dy = (-14, -3)
-        if "Beryl" in name: dx, dy = (-8, 4)
-        ax.annotate(short, (r.out_peak / 1e6, r.pmax), fontsize=5.8, xytext=(dx, dy), textcoords="offset points")
+        OFF = {"Heat": (3, -9), "Uri": (-8, -11), "Beryl": (-10, 5), "Austin ice": (2, -10),
+               "Wind": (-26, -3), "Derecho": (2, -9), "EEA2": (4, 5)}
+        dx, dy = next((v for k, v in OFF.items() if k in name), (3, 3))
+        ax.annotate(short, (r.out_peak / 1e6, r.pmax), fontsize=5.8, xytext=(dx, dy), textcoords="offset points", zorder=6)
     n_spike = int((d.pmax >= 1000).sum())
     n_out = int((d.out_peak >= 250e3).sum())
     n_both = int(((d.pmax >= 1000) & (d.out_peak >= 250e3)).sum())
@@ -49,7 +48,7 @@ def main():
     ax.set_ylim(top=d.pmax.max() * 4)
     ax.set_xlim(left=-0.003)
     ax.set_xticks([1e-2, 1e-1, 1e0])
-    ax.text(0.98, 0.03, f"{n_spike} spike days · {n_out} outage days · {n_both} joint (all Uri)", transform=ax.transAxes, fontsize=5.6, color="0.3", ha="right")
+
     ax.grid(alpha=0.25)
     fig.tight_layout()
     (EXPERIMENTS / "figs").mkdir(exist_ok=True)

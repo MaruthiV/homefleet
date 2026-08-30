@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from homefleet.paths import EXPERIMENTS
 
 KEY = {"B0_fixed": ("floor 20%", "0.45"), "B1_storm_watch": ("storm watch", "tab:orange"),
-       "B3b_chance_eps0.1": ("chance ε=0.1", "tab:cyan"), "B3a_risk_priced_lam5": ("risk-priced λ=5", "tab:blue"),
-       "B6_ppo_pc_lam20_s1": ("learned (pc λ=20)", "tab:green"), "B6_ppo_pc_lam20_s1_guard": ("learned + guardrail", "darkgreen")}
+       "B3b_chance_eps0.1": ("chance", "tab:cyan"), "B3a_risk_priced_lam5": ("risk-priced", "tab:blue"),
+       "B6_ppo_pc_lam20_s1": ("learned", "tab:green"), "B6_ppo_pc_lam20_s1_guard": ("learned + guardrail", "darkgreen")}
 
 
 def dm(df, ref="B0_fixed"):
@@ -26,7 +26,8 @@ def promise(df):
 
 def main():
     plt.rcParams.update({"font.size": 6.5, "axes.labelsize": 6.5, "xtick.labelsize": 6, "ytick.labelsize": 6})
-    fig, axes = plt.subplots(1, 3, figsize=(5.5, 1.55))
+    fig, axes = plt.subplots(1, 4, figsize=(6.1, 1.50), gridspec_kw={"width_ratios": [1.0, 1.0, 0.95, 0.52]})
+    axes[3].axis("off")
     # (a) year and metro transfer of the delta-margin
     panels = {"H'24": ("experiments/baselines_houston_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1*houston_2024.csv"),
               "H'25": ("experiments/baselines_houston_2025_n100_s0.csv", "experiments/policy_*pc_lam20_s1_houston_2025.csv"),
@@ -47,10 +48,10 @@ def main():
             vals.append(dm(df).get(c, np.nan))
         ax.bar(xs + (k - 1) * width, vals, width, label=KEY[c][0], color=KEY[c][1])
     ax.axhline(0, color="k", lw=0.6)
-    ax.set_xticks(xs, list(panels), fontsize=5.4)
-    ax.set_ylabel("Δ margin vs floor-20 ($/home-yr)")
+    ax.set_xticks(xs, list(panels), fontsize=5.0)
+    ax.set_ylabel("Δ margin ($/home-yr)")
     ax.set_title("(a) year and metro transfer", fontsize=7)
-    ax.legend(fontsize=5.2, loc="lower right")
+    ax.legend(fontsize=4.6, loc="lower right", handlelength=1.0, handletextpad=0.4, labelspacing=0.25, borderpad=0.3, framealpha=0.9)
     ax.grid(alpha=0.25, axis="y")
     # (b) fleet-size / dropout / composition (learned policy, 2024 events)
     ax = axes[1]
@@ -92,7 +93,8 @@ def main():
     other = other[other.window == "uri_2021"]
     op = other.groupby("controller").agg(pr=("promise_rate", "mean"), m=("margin_per_home_week", "mean"))
     ax.scatter(op.pr, op.m, s=6, color="tab:green", alpha=0.5, zorder=4, label="other seeds")
-    ax.legend(fontsize=4.8, loc="upper left", framealpha=0.9, handletextpad=0.3, borderpad=0.4, labelspacing=0.35)
+    h, l = ax.get_legend_handles_labels()
+    axes[3].legend(h, l, loc="center left", bbox_to_anchor=(-0.55, 0.5), fontsize=4.6, handletextpad=0.25, borderpad=0.2, labelspacing=0.45, frameon=False)
     ax.set_ylim(top=-95)
     ax.set_xlabel("promise rate in Uri")
     ax.set_ylabel("margin in Uri ($/home-wk)")

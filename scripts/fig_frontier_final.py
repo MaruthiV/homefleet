@@ -48,7 +48,7 @@ def main():
         rows.append(dict(controller=c, family=fam(c), dm=d.mean() * 52, lo=np.quantile(bs, 0.025) * 52, hi=np.quantile(bs, 0.975) * 52, promise=promise))
     t = pd.DataFrame(rows)
     plt.rcParams.update({"font.size": 7, "axes.labelsize": 7, "xtick.labelsize": 6.5, "ytick.labelsize": 6.5})
-    fig, ax = plt.subplots(figsize=(5.5, 2.0))
+    fig, ax = plt.subplots(figsize=(5.5, 1.78))
     for famname, g in t.groupby("family"):
         g = g.sort_values("promise")
         if famname == "learned":
