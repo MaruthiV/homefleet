@@ -26,8 +26,7 @@ def promise(df):
 
 def main():
     plt.rcParams.update({"font.size": 6.5, "axes.labelsize": 6.5, "xtick.labelsize": 6, "ytick.labelsize": 6})
-    fig, axes = plt.subplots(1, 4, figsize=(6.1, 1.50), gridspec_kw={"width_ratios": [1.0, 1.0, 0.95, 0.52]})
-    axes[3].axis("off")
+    fig, axes = plt.subplots(1, 2, figsize=(5.5, 1.42), gridspec_kw={"width_ratios": [1.0, 1.25]})
     # (a) year and metro transfer of the delta-margin
     panels = {"H'24": ("experiments/baselines_houston_2024_n100_s0.csv", "experiments/policy_pc_lam20_s1*houston_2024.csv"),
               "H'25": ("experiments/baselines_houston_2025_n100_s0.csv", "experiments/policy_*pc_lam20_s1_houston_2025.csv"),
@@ -51,33 +50,12 @@ def main():
     ax.set_xticks(xs, list(panels), fontsize=5.0)
     ax.set_ylabel("Δ margin ($/home-yr)")
     ax.set_title("(a) year and metro transfer", fontsize=7)
-    ax.legend(fontsize=4.6, loc="lower right", handlelength=1.0, handletextpad=0.4, labelspacing=0.25, borderpad=0.3, framealpha=0.9)
-    ax.grid(alpha=0.25, axis="y")
-    # (b) fleet-size / dropout / composition (learned policy, 2024 events)
-    ax = axes[1]
-    labels, margins, proms = [], [], []
-    for lab, f in [("n=100", "experiments/policy_learned_lam5_s1_houston_2024.csv"),
-                   ("n=500", "experiments/policy_learned_lam5_s1_houston_2024ev_n500.csv"),
-                   ("n=1000", "experiments/policy_learned_lam5_s1_houston_2024ev_n1000.csv"),
-                   ("20% drop", "experiments/policy_learned_lam5_s1_houston_2024ev_drop20.csv"),
-                   ("70% Core", "experiments/policy_learned_lam5_s1_houston_2024ev_coremix.csv")]:
-        g = pd.read_csv(f)
-        g = g[~g.window.str.startswith("w")]
-        labels.append(lab)
-        margins.append(g.margin_per_home_week.mean())
-        proms.append(1 - g.promise_failures.sum() / g.outage_episodes.sum())
-    x = np.arange(len(labels))
-    ax.bar(x, margins, 0.55, color="tab:green")
-    ax2 = ax.twinx()
-    ax2.plot(x, proms, "ko-", ms=4, lw=1)
-    ax2.set_ylim(0.8, 1.02)
-    ax2.set_ylabel("promise rate", fontsize=6.5)
-    ax.set_xticks(x, labels, fontsize=5.6, rotation=25)
-    ax.set_ylabel("margin ($/home-wk)")
-    ax.set_title("(b) fleet shift (learned, 2024 events)", fontsize=7)
+    ax.set_ylim(-118, 118)
+    ax.set_yticks([-100, -50, 0, 50, 100])
+    ax.legend(fontsize=4.6, loc="upper right", handlelength=1.0, handletextpad=0.4, labelspacing=0.25, borderpad=0.3, framealpha=0.9)
     ax.grid(alpha=0.25, axis="y")
     # (c) Uri: margin vs promise for key controllers
-    ax = axes[2]
+    ax = axes[1]
     CLAB = {"B0_fixed": ("floor 20%", "0.45"), "B1_storm_watch": ("storm watch", "tab:orange"),
             "B3a_risk_priced_lam5": ("risk-priced", "tab:blue"), "B7_oracle": ("oracle", "goldenrod"),
             "B6_ppo_pc_lam20_s1": ("best learned", "tab:green"), "B6_ppo_pc_lam20_s1_guard": ("+ guardrail", "darkgreen")}
@@ -93,14 +71,15 @@ def main():
     other = other[other.window == "uri_2021"]
     op = other.groupby("controller").agg(pr=("promise_rate", "mean"), m=("margin_per_home_week", "mean"))
     ax.scatter(op.pr, op.m, s=6, color="tab:green", alpha=0.5, zorder=4, label="other seeds")
-    h, l = ax.get_legend_handles_labels()
-    axes[3].legend(h, l, loc="center left", bbox_to_anchor=(-0.55, 0.5), fontsize=4.6, handletextpad=0.25, borderpad=0.2, labelspacing=0.45, frameon=False)
+
+    ax.legend(fontsize=4.4, loc="upper left", ncol=2, handletextpad=0.2, borderpad=0.25, labelspacing=0.3, columnspacing=0.6, markerscale=0.65, framealpha=0.9)
     ax.set_ylim(top=-95)
     ax.set_xlabel("promise rate in Uri")
     ax.set_ylabel("margin in Uri ($/home-wk)")
-    ax.set_title("(c) joint extreme (Uri)", fontsize=7)
+    ax.set_title("(b) the joint extreme (Winter Storm Uri)", fontsize=7)
     ax.grid(alpha=0.25)
     fig.tight_layout()
+    fig.subplots_adjust(wspace=0.42)
     fig.savefig(EXPERIMENTS / "figs" / "fig5_shift.png", dpi=170)
     fig.savefig(EXPERIMENTS / "figs" / "fig5_shift.pdf")
     print(EXPERIMENTS / "figs" / "fig5_shift.png")

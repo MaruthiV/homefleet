@@ -34,7 +34,7 @@ def main():
         r = d.loc[i]
         ax.scatter(r.out_peak / 1e6, r.pmax, s=30, color="tab:red" if "Uri" in name else "tab:blue", zorder=5)
         short = name.split(" (")[0]
-        OFF = {"Heat": (3, -9), "Uri": (-8, -11), "Beryl": (-10, 5), "Austin ice": (2, -10),
+        OFF = {"Heat": (3, -9), "Uri": (-8, -11), "Beryl": (-4, 11), "Austin ice": (2, -10),
                "Wind": (-26, -3), "Derecho": (2, -9), "EEA2": (4, 5)}
         dx, dy = next((v for k, v in OFF.items() if k in name), (3, 3))
         ax.annotate(short, (r.out_peak / 1e6, r.pmax), fontsize=5.8, xytext=(dx, dy), textcoords="offset points", zorder=6)

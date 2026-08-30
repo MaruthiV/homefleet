@@ -60,10 +60,10 @@ def main():
         ax.errorbar(g.promise, g.dm, yerr=[g.dm - g.lo, g.hi - g.dm], fmt="o-" if len(g) > 1 and famname in ("fixed", "risk-priced", "chance") else "o",
                     color=COLOR[famname], capsize=2, ms=4, lw=1.0, label=famname, alpha=0.95)
     SHORT = {"B6_ppo_pc_lam20_s1_guard": "learned λ=20 + guard"}
-    NUDGE = {"B3a_risk_priced_lam20": (5, -9), "B6_ppo_pc_lam20_s1_guard": (-76, 12),
-             "B0h_fixed_hold90": (-34, -10), "B0_fixed50": (-36, -9),
-             "B1_storm_watch": (-47, -3), "B2_az_tier": (-46, -4), "B3b_chance_eps0.1": (2, 7)}
-    NOLABEL = {"B3b_chance_eps0.02", "B3a_risk_priced_lam1", "B3a_risk_priced_lam5", "B0_fixed30"}
+    NUDGE = {"B0_fixed10": (4, -12), "B3a_risk_priced_lam20": (5, -9), "B6_ppo_pc_lam20_s1_guard": (-82, 14),
+             "B0h_fixed_hold90": (5, -3), "B0_fixed50": (-78, -12),
+             "B1_storm_watch": (-14, 7), "B0_fixed": (-42, 4), "B2_az_tier": (-46, -4), "B3b_chance_eps0.1": (3, 8)}
+    NOLABEL = {"B3b_chance_eps0.02", "B3b_chance_eps0.1", "B3a_risk_priced_lam1", "B3a_risk_priced_lam5", "B3a_risk_priced_lam20", "B0_fixed30", "B6_ppo_pc_lam20_s1_guard"}
     for _, r in t.iterrows():
         if r.controller in NOLABEL:
             continue
@@ -74,10 +74,12 @@ def main():
         ax.annotate(name, (r.promise, r.dm), fontsize=6, xytext=(dx, dy), textcoords="offset points")
     ax.axhline(0, color="k", lw=0.6)
     ax.set_xlabel("promise rate (first 5 h of every outage served)")
-    ax.set_ylabel("Δ margin vs 20% floor ($/home-yr)")
+    ax.set_ylabel("Δ margin ($/home-yr)")
     ax.grid(alpha=0.25)
-    ax.set_xlim(right=1.0)
-    ax.legend(fontsize=6, loc="lower left", ncol=2, framealpha=0.9)
+    ax.set_xlim(0.63, 1.005)
+    ax.set_ylim(top=95)
+    ax.annotate("1 seed at 0.46 (Table 2)", xy=(0.638, -40), fontsize=5.2, color="tab:green")
+    ax.legend(fontsize=5.4, loc="upper left", ncol=4, framealpha=0.9, handletextpad=0.4, columnspacing=0.8, borderpad=0.3)
     fig.tight_layout()
     (EXPERIMENTS / "figs").mkdir(exist_ok=True)
     fig.savefig(EXPERIMENTS / "figs" / a.out, dpi=170)
