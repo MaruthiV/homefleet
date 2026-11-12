@@ -1,0 +1,286 @@
+{
+  "protocol": "causal-v3",
+  "weather_clock_protocol": "utc-unix-v1",
+  "source": "https://open-meteo.com/en/docs/historical-weather-api",
+  "county": "48201",
+  "checks": [
+    {
+      "day": "2024-01-16",
+      "hours": 24,
+      "first": "2024-01-16 00:00:00-06:00",
+      "last": "2024-01-16 23:00:00-06:00",
+      "independently_requested_day_matches_full_cache": true,
+      "values_sha256": "a802ad8ce1edf511b4923b7a25c101256e845de8de77ccd714c954f010abf1bd",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "day": "2024-07-08",
+      "hours": 24,
+      "first": "2024-07-08 00:00:00-05:00",
+      "last": "2024-07-08 23:00:00-05:00",
+      "independently_requested_day_matches_full_cache": true,
+      "values_sha256": "b92f2026bad1d3df3b0a8317eba92f5621d05c11af4d069724b2166d76897f87",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "day": "2024-03-10",
+      "hours": 23,
+      "first": "2024-03-10 00:00:00-06:00",
+      "last": "2024-03-10 23:00:00-05:00",
+      "independently_requested_day_matches_full_cache": true,
+      "values_sha256": "89cd1e14e7a181895b862ee40f3751ce6a6122b7dcc19acb84c5c33cea5f84f5",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "day": "2024-11-03",
+      "hours": 25,
+      "first": "2024-11-03 00:00:00-05:00",
+      "last": "2024-11-03 23:00:00-06:00",
+      "independently_requested_day_matches_full_cache": true,
+      "values_sha256": "e6de86cf915a2e6a93471b1eec01e3fc47e1d88d0ba5be38996f8a7937e4efdb",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    }
+  ],
+  "full_caches": [
+    {
+      "file": "openmeteo_48029.parquet",
+      "rows": 110639,
+      "sha256": "b5b6b5542e6d3f53fbb37cf3f7468f7390b7848b342e87fb58080eccdddffd0d",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48039.parquet",
+      "rows": 110639,
+      "sha256": "b9b74b261303b7a89087ff95a836b37107cb729eabb452ffa2832a6110565ded",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48085.parquet",
+      "rows": 110639,
+      "sha256": "962760faa2167478fb054fd3a650700c39fab5d3e1200c624e54ef028b487d77",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48113.parquet",
+      "rows": 110639,
+      "sha256": "0d1e8c5b708243c566ae6e216a9d09b2f47e6f87e7291a54c241cda66029b70e",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48121.parquet",
+      "rows": 110639,
+      "sha256": "fe492ec74aa5d8357d3aa8fbcbab331f0fad33645ffffaf297f7d89e72a16c9e",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48157.parquet",
+      "rows": 110639,
+      "sha256": "6cdddb05e9bf4141adc113836c92edbec8d1668c52bcd9b98fdd1a5551acf1a3",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48167.parquet",
+      "rows": 110639,
+      "sha256": "4e444f5c29a6d2b76c9322e5ac548f8cb330c03c6cf4e0256daa732efd7f238f",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48201.parquet",
+      "rows": 110639,
+      "sha256": "6b1488fa0ddf073bc8af6314d75962c326014c382061b8bed462336ae8c7d49f",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48339.parquet",
+      "rows": 110639,
+      "sha256": "9308ed5c76a53cb2193717a0fe21ecefd3bcca17e368757de81d3f9afb41f5ea",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48439.parquet",
+      "rows": 110639,
+      "sha256": "91da50ae235135a3a5c9765206b4fe6f6eb8c387158ef13ea067b5ad39ce8991",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48453.parquet",
+      "rows": 110639,
+      "sha256": "ff8bdd79c26a9beda828ca65f3314da0cecdc92b4cec161b66dde9e7d7c94e77",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    },
+    {
+      "file": "openmeteo_48491.parquet",
+      "rows": 110639,
+      "sha256": "69812c6f9a5d17c91a0bc9db5199a076934637fb86abb2459a54c8ee6276b1ac",
+      "first": "2014-01-01 00:00:00-06:00",
+      "last": "2026-08-15 23:00:00-05:00",
+      "units": {
+        "time": "unixtime",
+        "temperature_2m": "\u00b0C",
+        "wind_speed_10m": "km/h",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "shortwave_radiation": "W/m\u00b2",
+        "dew_point_2m": "\u00b0C",
+        "surface_pressure": "hPa"
+      }
+    }
+  ]
+}

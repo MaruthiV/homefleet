@@ -10,8 +10,9 @@ def linear_calendar(years, life_years=10.0, eol=0.8):
 
 
 def energy_throughput(throughput_kwh, energy_kwh):
-    # humiston et model: fade proportional to normalized throughput
-    return F_ET * throughput_kwh / energy_kwh
+    # Charging + discharging is two capacity transfers per full cycle.
+    # Humiston et al. (2026), Section 2.3.2, normalize throughput by 2*capacity.
+    return F_ET * throughput_kwh / (2 * energy_kwh)
 
 
 def rainflow_cycles(soc):
@@ -45,8 +46,3 @@ def rainflow_cycles(soc):
 
 def cycle_based(soc):
     return sum(F_CB * (r ** ALPHA_CB) * c for r, c in rainflow_cycles(soc))
-
-
-def blast_lfp(time_s, soc, temp_c):
-    # run in the blast env (requirements-blast.txt); returns relative capacity trace
-    raise NotImplementedError

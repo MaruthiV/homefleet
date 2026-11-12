@@ -1,0 +1,72 @@
+{
+  "protocol": "causal-v3",
+  "isolated_locked_wheel_install": true,
+  "archives_locally_extracted_and_hash_verified": true,
+  "compared_controllers": [
+    "B0_fixed",
+    "B3b_chance_eps0.02",
+    "B3b_chance_eps0.1"
+  ],
+  "compared_window": "houston_2024/w00",
+  "numeric_fields": [
+    "margin_per_home_week",
+    "cash_margin_per_home_week",
+    "terminal_adjustment_per_home",
+    "hours",
+    "cvar5_daily_margin_per_home",
+    "worst_day_margin_per_home",
+    "unserved_kwh_per_home",
+    "promise_unserved_kwh_per_home",
+    "outage_episodes",
+    "ride_through_failures",
+    "ride_through_rate",
+    "promise_failures",
+    "promise_rate",
+    "out_home_hours",
+    "throughput_kwh_per_home",
+    "mean_soc_frac",
+    "home_promise_p05",
+    "home_unserved_p95_kwh",
+    "physical_violations",
+    "reachable_floor_violations",
+    "floor_shortfall_kwh_mean",
+    "shield_abs_mean_kw",
+    "fade_lc_pct_yr",
+    "deg_cost_lc_usd_home_week",
+    "fade_et_pct_yr",
+    "deg_cost_et_usd_home_week",
+    "fade_cb_pct_yr",
+    "deg_cost_cb_usd_home_week",
+    "year",
+    "n",
+    "seed"
+  ],
+  "array_fields": [
+    "daily_cash_margin_per_home",
+    "home_unserved_kwh",
+    "home_episode_counts",
+    "home_promise_failure_counts"
+  ],
+  "max_numeric_error": 0.0,
+  "absolute_tolerance": 1e-12,
+  "source_input_assets": [
+    {
+      "group": "bundles",
+      "name": "homefleet-bundles-v0.2.0.tar.gz",
+      "sha256": "ae15336431f9b63b0227b0bf12d05b92a3767fc9d83d6dee98653b6f41486544",
+      "bytes": 618634713,
+      "url": "https://github.com/MaruthiV/homefleet/releases/download/v0.2.0/homefleet-bundles-v0.2.0.tar.gz",
+      "files": 23
+    },
+    {
+      "group": "raw",
+      "name": "homefleet-raw-v0.2.0.tar.gz",
+      "sha256": "9a7605feb2fc04ca41587c5326afef2c22a1c9a897c4c6e4a4d41d385327b9d3",
+      "bytes": 257029389,
+      "url": "https://github.com/MaruthiV/homefleet/releases/download/v0.2.0/homefleet-raw-v0.2.0.tar.gz",
+      "files": 117
+    }
+  ],
+  "public_unauthenticated_download_tested": false,
+  "all_extracted_bundles_and_saved_model_verified": true
+}

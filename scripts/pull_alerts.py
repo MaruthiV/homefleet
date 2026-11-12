@@ -8,7 +8,7 @@ def main():
     ap.add_argument("--years", nargs="+", type=int, default=list(range(2014, 2027)))
     a = ap.parse_args()
     out_dir = DATA_RAW / "alerts"
-    out_dir.mkdir(exist_ok=True)
+    out_dir.mkdir(parents=True, exist_ok=True)
     for y in a.years:
         out = out_dir / f"vtec_tx_{y}.parquet"
         if out.exists():

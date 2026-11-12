@@ -1,0 +1,51 @@
+{
+  "loads_static_exact_match": true,
+  "master_audit_commands_match": true,
+  "note": "Frozen master retains comments and monitor/export/plot commands. The AC audit removes those commands before loading; the fresh preparation omits them. All effective circuit commands and static loads match.",
+  "inputs": [
+    {
+      "file": "Buscoords.dss",
+      "sha256": "7989c7c1e595d2252db67c1cc7bcd865a22a4f4705ccd5f571dfab3a020dccdf"
+    },
+    {
+      "file": "Capacitors.dss",
+      "sha256": "b756baca8e1a7d8a8386df2639bc11de9ad6f8455e001f2fe01f81f7674d329e"
+    },
+    {
+      "file": "LineCodes.dss",
+      "sha256": "01f10a2d6dc5b9bebee4b3d4c4fd87f4e27aedccc65aa578c24ae97595533170"
+    },
+    {
+      "file": "Lines.dss",
+      "sha256": "8adcb818c783ae3db695a1c25853f374a7fb6175a9cbde9be81bc93c7cc1e88f"
+    },
+    {
+      "file": "Loads.dss",
+      "sha256": "3a202b2610fd781a596dba1df796cad5c3b7bd028ecd53d8134c873288e2c564"
+    },
+    {
+      "file": "Master.dss",
+      "sha256": "dcad1ca41ba3aaf044f769533e5ca0a3303423c06d292ef9a699b50373f4128a"
+    },
+    {
+      "file": "Transformers.dss",
+      "sha256": "0bb75bf41dbce3d4e14456006579c1e541238f0199b1437a07144e99ebbfb0b7"
+    },
+    {
+      "file": "SMART-DS_version.txt",
+      "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "Master_static.dss",
+      "frozen_sha256": "b7b9953fda20e0072814166d860e039963570ce8f077886d5ffbf79abe448577",
+      "rebuilt_sha256": "9a20f7ba919a96507e254cb9c1d6b2e166098d0ed99c3e36a65d85e3d6239b9b"
+    },
+    {
+      "file": "Loads_static.dss",
+      "frozen_sha256": "36e206f9a3aa7904896d73d10ff388dcce0f31e0d1aa5e4a4512749e239337b7",
+      "rebuilt_sha256": "36e206f9a3aa7904896d73d10ff388dcce0f31e0d1aa5e4a4512749e239337b7"
+    }
+  ]
+}

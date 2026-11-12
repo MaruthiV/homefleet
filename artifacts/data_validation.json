@@ -1,0 +1,229 @@
+{
+  "protocol": "causal-v3",
+  "bundles": 22,
+  "raw_compared": true,
+  "independent_profile_pool_per_metro": 300,
+  "files": [
+    {
+      "file": "dfw_2019.npz",
+      "sha256": "8bc24e9d60dea99e410a13950f5b5983a5f9fa01380940ab42662e5400422b5c",
+      "homes": 300,
+      "steps": 35040,
+      "counties": 4,
+      "start": "2019-01-01 00:00:00-06:00",
+      "end": "2019-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "dfw_2020.npz",
+      "sha256": "28b7ccc66803f22f984d666917dd8064cd426515d65200bc26f51d76bd63eb3f",
+      "homes": 300,
+      "steps": 37824,
+      "counties": 4,
+      "start": "2019-12-04 00:00:00-06:00",
+      "end": "2020-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "dfw_2021.npz",
+      "sha256": "d1c7311ebc5052dbf6d45001dbdb12cd7df2a9490a29928e358312fc8077d8e1",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 4,
+      "start": "2020-12-04 00:00:00-06:00",
+      "end": "2021-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "dfw_2022.npz",
+      "sha256": "ceb8fa34bb9d177262f9926f1072d022a733e19b2af3cd1f381aedde5d4c15f6",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 4,
+      "start": "2021-12-04 00:00:00-06:00",
+      "end": "2022-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "dfw_2023.npz",
+      "sha256": "5dc2250633c35961cfcc98bd7593f85fc8b631d063bf0599a45f443830b177be",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 4,
+      "start": "2022-12-04 00:00:00-06:00",
+      "end": "2023-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "dfw_2024.npz",
+      "sha256": "1379c94201ca8b50540d54d98e15f011b9f2bb20c4aaff7c0dcb8d3500ed63f0",
+      "homes": 300,
+      "steps": 37824,
+      "counties": 4,
+      "start": "2023-12-04 00:00:00-06:00",
+      "end": "2024-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "dfw_2025.npz",
+      "sha256": "76996d6c8b2dd042a675616aeef2afd6085bb79647d31babd645c1a5c4f55ca9",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 4,
+      "start": "2024-12-04 00:00:00-06:00",
+      "end": "2025-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "houston_2019.npz",
+      "sha256": "cb732cb9f6cc8d9d272626892dee9fa760baa74c93d20cefd53604950989b6e3",
+      "homes": 300,
+      "steps": 35040,
+      "counties": 1,
+      "start": "2019-01-01 00:00:00-06:00",
+      "end": "2019-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "houston_2020.npz",
+      "sha256": "7c049d51d71b9f1985c5066b0bce19ad9e290dcd8e9c0797f7e6516508411577",
+      "homes": 300,
+      "steps": 37824,
+      "counties": 1,
+      "start": "2019-12-04 00:00:00-06:00",
+      "end": "2020-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "houston_2021.npz",
+      "sha256": "01f17c63597545ffa1ed08b05e894c5b1d51e73914d434ce182ea8e1a404ff76",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 1,
+      "start": "2020-12-04 00:00:00-06:00",
+      "end": "2021-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "houston_2022.npz",
+      "sha256": "99795e49df9f04c29e2d175edd32842f8e34f3893c1ad4e3aa7ffb7f990533a2",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 1,
+      "start": "2021-12-04 00:00:00-06:00",
+      "end": "2022-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "houston_2023.npz",
+      "sha256": "2ff01f9301e9ec8fc6aa04b0ef2396962149d18bf57521bd8f763ef7a9156ee6",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 1,
+      "start": "2022-12-04 00:00:00-06:00",
+      "end": "2023-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "houston_2024.npz",
+      "sha256": "c3e6498422cc23bf557e71082d2dc676f7aef55cc33504889f6427d291346511",
+      "homes": 300,
+      "steps": 37824,
+      "counties": 1,
+      "start": "2023-12-04 00:00:00-06:00",
+      "end": "2024-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "houston_2025.npz",
+      "sha256": "42c25f99bcf58f388b206bdde3b7c9a3bda6108e4442233f2278ffd98e25b2c2",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 1,
+      "start": "2024-12-04 00:00:00-06:00",
+      "end": "2025-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "houston_2026.npz",
+      "sha256": "6a24860e641bb97622c14210da9ba3a486ed19d0732471bf750e94e75252b499",
+      "homes": 300,
+      "steps": 24476,
+      "counties": 1,
+      "start": "2025-12-04 00:00:00-06:00",
+      "end": "2026-08-15 23:45:00-05:00",
+      "outage_truth": false
+    },
+    {
+      "file": "san_antonio_2019.npz",
+      "sha256": "fb83c7be74169f4504a4968e2e2d5d344933dc738833287a25dd7e16b5551db3",
+      "homes": 300,
+      "steps": 35040,
+      "counties": 1,
+      "start": "2019-01-01 00:00:00-06:00",
+      "end": "2019-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "san_antonio_2020.npz",
+      "sha256": "93cd51b62fd60605b1cc5ab504ccf84eea66d52a4288e0ab19b7eac25bcb785c",
+      "homes": 300,
+      "steps": 37824,
+      "counties": 1,
+      "start": "2019-12-04 00:00:00-06:00",
+      "end": "2020-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "san_antonio_2021.npz",
+      "sha256": "d0e7ba1149af45464d037dd1ab54ef1b0259246304e56b2f6d34988a2f21909b",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 1,
+      "start": "2020-12-04 00:00:00-06:00",
+      "end": "2021-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "san_antonio_2022.npz",
+      "sha256": "536c808d95b0c4cbee63f8588d3a723f508171e6cc2f3630f5c16815e4b09b99",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 1,
+      "start": "2021-12-04 00:00:00-06:00",
+      "end": "2022-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "san_antonio_2023.npz",
+      "sha256": "1a6b5b1156833d0ac2afa73ac7800bcb15c2bbd50a0c7e332b1b2b40a8c65b9a",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 1,
+      "start": "2022-12-04 00:00:00-06:00",
+      "end": "2023-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "san_antonio_2024.npz",
+      "sha256": "faa204fbd3dabd94ccd1289c35d1d1bede4a8fc6b491b243ea4ad1f0da7c208e",
+      "homes": 300,
+      "steps": 37824,
+      "counties": 1,
+      "start": "2023-12-04 00:00:00-06:00",
+      "end": "2024-12-31 23:45:00-06:00",
+      "outage_truth": true
+    },
+    {
+      "file": "san_antonio_2025.npz",
+      "sha256": "8ddddceae8cb903d40c8627ba64f857532f3c0e07da68ce5078c06119c826cc4",
+      "homes": 300,
+      "steps": 37728,
+      "counties": 1,
+      "start": "2024-12-04 00:00:00-06:00",
+      "end": "2025-12-31 23:45:00-06:00",
+      "outage_truth": true
+    }
+  ],
+  "serialized_risk_model_verified": true
+}

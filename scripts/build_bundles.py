@@ -8,7 +8,7 @@ from homefleet.paths import DATA_PROC
 def truncate(path, end):
     d = dict(np.load(path, allow_pickle=True))
     idx = pd.DatetimeIndex(d["index"]).tz_localize("UTC").tz_convert("America/Chicago")
-    cut = (idx <= pd.Timestamp(end, tz="America/Chicago") + pd.Timedelta("23:45:00")).sum()
+    cut = (idx < pd.Timestamp(end, tz="America/Chicago") + pd.DateOffset(days=1)).sum()
     T = len(idx)
     for k, v in d.items():
         if hasattr(v, "shape") and v.ndim >= 1 and v.shape[0] == T:
@@ -22,13 +22,14 @@ def main():
     ap.add_argument("--metros", nargs="+", default=["houston"])
     ap.add_argument("--years", nargs="+", type=int, default=list(range(2019, 2026)))
     ap.add_argument("--end", default=None, help="truncate the last year, e.g. 2026-08-15 (partial-year data)")
+    ap.add_argument('--output-dir', type=__import__('pathlib').Path, default=DATA_PROC / 'physical_utc')
     a = ap.parse_args()
     for m in a.metros:
         for y in a.years:
-            out = DATA_PROC / f"{m}_{y}.npz"
+            out = a.output_dir / f"{m}_{y}.npz"
             if out.exists():
                 continue
-            print(build_metro_year(m, y), flush=True)
+            print(build_metro_year(m, y, out=out), flush=True)
             if a.end and y == max(a.years):
                 truncate(out, a.end)
 

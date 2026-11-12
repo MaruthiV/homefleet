@@ -1,17 +1,37 @@
-# claude-generated planning, notes, lit reviews, paper plans stay local
-docs/
+# Keep local working notes private; include the public research documentation.
+/docs/*
+!/docs/REPRODUCIBILITY.md
+!/docs/DATA_CARD.md
+!/docs/REVISION_NOTES.md
+!/docs/README_RESEARCH.md
 
-# paper: manuscript, figures, template — never pushed; only code goes to github
-paper/
+# Keep paper source and PDF; omit local TeX build files.
+/paper/*.aux
+/paper/*.bbl
+/paper/*.blg
+/paper/*.fdb_latexmk
+/paper/*.fls
+/paper/*.log
+/paper/*.out
+/paper/neurips_2026.tex
+/paper/checklist.tex
 
 # data and experiment outputs
-data/
-experiments/
+/data/
+/experiments/
+/archives/
+/output/
+/tmp/
+/dist/
+/build/
+/release/
 *.parquet
 *.csv
 *.h5
 *.pkl
 *.zip
+!artifacts/**/*.csv
+!examples/**/*.csv
 
 # python
 __pycache__/

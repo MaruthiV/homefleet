@@ -1,0 +1,33 @@
+{
+  "protocol": "causal-v3",
+  "wheel": "homefleet-0.2.0-py3-none-any.whl",
+  "wheel_sha256": "0717408a4a861d46ada5dda51022f8b6de4d81a692dcff2faf9ddf19133158d0",
+  "wheel_bytes": 160069,
+  "isolated_wheel_install": true,
+  "outside_checkout_demo_matches": true,
+  "torch_installed_in_minimal_environment": false,
+  "minimal_environment": {
+    "numpy": "2.5.4",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "26.0.1",
+    "pytest": "9.2.0"
+  },
+  "minimal_tests": {
+    "passed": 48,
+    "skipped": 6,
+    "environment": "fresh minimal installed wheel outside checkout, extracted frozen inputs, current 54-test suite"
+  },
+  "research_tests": {
+    "passed": 54,
+    "skipped": 0,
+    "environment": "fresh exact locked wheel install outside checkout; current suite including ancillary provenance regressions"
+  },
+  "source_configs_packaged": true,
+  "current_source_assets_configs_match_wheel": true,
+  "installed_package_files_match_wheel": true,
+  "packaged_files": 41,
+  "attribution_notice_in_wheel": true,
+  "note": "Tests and CLI scripts copied outside checkout; imports use the installed wheel. Optional Torch/Numba/DSS tests skip in the minimal environment. Research suite and input reconstruction also use the locked environment."
+}

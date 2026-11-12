@@ -14,6 +14,7 @@ def main():
     a = ap.parse_args()
     meta = load_tx_metadata()
     out_dir = DATA_RAW / "resstock"
+    out_dir.mkdir(parents=True, exist_ok=True)
     for metro in a.metros:
         out = out_dir / f"loads_{metro}_n{a.n}.parquet"
         if out.exists():

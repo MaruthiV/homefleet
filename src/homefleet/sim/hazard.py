@@ -22,15 +22,16 @@ def alert_group_panel(vtec, index_hourly, fips, zmap):
     return cols
 
 
-def build_features(weather_h, frac_h, alerts_h, horizons=HORIZONS_H, tau=0.01, forecast_proxy=True):
+def build_features(weather_h, frac_h, alerts_h, horizons=HORIZONS_H, tau=0.01, forecast_proxy=False):
     # one county: hourly weather frame, hourly frac series, dict group->bool array; returns X (frame) and Y (frame per horizon)
-    w = weather_h.copy()
+    w = weather_h.shift(1).copy()
     w["gust_max6"] = w["wind_gusts_10m"].rolling(6, min_periods=1).max()
     w["precip6"] = w["precipitation"].rolling(6, min_periods=1).sum()
     w["precip24"] = w["precipitation"].rolling(24, min_periods=1).sum()
     w["tmin24"] = w["temperature_2m"].rolling(24, min_periods=1).min()
     w["dp3"] = w["surface_pressure"].diff(3)
-    f = frac_h.reindex(w.index).fillna(0.0)
+    actual = frac_h.reindex(w.index).fillna(0.0)
+    f = actual.shift(1).fillna(0.0)
     w["frac_now"] = f.to_numpy()
     w["frac_max6"] = f.rolling(6, min_periods=1).max().to_numpy()
     w["frac_max24"] = f.rolling(24, min_periods=1).max().to_numpy()
@@ -47,7 +48,7 @@ def build_features(weather_h, frac_h, alerts_h, horizons=HORIZONS_H, tau=0.01, f
             w[f"fc_tmin{k}"] = w["temperature_2m"][::-1].rolling(k, min_periods=1).min()[::-1]
             w[f"fc_precip{k}"] = w["precipitation"][::-1].rolling(k, min_periods=1).sum()[::-1]
     Y = {}
-    fa = f.to_numpy()
+    fa = actual.to_numpy()
     for k in horizons:
         fut = pd.Series(fa[::-1]).rolling(k, min_periods=1).max()[::-1].to_numpy()
         fut = np.r_[fut[1:], 0.0]

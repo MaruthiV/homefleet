@@ -1,4 +1,10 @@
 import numpy as np
+import os
+
+try:
+    from homefleet.control.dp_compiled import backward
+except ImportError:
+    backward = None
 
 
 def energy_grid(emin, emax, S):
@@ -29,7 +35,16 @@ def dp_plan(e0, load, pv, price, floors, params, soh, avail, tariff, dt, S=40, l
     feas = pc_ok & pd_ok
     wear = deg_cost_per_kwh * dt * (pc + pd_)
     policy = np.zeros((H, N, S), dtype=np.int16)
-    for t in range(H - 1, -1, -1):
+    use_compiled = backward is not None and os.environ.get('HOMEFLEET_NUMPY_DP') != '1'
+    if use_compiled:
+        policy = backward(load, pv, price, floors, lev, p, pc, pd_, feas, V, dt,
+                          tariff.p_ret, tariff.c_tdsp, tariff.beta, deg_cost_per_kwh, hard_floor_penalty,
+                          np.zeros(N) if idle_target is None else idle_target,
+                          0. if idle_target is None else idle_penalty_per_kwh,
+                          lam_r if need is not None and hazard is not None else 0.,
+                          np.zeros((H, N)) if need is None else need,
+                          np.zeros((H, N)) if hazard is None else hazard, params.eta_d)
+    for t in (range(H - 1, -1, -1) if not use_compiled else []):
         g = (load[t] - pv[t])[:, None, None] - p
         m = np.maximum(g, 0.0)
         x = np.maximum(-g, 0.0)
@@ -42,7 +57,7 @@ def dp_plan(e0, load, pv, price, floors, params, soh, avail, tariff, dt, S=40, l
             r = r - idle_penalty_per_kwh * dt * np.maximum(idle_target[:, None, None] - lev[:, None, :], 0.0)
         if lam_r > 0 and need is not None and hazard is not None:
             short = np.maximum(need[t][:, None, None] - lev[:, None, :], 0.0)
-            r = r - lam_r * hazard[t][:, None, None] * short
+            r = r - lam_r * params.eta_d * hazard[t][:, None, None] * short
         Q = r + V[:, None, :]
         Q = np.where(feas, Q, -np.inf)
         best = Q.argmax(axis=2)

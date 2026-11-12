@@ -1,0 +1,67 @@
+{
+  "protocol": "causal-v3",
+  "weather_clock_protocol": "utc-unix-v1",
+  "counties": [
+    {
+      "fips": "48201",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48113",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48439",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48085",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48121",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48029",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48453",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48157",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48339",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48491",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48167",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    },
+    {
+      "fips": "48039",
+      "hours": 110639,
+      "max_abs_error": 0.0
+    }
+  ],
+  "model_sha256": "b105a0dfa63368a3764f36a1512c1cbc61098b758ca006a736b5917cf75e17be"
+}

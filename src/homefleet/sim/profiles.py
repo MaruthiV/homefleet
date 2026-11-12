@@ -28,7 +28,7 @@ def slot_of_day(index):
 def forward_positive_energy(net_kw, steps, dt=0.25):
     # energy needed to cover positive net load over the next `steps` intervals, per start step
     pos = np.maximum(np.asarray(net_kw, dtype=float), 0.0) * dt
-    c = np.concatenate([[0.0], np.cumsum(pos)])
+    c = np.concatenate([np.zeros((1, *pos.shape[1:])), np.cumsum(pos, axis=0)], axis=0)
     n = len(pos)
     i = np.arange(n)
     j = np.minimum(i + steps, n)
@@ -48,8 +48,8 @@ def slot_quantile(values, index_or_groups, q=0.9, window_slots=2):
     # quantile of `values` by 15-min slot of day pooled over days and +-window slots (a&z style), returns 96-vector
     groups = index_or_groups if isinstance(index_or_groups, list) else slot_groups(index_or_groups)
     v = np.asarray(values, dtype=float)
-    out = np.zeros(96)
+    out = np.zeros((96, *v.shape[1:]))
     for s in range(96):
         idx = np.concatenate([groups[(s + w) % 96] for w in range(-window_slots, window_slots + 1)])
-        out[s] = np.quantile(v[idx], q) if len(idx) else 0.0
+        out[s] = np.quantile(v[idx], q, axis=0) if len(idx) else 0.0
     return out

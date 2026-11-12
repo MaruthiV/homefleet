@@ -1,0 +1,112 @@
+\section{Operating model and reliability objective}
+\label{sec:model}
+
+We study a provider that supplies household electricity and controls batteries installed at those households. The provider can lower its wholesale energy costs by discharging a battery when electricity is expensive. The same discharge reduces the energy available if that household subsequently loses grid power. Our decision variable is the amount of energy retained for that possible interruption. The setting is a simulation of a publicly described Texas retail and battery service, rather than a model fitted to an operator's private telemetry.
+
+\subsection{Battery and market accounting}
+
+Time advances in intervals of length $\Delta=0.25$ hours. Home $i$ has electricity demand $L_{i,t}$ and photovoltaic generation $V_{i,t}$, both in kW. Its battery contains $e_{i,t}$ kWh. Rated capacity is $\bar E_i$, and available capacity is $E_i=\bar E_i\,\mathrm{SOH}_i$, where state of health (SOH) is fixed within an episode. We use rated capacities of 25, 39.2, or 50 kWh, charge and discharge limits $\bar P_i^c$ and $\bar P_i^d$ of 11.4 or 20 kW, and charge and discharge efficiencies $\eta_c=\eta_d=\sqrt{0.9}$. With nonnegative charge and discharge powers $p^c_{i,t}$ and $p^d_{i,t}$,
+\begin{equation}
+ e_{i,t+1}=e_{i,t}+\Delta\left(\eta_c p^c_{i,t}-p^d_{i,t}/\eta_d\right).
+\end{equation}
+The implementation prevents simultaneous charging and discharging and enforces inverter limits and the physical energy range $[e_i^{\min},E_i]$, where $e_i^{\min}=0.05\bar E_i$. While connected, a home also has an operating reserve target $R_{i,t}$. If its current energy is below a newly raised target, the controller charges toward that target at the maximum feasible rate. This recovery can take several intervals; a target is not an instantaneous energy guarantee. Communication dropout prevents commanded grid-connected charging or discharging. Local islanded backup continues during communication dropout.
+
+Let $p_{i,t}=p^d_{i,t}-p^c_{i,t}$, positive for discharge. Connected imports and exports are $m_{i,t}=(L_{i,t}-V_{i,t}-p_{i,t})^+$ and $x_{i,t}=(p_{i,t}-L_{i,t}+V_{i,t})^+$. Here $x^+=\max(x,0)$. Each fleet is evaluated within one ERCOT load zone $z$. Its settlement price $\lambda_{z,t}$ is converted from \$/MWh to \$/kWh. Following the accounting setting of \citet{anunrojwong2026pooling}, cash margin is
+\begin{equation}
+ \Pi_{i,t}=\Delta\left[p_{\rm ret}L^{\rm served}_{i,t}-(\lambda_{z,t}+c_{\rm TDSP})m_{i,t}+\lambda_{z,t}x_{i,t}-\beta V_{i,t}\right],
+ \label{eq:margin}
+\end{equation}
+with retail price $p_{\rm ret}=0.09$, import delivery cost $c_{\rm TDSP}=0.05$, and solar credit $\beta=0.04$, all in \$/kWh. During islanding, imports and exports are zero and retail revenue uses served demand. Fixed subscription revenue is omitted from every comparison. These are gross modeled operating margins: they exclude hedging, capital costs, ancillary services, and degradation charges. A discharge that serves local demand avoids both the wholesale price and the delivery cost, whereas an export earns the wholesale price alone.
+
+Prices are exogenous, so the fleet cannot change market prices. The dispatch model includes no transmission power flow, frequency dynamics, or market-clearing feedback. Section~\ref{sec:system} separately examines distribution-feeder voltages under realized dispatch using static AC power flow. That evaluation measures a physical consequence of synchronized dispatch; it does not make the energy controller network-constrained.
+
+\subsection{Outage replay and the household promise}
+
+For each county $c$, EAGLE-I provides the number of customers reported without electricity. We divide this count by the fixed modeled-customer denominator supplied with the dataset to obtain an outage fraction $f_{c,t}$. Within each contiguous county event above 0.2\%, each simulated home draws one $u_i\sim U(0,1)$ and is out whenever $u_i<f_{c(i),t}$. This construction reproduces the county fraction in expectation and couples each home's onset and restoration to the same event trace. It supplies simulated individual interruptions; the dataset does not contain observed interruptions for the sampled homes.
+
+An islanded battery supplies positive demand net of available PV, subject to its discharge power limit and physical minimum. Any surplus PV can charge the battery. The operating reserve is released during islanding, and $U_{i,t}$ records unserved load in kWh. We use the entire household load as critical demand. For scoring, outage runs separated by at most one hour are merged into one episode. Training and evaluation use the same definition.
+
+The \emph{promise rate} is the fraction of simulated outage episodes whose first five hours, or the time until earlier restoration, have zero unserved energy. Higher is better. This metric asks whether a short backup commitment is fulfilled, rather than whether a finite battery can serve a hurricane-length interruption in full. We also report total unserved energy and complete-episode ride-through. A split with no simulated outages has an undefined promise rate, reported as unavailable rather than as perfect reliability.
+
+\subsection{Risk budgets and their practical relaxation}
+
+A household reliability budget can be written as
+\begin{equation}
+ \mathbb E_\pi\!\left[\sum_{t\in Y}U_{i,t}\right]\le B_i \quad\text{for every home }i,
+ \label{eq:budget}
+\end{equation}
+where $B_i$ is an allowable annual amount of unserved backup energy. Its Lagrange multiplier, $\lambda_{r,i}$, has units of \$/kWh and therefore acts as an implied value of lost load. Residential interruption-cost estimates provide context for its scale~\citep{ice2025,brown2024reliability}.
+
+Our experiments use a shared, fixed multiplier $\lambda_r$ and sweep its value. They do not solve for household-specific multipliers or enforce every constraint in Equation~\eqref{eq:budget}. The budget motivates the reserve decision and the reported tradeoff; it is not a certificate of individual reliability. We distinguish the full unserved-energy penalty from a \emph{promise-window penalty}, which charges only for unserved energy in the first five hours of a scored episode. The latter changes the learning objective to match the short customer-facing promise. The model-based risk penalty below is a forecast shortfall surrogate, not an exact equivalent of either realized penalty.
+
+\section{Public replay data and controller information}
+\label{sec:data}
+
+HomeFleet-ERCOT combines observed market prices and county outage records with simulated housing profiles. Each metropolitan pool contains 300 ResStock single-family homes. Houston uses Harris County; Dallas--Fort Worth uses Dallas, Tarrant, Collin, and Denton Counties; San Antonio uses Bexar County. ResStock AMY2018 load shapes are mapped to other years by local month, day, and clock time, with leap-day handling. They do not reproduce unusually high heating demand during Uri. Each home independently receives synthetic PV with probability 0.3, with a 5--9 kW DC rating and generation derived from irradiance and temperature. No battery-company household telemetry is included.
+
+Real-time and day-ahead prices come from ERCOT, county outages from EAGLE-I~\citep{brelsford2024eaglei,eaglei_v4}, and building profiles from ResStock~\citep{resstock2024}. Weather is historical Open-Meteo model/reanalysis data used as an observation proxy~\citep{openmeteo_archive}, and warnings come from the Iowa Environmental Mesonet's NWS VTEC archive~\citep{iem_vtec}. Hourly weather is ingested as UTC instants before conversion to local time, preserving both occurrences of the repeated fall hour. Missing county observations are filled with zero for replay, an assumption that can understate outages when reporting coverage is incomplete. The data release includes sampled building identifiers, field definitions, input hashes, frozen bundles, and the code used to construct them.
+
+\paragraph{Prices and loads.}
+Controllers use lagged real-time prices, assuming the preceding quarter-hour's price is available at decision time; additional publication or telemetry delay is not modeled. Published day-ahead prices are available for the current delivery day and, from 14:00 local time, the following day. Unpublished future prices use per-slot medians from the preceding 28 days. Load and PV forecasts use preceding observations at the same local-time slots. Neither the initialization nor an update uses the evaluation episode's future realizations. The oracle reference is the explicitly identified exception: it receives realized future prices and loads over its planning horizon.
+
+Each home's five-hour backup need $\hat N_{i,t}$ is the 90th percentile of positive net-load energy, divided by $\eta_d$, at nearby local-time slots in the 28 days preceding the episode. This is a usable-energy requirement; the optimization reserve target adds the physical minimum $e_i^{\min}$ before comparing it with battery state. Historical windows are included only if their complete energy requirement is observed before episode start. These reserve statistics remain fixed during the episode. Tier reserves use the same history and select each home's longest historical tier from 2, 4, 6, 8, 12, or 24 hours that fits 80\% of available capacity. If none fits, they fall back to the two-hour target clipped at 80\%, without claiming that tier is feasible. Full target-year profiles are not used to estimate controller reserves.
+
+\paragraph{Outage-risk forecast.}
+The \emph{hazard model} predicts whether a county's outage fraction will reach 1\% within the next $k$ hours, for $k\in\{1,3,6,12,24\}$. It is a county event forecast, not a calibrated probability that a particular home will fail. We fit one histogram gradient-boosted classifier per horizon on 2014--2019 data and calibrate its probabilities with isotonic regression on 2020. Both stages precede the 2021 extreme-event test.
+
+Features comprise weather from completed hours, lagged outage fractions, issued alerts, and calendar variables. No realized future weather is used as a forecast proxy. Hourly model probabilities are carried forward to 15-minute dispatch intervals. For the optimization surrogate, nonnegative increments of the monotone cumulative horizon probabilities are spread across each horizon segment. These increments approximate the timing of county risk; they should not be interpreted as independently calibrated household outage-onset probabilities.
+
+\section{Reserve policies and learned dispatch}
+\label{sec:controllers}
+
+All operating policies share the battery model, tariff, replay draws, and causal information described above. A reserve target defines how much energy is retained while grid-connected. Fixed reserves and alert rules are useful reference policies because their behavior is easy to inspect. Weather-conditioned charging also has precedents at a home or microgrid~\citep{schmitz2020proactive,gutierrezrojas2021weather}; related storage work learns terminal state-of-charge targets for arbitrage~\citep{tapia2026reachability}. Our empirical question is how these choices behave together in a residential fleet replay with outages and market shift.
+
+\paragraph{Optimization family.}
+The model-based controllers solve an independent finite-horizon dynamic program for each home over 32 energy levels and a 24-hour planning horizon. They replan hourly and execute four 15-minute actions. They include fixed 10\%, 20\%, 30\%, and 50\% targets; a 20\% floor with a soft preference for 90\% charge; an alert rule that targets full charge; and a historical quantile tier reserve inspired by \citet{anunrojwong2026pooling}. This implementation does not reproduce that paper's pooling optimization.
+
+The \emph{risk-priced} controller retains a common 10\% operating minimum and adds
+\begin{equation}
+ \lambda_r\eta_d\sum_h \hat p_h\left(\hat N_{i,t+h}+e_i^{\min}-e_{i,t+h+1}\right)^+
+ \label{eq:surrogate}
+\end{equation}
+to its cost, where $h=0,\ldots,H-1$, $H\le96$, and $\hat p_h$ is the county-risk timing proxy. The shortfall uses energy after the planned action in each interval. The \emph{hazard-threshold reserve} also retains the 10\% operating minimum. It raises the target to the estimated five-hour need plus the physical minimum when cumulative forecast risk reaches $\varepsilon\in\{0.02,0.1\}$, capped at 90\% capacity. Although motivated by chance constraints, this threshold rule does not establish an outage-service probability guarantee. An oracle-onset variant replaces forecast timing with realized future county threshold crossings. The separate market-lookahead reference uses perfect prices and loads, a 5\% physical-minimum target, and no future outage knowledge. Its discretized, rolling-horizon solution is a reference for market opportunity, not a proved global upper bound.
+
+\paragraph{Learned policy.}
+PPO outputs an aggregate power fraction and a reserve multiplier. The multiplier scales $\hat N_{i,t}$, clipped between 10\% and 90\% of available capacity. A priority allocator dispatches homes according to their energy above reserve, with individual inverter and energy limits~\citep{elsaadany2026realizability}. When a target rises above current energy, feasible mandatory charging takes precedence over the aggregate proposal. The layer enforces physical constraints and records recovery shortfall separately from violations of an attainable target. Such a layer does not establish outage reliability, which depends on the selected reserve and subsequent demand~\citep{stanojev2023safe,chen2021prof,ceusters2023safe,markgraf2025projection}.
+
+The actor and critic each use two 256-unit tanh layers. The 39-dimensional observation includes local-time features, four lagged real-time prices, twelve publication-aware price forecasts, fleet SOC summaries, available power, historical need, alerts, current outage share, completed-hour weather, and five hazard forecasts. Gaussian actions are clipped to their allowed ranges. The policy uses summary statistics and a common reserve multiplier; it contains no set encoder or quadratic-program layer.
+
+\section{Evaluation protocol}
+\label{sec:protocol}
+
+PPO training draws two-week episodes from Houston in 2019--2023. Fleet size varies from 50 to 200, hardware presets are randomized, state of health lies in $[0.85,1]$, and per-interval communication dropout ranges from zero to 10\%. Half of proposed episodes are sampled near recorded county events. Episodes overlapping named event holdouts are rejected. Training uses approximately three million transitions per run, 16 environments, rollout length 256, six optimization epochs, minibatches of 1,024, discount 0.997, GAE parameter 0.95, clipping 0.2, and initial learning rate $3\times10^{-4}$. Promise-cost runs use entropy coefficient 0.005. Appendix~\ref{app:repro} specifies the complete seed and penalty grid.
+
+Validation uses Houston 2024, and chronological tests use Houston 2025 and available 2026 prices. Additional evaluations cover Dallas--Fort Worth, San Antonio, fleet size, hardware mix, and dropout. PPO's geographic transfer reuses a county-risk model already fitted on the twelve historical counties, including the six evaluation counties. Hardware and tariffs remain fixed across years, making historical operation a counterfactual replay. The 2026 bundle ends on August 15. Its target-year outage field is zero because the source outage record used here ends in 2025; it supports market-transfer comparisons only, with no 2026 reliability score. Changes across ERCOT's Real-Time Co-optimization Plus Batteries (RTC+B) redesign are temporal associations, not an identified causal effect of that redesign~\citep{ercot_rtcb_2025}.
+
+Regular evaluation windows partition each available year into nonoverlapping intervals of at most 14 days. A preceding-history prefix supports January evaluation when the previous year is available; 2019 starts after its first 28 days. Named event windows are reported separately and never added again to regular-year averages. All controllers use the same sampled 100 homes, hardware mix, initial 90\% charge, and outage random numbers. Energy resets at each window boundary, so annualized statistics summarize episodic replays rather than continuous-year battery operation; interruptions touching a boundary are censored by that window. Larger fleets resample from the same 300-profile metropolitan pool, so fleet-size transfer does not establish transfer to thousands of distinct measured households.
+
+Reported margin is Equation~\eqref{eq:margin}, plus a terminal inventory adjustment of $0.03\eta_d(e_{i,T}-e_{i,0})$ dollars. The same adjustment appears in the learned terminal reward. It limits gains from consuming initial inventory without assigning a speculative spike price to remaining charge. Annualized margins scale observed per-home cash and inventory value by observed duration; they are replay rates, not realized company annual profits. Both cash-only and adjusted metrics are retained in the release.
+
+We compute promise rates from total failures divided by total episodes, rather than averaging window percentages. Margin differences are paired by window. Bootstrap intervals resample paired regular windows; reliability intervals recompute the ratio from resampled episode and failure counts. These intervals describe variation across the recorded windows under the fixed replay draw. They do not quantify uncertainty in the outage simulator, future market prices, or the source reporting coverage. We also report unserved energy, low-tail daily cash margins, per-home outcomes, physical violations, and dispersion across training seeds.
+
+\section{An alert charging override and its limits}
+\label{sec:guardrail}
+
+The guardrail raises a home's target to $R_i=0.9E_i$ while a qualifying alert is active in its county. It explicitly overrides an idle or discharging proposal when charging is needed. This distinction matters: merely prohibiting further discharge cannot refill an already depleted battery. The override uses the same inverter, capacity, and availability limits as other dispatch.
+
+\begin{proposition}[Conditional backup sufficiency]
+\label{prop:charging}
+Suppose an alert remains active throughout a grid-connected lead period of $n$ dispatch intervals before an outage. Home $i$ is available during that period, starts with energy $e_{i,a}$, and has fixed capacity and efficiencies. If
+\begin{equation}
+ n\Delta\ge \Delta\left\lceil\frac{(R_i-e_{i,a})^+}{\Delta\eta_c\bar P_i^c}\right\rceil,
+\end{equation}
+the override leaves at least $R_i$ energy at outage onset, independently of the proposed trading actions. If positive critical net demand never exceeds $\bar P_i^d$ and its first-five-hour energy requirement is no greater than $\eta_d(R_i-e_i^{\min})$, the five-hour promise is fulfilled.
+\end{proposition}
+
+\begin{proof}
+Below $R_i$, the override charges at the lesser of the charge limit and the power needed to reach $R_i$ in one step. Grid connection and availability make that power feasible. The stated number of steps therefore reaches $R_i$; subsequent connected dispatch cannot discharge below it while the alert continues. After islanding, the stated pointwise power and cumulative energy conditions suffice to serve every positive demand increment before restoration or the five-hour endpoint. PV surplus can only add available energy.
+\end{proof}
+
+From the physical minimum, the conservative lead requirement is two hours for the 25 kWh and 39.2 kWh presets and four hours for the 50 kWh preset at full state of health. Short warnings, missing alerts, unavailable charging, and insufficient usable capacity violate the proposition's premises. Observed alert coverage and synthetic stress tests quantify these limitations below.
+
+We make no bound on total margin loss using alert duty cycle alone. An alert changes stored energy, subsequent observations, and later dispatch, so two policies can continue to differ after it ends. Guardrail costs are measured over complete evaluation episodes, including those later differences. Low measured cost in one year is not a worst-case consistency guarantee.

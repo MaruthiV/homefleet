@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Please cite the accompanying paper, Adaptive Reliability Reserves for Residential Battery Fleets, and identify the code/data version used."
+title: "HomeFleet ERCOT: Adaptive Reliability Reserves for Residential Battery Fleets"
+type: software
+version: 0.2.0
+authors:
+  - family-names: Vemula
+    given-names: Maruthi
+    affiliation: University of North Carolina at Chapel Hill
+  - family-names: Gajula
+    given-names: Neeraj Praneeth
+    affiliation: New York University
+repository-code: "https://github.com/MaruthiV/homefleet"
+license: MIT

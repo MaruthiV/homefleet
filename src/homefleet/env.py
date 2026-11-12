@@ -7,6 +7,7 @@ from homefleet.sim.tariff import load_tariff, firm_margin
 from homefleet.sim.outage import draw_outages
 from homefleet.sim.profiles import forward_positive_energy, slot_quantile, slot_of_day, slot_groups
 from homefleet.control.qp_layer import priority_disaggregate
+from homefleet.control.baselines import SlotMedianForecaster, da_aware_price_forecast
 
 TZ = "America/Chicago"
 
@@ -29,6 +30,9 @@ class FleetData:
         self.hazard_h = list(z["hazard_h"]) if "hazard_h" in z.files else None
         self.zone = str(z["zone"])
         self.year = int(z["year"])
+        self.protocol = str(z['protocol']) if 'protocol' in z.files else 'submitted-v1'
+        self.evaluation_start = int(z['evaluation_start']) if 'evaluation_start' in z.files else 28 * 96
+        self.home_id = z['home_id'].astype(str) if 'home_id' in z.files else np.arange(self.load.shape[1]).astype(str)
         self.slot = slot_of_day(self.index)
         self.groups = slot_groups(self.index)
         self.T, self.N_pool = self.load.shape
@@ -53,6 +57,8 @@ class HomeFleetEnv:
         self.kappa = self.cfg.get("critical_load_fraction", 1.0)
 
     def reset(self, start, n_steps, home_idx, preset_names, seed=0, soc0=0.9, soh=None, dropout=0.0, tiers_h=None, need_hours=5.0):
+        if start < 28 * 96 or n_steps <= 0 or start + n_steps > self.d.T:
+            raise ValueError("episodes require 28 days of preceding history and a valid end")
         self.rng = np.random.default_rng(seed)
         self.t0, self.T, self.h = start, n_steps, np.asarray(home_idx)
         self.N = len(self.h)
@@ -73,35 +79,40 @@ class HomeFleetEnv:
         self.alert = self.d.alert.iloc[win].to_numpy()[:, self.cidx]
         self.hz = None if self.d.hazard is None else self.d.hazard[win][:, self.cidx, :]
         self._build_luts(need_hours, tiers_h)
+        self.price_forecaster = SlotMedianForecaster(self.d.price_rt[:, None], self.d.slot, start=start)
         self.k = 0
-        self.out_age = np.zeros(self.N)
-        self.log = {"margin": [], "unserved": [], "pc": [], "pd": [], "e": [], "out": [], "shield": [], "floor_viol": []}
+        self.promise_mask = np.zeros_like(self.out)
+        from homefleet.sim.outage import episodes
+        for j in range(self.N):
+            for s, end in episodes(self.out[:, j]):
+                self.promise_mask[s:min(end, s + int(round(5.0 / self.dt))), j] = True
+        self.initial_energy = self.e.copy()
+        self.log = {key: [] for key in ("margin", "unserved", "pc", "pd", "e", "out", "shield", "floor_shortfall", "physical_viol", "floor_viol")}
         return self.obs()
 
     def _build_luts(self, need_hours, tiers_h):
-        # per-home 96-slot quantile luts from the full-year profile (a&z style), for need and tier reserves
-        steps = int(round(need_hours / self.dt))
-        full_net = self.d.load[:, self.h] - self.d.pv[:, self.h]
-        self.need_lut = np.zeros((96, self.N))
-        self.tier_lut = {}
-        for j in range(self.N):
-            fe = forward_positive_energy(full_net[:, j], steps, self.dt)
-            self.need_lut[:, j] = slot_quantile(fe, self.d.groups, q=0.9) / self.params.eta_d
-        # a&z: each home gets its longest feasible tier (reserve never above 80% of capacity); tiers_h overrides
+        # reserve statistics are frozen from the 28 days preceding the episode
+        a = self.t0 - 28 * 96
+        net = self.d.load[a:self.t0, self.h] - self.d.pv[a:self.t0, self.h]
+        def historical_lut(hours):
+            st = int(round(hours / self.dt))
+            valid = len(net) - st + 1
+            fe = forward_positive_energy(net, st, self.dt)[:valid]
+            return slot_quantile(fe, slot_groups(self.d.index[a:a + valid]), q=0.9) / self.params.eta_d
+        self.need_lut = historical_lut(need_hours)
         E = self.params.energy_kwh * self.soh
-        menu = [24, 12, 8, 6, 4, 2] if tiers_h is None else None
+        menu = [24, 12, 8, 6, 4, 2] if tiers_h is None else sorted(set(tiers_h), reverse=True)
+        luts = {T: historical_lut(T) for T in menu}
+        self.tier_lut = {}
         self.tiers_h = np.zeros(self.N)
         for j in range(self.N):
-            cands = menu if menu is not None else [float(tiers_h[j])]
-            chosen = None
+            cands = menu if tiers_h is None else [float(tiers_h[j])]
             for T in cands:
-                st = int(round(T / self.dt))
-                fe = forward_positive_energy(full_net[:, j], st, self.dt)
-                lut = slot_quantile(fe, self.d.groups, q=0.9) / self.params.eta_d
+                lut = luts[T][:, j] + self.emin()[j]
                 if lut.max() <= 0.8 * E[j] or T == cands[-1]:
-                    chosen = (T, np.minimum(lut, 0.8 * E[j]))
+                    self.tiers_h[j] = T
+                    self.tier_lut[j] = np.minimum(lut, 0.8 * E[j])
                     break
-            self.tiers_h[j], self.tier_lut[j] = chosen
 
     def need_now(self, k=None):
         k = self.k if k is None else k
@@ -130,11 +141,15 @@ class HomeFleetEnv:
         pc = np.where(out, pc_i, pc)
         pd_ = np.where(out, pd_i, pd_)
         unserved = np.where(out, self.dt * np.maximum(island_need - pd_, 0.0), 0.0)
-        self.out_age = np.where(out, self.out_age + 1, 0)
-        self.unserved_promise = np.where(self.out_age <= int(round(5.0 / self.dt)), unserved, 0.0)
+        self.unserved_promise = np.where(self.promise_mask[k], unserved, 0.0)
         p = pd_ - pc
-        margin = firm_margin(self.load[k], self.pv[k], p, self.price[k], self.tariff, self.dt, islanded=out)
+        served_load = self.load[k] - unserved / self.dt
+        margin = firm_margin(served_load, self.pv[k], p, self.price[k], self.tariff, self.dt, islanded=out)
+        reachable_floor = np.minimum(floor_eff, self.e + self.dt * self.params.eta_c * self.params.p_charge_kw * np.where(out, 1.0, av))
         self.e = step_energy(self.e, pc, pd_, self.params, self.dt)
+        self.log["floor_shortfall"].append(np.maximum(floor_eff - self.e, 0))
+        self.log["floor_viol"].append(self.e < reachable_floor - 1e-7)
+        self.log["physical_viol"].append((self.e < self.emin() - 1e-7) | (self.e > self.params.energy_kwh * self.soh + 1e-7))
         self.log["margin"].append(margin)
         self.log["unserved"].append(unserved)
         self.log["pc"].append(pc)
@@ -153,12 +168,11 @@ class HomeFleetEnv:
 
     def act(self, u_p, floor):
         # aggregate action in [-1,1] of envelope -> priority disaggregation -> step
-        av = self.avail[self.k].astype(float)
+        av = (self.avail[self.k] & ~self.out[self.k]).astype(float)
         pc_max, pd_max = envelope(self.e, self.params, self.soh, av, floor, self.dt)
         p_tgt = float(u_p) * (pd_max.sum() if u_p >= 0 else pc_max.sum())
         pc, pd_, shield = priority_disaggregate(p_tgt, self.e, self.params, self.soh, av, floor, self.dt)
         self.log["shield"].append(shield)
-        pc_req, pd_req = pc.copy(), pd_.copy()
         margin, unserved, done = self.step_dispatch(pc, pd_, floor)
         thr = float(self.log["pc"][-1].sum() + self.log["pd"][-1].sum()) * self.dt
         return {"margin": float(margin.sum()), "unserved": float(unserved.sum()), "throughput_kwh": thr, "shield": float(abs(shield))}, done
@@ -179,6 +193,8 @@ class HomeFleetEnv:
         terms, done = self.act(u_p, floor)
         cost = float(self.unserved_promise.sum()) if promise_cost else terms["unserved"]
         r = (terms["margin"] - lam_r * cost - deg_cost_per_kwh * terms["throughput_kwh"] - shield_pen * terms["shield"]) / self.N
+        if done:
+            r += float(np.sum(self.e - self.initial_energy) * self.params.eta_d * .03 / self.N)
         return self.obs(), r, done, terms
 
     def obs(self):
@@ -190,9 +206,11 @@ class HomeFleetEnv:
         soc = self.e / E
         slot = self.d.slot[t]
         dow = self.d.index[t].dayofweek
-        pr = self.price
-        last = [pr[max(k - i, 0)] / 1000.0 for i in (1, 2, 3, 4)]
-        da = [self.price_da[min(k + 4 * i, self.T - 1)] / 1000.0 for i in range(0, 24, 2)]
+        last = [self.d.price_rt[max(t - i, 0)] / 1000.0 for i in (1, 2, 3, 4)]
+        self.price_forecaster.update_to(t)
+        pm = self.price_forecaster.forecast(t, 96)[:, 0]
+        prices = da_aware_price_forecast(t, 96, self.d.price_da, pm, lambda j: self.d.index[j].hour, index=self.d.index)
+        da = [prices[4 * i] / 1000.0 for i in range(0, 24, 2)]
         need = self.need_now()
         av = self.avail[k].astype(float)
         pc_max, pd_max = envelope(self.e, self.params, self.soh, av, self.emin(), self.dt)

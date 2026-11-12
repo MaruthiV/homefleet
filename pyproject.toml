@@ -4,36 +4,35 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "homefleet"
-version = "0.0.1"
+version = "0.2.0"
 description = "homefleet-ercot: adaptive reliability reserves for residential battery fleets"
+authors = [{name = "Maruthi Vemula"}, {name = "Neeraj Praneeth Gajula"}]
 requires-python = ">=3.12,<3.13"
 dependencies = [
-  "numpy>=2.0",
-  "pandas>=2.2",
+  "numpy>=2.0,<3",
+  "pandas>=2.2,<3",
   "pyarrow>=15",
   "pyyaml",
   "scipy",
   "scikit-learn",
   "requests",
   "tqdm",
+  "openpyxl",
 ]
 
 [project.optional-dependencies]
-full = [
-  "cvxpy",
-  "osqp",
-  "highspy",
-  "lightgbm",
-  "gymnasium>=1.0",
-  "torch",
-  "matplotlib",
-  "s3fs",
-  "opendssdirect.py",
-]
 dev = ["pytest"]
+research = ["torch", "matplotlib", "opendssdirect.py", "numba==0.62.1", "pypdf"]
+
+[project.urls]
+Repository = "https://github.com/MaruthiV/homefleet"
+Issues = "https://github.com/MaruthiV/homefleet/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+homefleet = ["configs/*.yaml", "assets/*.npz", "assets/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

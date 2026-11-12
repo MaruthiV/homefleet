@@ -1,0 +1,12 @@
+step_hours: 0.25
+horizon_steps: 96
+episode_days: 14
+fleet_n_train: [100, 1000]
+pv_share: 0.3
+critical_load_fraction: 1.0
+hazard_threshold: 0.01
+event_window_threshold: 0.002
+lambda_r_grid_usd_per_kwh: [0.5, 1, 2, 5, 10, 20, 50]
+tiers_hours: [2, 4, 6, 8, 12, 24]
+seeds: [0, 1, 2, 3, 4]
+gamma: 0.997

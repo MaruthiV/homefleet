@@ -1,0 +1,19 @@
+{
+  "protocol": "causal-v3",
+  "weather_clock_protocol": "utc-unix-v1",
+  "tests": {
+    "weather": 5,
+    "calendar_mapping": 4,
+    "prior_full_suite": 41,
+    "current_full_suite": 46,
+    "network_and_policy_targeted": 7,
+    "weather_after_backoff_logging": 5
+  },
+  "archived_inputs": "archives/pre-utc-weather-2026-11-10",
+  "source_files": {
+    "src/homefleet/data/weather.py": "209e5c86fc6f53f18d53621ca7a3c150b0457cd11853df41237ca44b1ce38eba",
+    "scripts/pull_weather.py": "83d45396b50381b117cd1c1c940cfb52dd876ef55182c57b4a1b0c5a9ef9ccf7",
+    "tests/test_weather_time.py": "e4824aa2b7890fe612786d2aa31f8527d52adaaad359c84088c9b749038118be"
+  },
+  "network_failure_recovery": "Connection errors and retryable HTTP responses are retried; yearly segments and complete caches are published atomically."
+}

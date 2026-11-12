@@ -1,0 +1,18 @@
+{
+  "protocol": "causal-v3",
+  "reference_hardware": {
+    "architecture": "arm64",
+    "logical_processors": 11,
+    "physical_memory_gib": 18
+  },
+  "python": "3.12.11",
+  "numpy": "2.3.3",
+  "torch": "2.9.1",
+  "device": "cpu",
+  "maximum_concurrent_training_processes": 6,
+  "torch_threads_per_run": 1,
+  "resource_check": {
+    "memory_pressure_free_percent": 50
+  },
+  "note": "Four-process primary queue plus two supplementary slots on the existing 21-run grid; per-run locks prevent duplicate checkpoint writers. Runtime benchmark follows completion of all experiment jobs."
+}

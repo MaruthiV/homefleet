@@ -1,0 +1,15 @@
+{
+  "protocol": "causal-v3",
+  "scope": "Local archive-content verification; public HTTP verification follows publication",
+  "asset": {
+    "group": "checkpoints",
+    "name": "homefleet-checkpoints-v0.2.0.tar.gz",
+    "sha256": "58df001e96614b6fb122defad76de1bd7c973cda3afbb9e9b92e9a10ac9c3e61",
+    "bytes": 12379207,
+    "url": "https://github.com/MaruthiV/homefleet/releases/download/v0.2.0/homefleet-checkpoints-v0.2.0.tar.gz",
+    "files": 63
+  },
+  "completed_runs": 21,
+  "files": 63,
+  "exact_contents_match": true
+}

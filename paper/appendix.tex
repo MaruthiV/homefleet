@@ -1,0 +1,204 @@
+\section{Notation and implementation details}
+\label{app:notation}
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{ll}
+\toprule
+Symbol & Meaning and units \\
+\midrule
+$i,c,z,t$ & Home, county, load zone, dispatch interval \\
+$\Delta$ & Dispatch duration, 0.25 h \\
+$L_{i,t},V_{i,t}$ & Household demand and PV output, kW \\
+$\bar E_i,E_i$ & Rated and SOH-adjusted available capacity, kWh \\
+$e_{i,t},e_i^{\min}$ & Stored energy and physical minimum, kWh \\
+$R_{i,t}$ & Connected operating reserve target, kWh \\
+$p^c_{i,t},p^d_{i,t}$ & Nonnegative charging/discharging power, kW \\
+$m_{i,t},x_{i,t}$ & Connected import/export power, kW \\
+$\lambda_{z,t}$ & Real-time settlement price, \$/kWh in accounting \\
+$U_{i,t},B_i$ & Interval unserved energy and annual reliability budget, kWh \\
+$\lambda_r$ & Shared reliability penalty, \$/kWh of delivered energy \\
+$\hat N_{i,t}$ & Historical five-hour usable-energy need, kWh stored \\
+$\hat p_h$ & Forecast county-risk timing proxy at planning step $h$ \\
+$f_{c,t}$ & Recorded county customers-out fraction \\
+$u_p,u_r$ & Learned power fraction and reserve multiplier \\
+$\varepsilon$ & Cumulative-risk threshold in the planning horizon \\
+\bottomrule
+\end{tabular}
+\caption{Notation used in the model and results. Stored-energy requirements account for discharge efficiency; delivered unserved energy is scored in kWh at the household.}
+\end{table}
+
+The three hardware presets are $(\bar E,\bar P^c,\bar P^d)=(25,11.4,11.4)$, $(50,11.4,11.4)$, and $(39.2,20,20)$ in kWh/kW/kW. The reference evaluation mix is 60\%, 20\%, and 20\%, respectively. Both efficiencies are 0.9486833. The physical minimum is 5\% of rated energy; operating percentage targets use available energy. State of health is fixed at one in the principal evaluation, and randomized during training. Homes are sampled with replacement from each metropolitan pool.
+
+For the five-hour need, each historical sample sums positive demand net of PV over 20 intervals, divides by discharge efficiency, and is grouped by local-time slot. The 90th percentile pools the target slot and its two neighboring quarter-hour slots on either side. Only samples whose entire forward window ends before episode start are eligible. Tier requirements repeat the calculation at their respective durations. PV surplus does not reduce a later positive-demand requirement in this conservative statistic; it can charge the battery in actual replay.
+
+The learned reserve mapping is
+\begin{equation}
+R_{i,t}=\operatorname{clip}\left(u_r\hat N_{i,t},\,0.1E_i,\,0.9E_i\right),\qquad 0\le u_r\le1.
+\end{equation}
+This is an action parameterization, not an exact translation of the optimization shortfall target $\hat N+e^{\min}$. In particular, outside the alert override its multiplier cannot request arbitrarily more than the historical usable-energy statistic. That restriction is part of the evaluated learned controller, and limits claims about other learned reserve designs. The alert override takes the maximum of this target and $0.9E_i$ for affected homes.
+
+The power proposal is $u_p$ times the currently realizable aggregate charge or discharge envelope, according to its sign. The priority allocator respects each home's feasible envelope. If enforcing a raised target requires additional charging, actual aggregate power can differ from that proposal. The absolute gap receives a reward penalty of 0.01 dollars per kW before division by fleet size. This engineering penalty is separate from the unserved-energy multiplier. Communication dropout is sampled independently per interval/home and disables remote trading actions; autonomous local islanded service remains available.
+
+\paragraph{Optimization reference.}
+Each home uses 32 equally spaced energy states between its physical minimum and available capacity. The horizon is at most 96 quarter-hours and shrinks at episode end. The program replans every four intervals, using current measured energy snapped to the nearest grid state for planning. Actual dispatch subsequently passes through continuous physical clipping and mandatory target recovery. Its terminal value is energy times discharge efficiency times the mean forecast wholesale price over that planning horizon; this is distinct from the fixed terminal inventory value used to compare realized episode margins. The hold-near-90\% reference adds a 0.02 \$/kWh-hour penalty on its energy gap below 90\%, above a 20\% floor. It is a soft high-SOC preference rather than a hard 90\% minimum.
+
+An operating-floor shortfall receives a large planning penalty, while the execution layer enforces the target to the extent physically reachable within the interval. Risk DP adds Equation~\eqref{eq:surrogate}; the threshold rule raises each future planning step's floor when cumulative timing-proxy mass through that step reaches $\varepsilon$. Neither anticipates future individual islanding. The oracle-onset variant substitutes realized county 1\% threshold onsets, rather than realized home failures. Oracle onset and market lookahead are two separate information references.
+
+\section{Complete training and reproduction protocol}
+\label{app:repro}
+
+The frozen main grid contains 21 runs. Promise-window training uses $\lambda_r\in\{5,20\}$ and seeds 1--5. Full-outage-cost learned-reserve training uses $\lambda_r=1$ at seeds 0--1, $\lambda_r=5$ at seeds 0--2, and $\lambda_r=20$ at seeds 0--1. Fixed-reserve and physical-minimum-only learned trading ablations use $\lambda_r=5$ at seeds 0--1. All retain physical clipping and the same policy architecture. Thus the physical-minimum-only ablation is not an unconstrained battery simulator.
+
+Each run uses 2,998,272 transitions, or 732 complete rollouts of 16 environments times 256 intervals. There are six PPO epochs and four minibatches per rollout, Adam epsilon $10^{-5}$, gradient-norm clipping 0.5, value-loss coefficient 0.5, and a linearly decaying learning rate from $3\times10^{-4}$. Discount, GAE, and policy-clipping parameters are 0.997, 0.95, and 0.2. Entropy coefficient is 0.005 for promise-cost runs and zero for full-cost runs. Observations and discounted returns have online running mean/variance normalization. Minibatch advantages are standardized. Gaussian samples are clipped into the environment's power/reserve action ranges; the log-probability objective uses the sampled Gaussian action. This clipped-action convention is a limitation of this implementation, not a newly proposed PPO estimator.
+
+The reference run uses one ARM64 CPU workstation with 11 logical processors and 18 GiB memory, up to six concurrent training processes, and one PyTorch thread per run. No GPU is used. Per-run configuration and progress logs retain the exact library versions, transition counts, and training times. File locks serialize any overlapping requests for the same run; parallel scheduling changes wall time, not the per-run budget or seed.
+
+Training samples Houston 2019--2023, fleet size uniformly from 50--200, hardware presets uniformly across the three types, per-home SOH uniformly from 0.85--1, and per-episode dropout probability uniformly from 0--0.1. Half of proposals start near county events above 1\%, with a random offset of up to three days. Every proposed interval overlapping a named training-year event holdout is rejected. A failed search raises an error rather than silently accepting a holdout overlap. Historical feature buffers after an event can contain its past observations; no additional 28-day feature embargo is imposed.
+
+Storm tests dated before 2024 are event holdouts within the training-year range, not chronological deployment backtests: the controller also trains on other, later dates in 2019--2023. Houston 2025 and 2026 are the chronological tests that postdate the entire PPO training period. ``Causal'' in the data protocol refers to the decision-time information set, including the pre-Uri hazard fit/calibration, rather than to a claim that the PPO controller was trained before every named storm.
+
+Among the ten promise-cost candidates, selection maximizes Houston 2024 annualized adjusted margin minus 20 dollars per kWh of annualized first-five-hour unserved energy. Ties use controller name. The frozen selection is \SelectedRun. Neither guarded outcomes nor test-year/event performance enter this rule. Both guarded and unguarded versions of every checkpoint are evaluated on each main dataset; the selected comparison does not hide the remaining runs.
+
+The main evaluation has five regular-year/metro datasets: Houston 2024, 2025, and partial 2026; DFW 2024; and San Antonio 2024. Six additional datasets are event-only: Houston 2021, 2022, and 2023; DFW 2021 and 2022; and San Antonio 2021. The three 2024 regular datasets also include named events in their output files, but those rows are never used in annualized aggregates. A machine-readable manifest lists every expected window and controller across 473 result files, and verifies exact coverage.
+
+Replay uses seed zero for fleet selection, hardware assignment, and the separately initialized outage/availability draws. The homes and outage realizations are common across controllers within a dataset/scenario. Regular windows start at the first target-year timestamp after the preceding-history prefix and partition the available period without overlap. The final partial interval is retained. All episodes start with 90\% available charge. Annualization divides complete per-home totals by observed hours and multiplies by 8,760, including for the leap year and partial 2026; these are standardized rates.
+
+The paper's aggregated cash-tail statistics use complete 24-hour blocks anchored at each window start; partial blocks are excluded. Per-window diagnostic columns can include a final short block and are not averaged to obtain these aggregates. CVaR$_5$ averages the lowest 5\% of those daily cash margins under the released quantile convention. The worst seven-block sum can cross a reset boundary and is not a continuous-operation worst-week estimate. Per-home promise quantiles include only homes with a simulated episode, while unserved-energy quantiles include every sampled home. Bootstrap intervals use 2,000 paired regular-window resamples with seed zero, pool episode/failure counts in each resample, and omit reliability resamples with no episodes.
+
+Code and processed artifacts carry protocol and source hashes. All reported replays use the final \texttt{reserve-minimum-v3} controller revision and the corrected full-cycle throughput-aging normalization. Preliminary outputs are archived separately. Corrections to the training information, reward, and physical execution required fresh PPO training; the later change to the independent optimization controller does not alter the learned training dynamics.
+
+\begin{table}[htbp]
+\centering\small
+\input{tables/promise_seeds}
+\caption{All ten promise-cost candidates on Houston 2024. Asterisk denotes the fixed validation selection. Margin difference is \$/home-year against fixed 20\%; throughput is charge plus discharge kWh/home-year. Promise and mean SOC are percentages. Names encode penalty and seed.}
+\label{tab:promise-seeds}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\input{tables/other_seeds}
+\caption{All eleven full-outage-cost and reserve-ablation runs, with the same units as Table~\ref{tab:promise-seeds}. ``None'' removes the operating reserve but retains physical battery limits. These runs do not participate in selecting the headline promise-cost candidate.}
+\label{tab:other-seeds}
+\end{table}
+\FloatBarrier
+
+\clearpage
+\section{Additional economic and household outcomes}
+\label{app:tails}
+\begingroup
+\setlength{\intextsep}{8pt}
+
+\begin{table}[!htbp]
+\centering\small
+\input{tables/economic_tails}
+\caption{Houston 2024 gross outcomes, in dollars per home. Cash and adjusted margins are annualized; daily CVaR and worst seven-block values use complete 24-hour cash blocks (Appendix~\ref{app:repro}). Higher values are preferable. Aging charges are excluded.}
+\label{tab:tails}
+\end{table}
+
+\begin{table}[!htbp]
+\centering\small
+\input{tables/households}
+\caption{Houston 2024 household tails. Promise $p_5$ is the fifth percentile of household episode-success rates among homes with outages (higher is better). Unserved $p_{95}$ is the 95th percentile of annualized household unserved energy, kWh/home-year (lower is better). These empirical quantiles do not certify household risk budgets.}
+\label{tab:households}
+\end{table}
+
+\begin{table}[!htbp]
+\centering\small
+\input{tables/seasonal}
+\caption{Houston 2024 seasonal window cohorts, assigned by first local timestamp: DJF (Dec--Feb), MAM (Mar--May), JJA (Jun--Aug), and SON (Sep--Nov). Boundary-crossing windows remain whole; these are not exact calendar-season totals. Hours and episodes are observed; margin is standardized \$/home-week against fixed 20\%. Higher margin/promise is better. The released CSV retains all controllers/datasets and paired window-bootstrap intervals.}
+\label{tab:seasonal}
+\end{table}
+\FloatBarrier
+\endgroup
+
+\section{Named storm windows and synthetic warnings}
+\label{app:events}
+
+The alert override uses county/zone hurricane and tropical-storm watches or warnings; severe-thunderstorm, tornado, winter-storm, blizzard, ice-storm, high-wind, squall, extreme-cold, wind-chill, and flash-flood warnings; and winter-weather advisories. The qualifying phenomena and significance codes are frozen in the released alert loader. The risk classifiers use separate, broader tropical, convective, winter, wind, and flood indicators.
+
+Named event endpoints are exclusive. Uri spans February 13--20, 2021; Elliott December 22--26, 2022; derecho May 16--19, 2024; Beryl July 8--14, 2024; and August heat August 19--21, 2024, in America/Chicago. All event dates and the additional 2023 and 2025 stress windows are frozen in the public split file. Event rows retain their actual durations; their weekly margins are episode rates and should not be interpreted as forecast annual profits. A restored interval within a merged household episode can recharge the battery, as it does in the simulator.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figs/event_traces.pdf}
+\caption{Houston storm traces under identical sampled homes and outages. Top: observed price (gray, left axis) and recorded county outage fraction (orange, right axis). Middle: average fleet SOC, which can conceal individual depleted homes. Bottom: cumulative unserved energy per sampled home, lower is preferable. Full-outage unserved energy can continue rising after a five-hour commitment has already succeeded. Time is local.}
+\label{fig:traces}
+\end{figure}
+
+\begin{table}[htbp]
+\centering\small
+\input{tables/events}
+\caption{Named-window results. Margin is terminal-adjusted \$/home-week, promise is a percentage, and unserved energy is kWh/home over the actual window. Episode counts refer to simulated household episodes and remain common across controllers. An unavailable promise means no scored episode. Higher margin/promise and lower unserved energy are preferable.}
+\label{tab:events}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\input{tables/alert_coverage}
+\caption{County warning coverage, all six evaluated counties, 2019--2025. Threshold is the customers-out percentage defining an audit event. ``Active'' means at onset; ``past 24 h'' means any recent qualifying warning and does not require continuity. The last column requires continuous active lead of at least four hours, the worst preset's charging time from its physical minimum. These fractions are not household service-success probabilities.}
+\label{tab:alerts}
+\end{table}
+
+The synthetic design crosses three prices (50, 1,000, 5,000 \$/MWh), three outage durations (2, 8, 24 h), four warning leads (0, 1, 3, 6 h), and two initial SOC values (10\%, 90\%), giving 72 cases. Six false/missed-warning cases and eight load/SOH/dropout cases give 86 indexed cases in total. One nominal setting repeats as a reference in the robustness block, leaving 85 distinct parameter settings. Each indexed case is evaluated for an always-discharge proposal and selected PPO, both guarded and unguarded, giving 344 comparisons. Thirty-two homes use 25 kWh presets, demand is 2 kW before an optional twofold uplift, and synthetic outages affect a county fraction of 0.5. SOH sensitivity is 0.85 versus one and dropout sensitivity zero versus 0.2. Price remains high through the specified joint-event window; the full episode lasts 48 hours. These controlled perturbations are stress scenarios, not samples from a calibrated event generator.
+\FloatBarrier
+
+\section{Risk-forecast diagnostics}
+\label{app:hazard}
+
+\begin{table}[htbp]
+\centering\small
+\input{tables/hazard}
+\caption{Out-of-training-period county classifier diagnostics pooled across the twelve weather-covered Texas counties used to fit/evaluate the forecast. Larger ROC AUC/average precision and smaller Brier score are preferable. Positive prevalence differs by year/horizon. Evaluation fleets use six of these counties. Calibration on 2020 does not imply calibration under later distribution changes.}
+\label{tab:hazard}
+\end{table}
+
+Each horizon classifier uses 300 histogram gradient-boosting iterations, learning rate 0.05, at most 31 leaves, balanced class weights, and seed zero. Isotonic calibration is fitted separately at each horizon. Calendar-year membership selects feature timestamps; future-window training labels can extend by at most 24 hours into the next calendar year. This boundary convention is shared by the saved forecast build and remains well before Uri for 2020 calibration. The bundle release freezes the resulting forecast arrays and fitted model.
+\FloatBarrier
+
+\section{Fleet sensitivities and runtime}
+\label{app:structure}
+
+\begin{table}[htbp]
+\centering\small
+\input{tables/structure}
+\caption{Six-window fleet sensitivity collection, not annual evaluation. Margin difference is \$/home-week against fixed 20\% under the same scenario and is weighted by duration. Promise pools household episode/failure counts across the six windows. Scenario names specify fleet size, a 70\% Core mix, or 20\% independent per-interval dropout; other settings match the base 100-home scenario. All sampled source pools contain 300 profiles.}
+\label{tab:structure}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\input{tables/latency}
+\caption{Mean CPU wall time per interval for complete forecast/decision/simulation loops, excluding episode reset. Three measured one-day repetitions follow a warm-up for each configuration. The CSV records platform, backend, thread count and all repetitions. DP replans hourly with 32 grid points; PPO acts every interval. These are implementation timings, not communication delays or isolated neural-network inference times.}
+\label{tab:latency}
+\end{table}
+\FloatBarrier
+
+\section{Full static feeder audit}
+\label{app:ac}
+
+The feeder has 1,581 load elements. A fixed seed selects battery locations at each penetration; profiles cycle over the same 100 homes across controllers. Nonattached locations use the load/PV reference. We solve 96 quarter-hours after one day of battery replay on April 15 (normal), July 8 (Beryl), and August 20 (heat), 2024. Three controls at two penetrations plus three no-battery references yield 21 rows. Original voltage-dependent load models are retained. The voltage mask uses the source-bus graph of enabled lines and transformers; it does not certify conductor continuity or phase energization. Relay, protection, restoration, feeder feedback, and AC dynamics are omitted.
+
+\begin{table}[htbp]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\input{tables/ac}
+\caption{Full AC audit. Penetration is the percent of load locations assigned battery dispatch. Voltage range is across phase nodes at graph-reachable buses and all intervals, using the mask above. UV/OV are percentages of intervals with any retained phase voltage below 0.95/above 1.05 pu; Line is the percentage with any line current above its nominal ampacity. A small minimum is retained even when the snapshot solver reports convergence. Eighteen phase nodes at unreachable buses have zero voltage and are counted separately in the released CSV. The reference's existing violations prevent treating controller changes as a calibrated grid-compliance assessment.}
+\label{tab:ac}
+\end{table}
+\FloatBarrier
+
+\section{Aging sensitivity conventions}
+\label{app:aging}
+
+Calendar fade is fixed at 2\% per year, independent of dispatch. The throughput proxy is $f_{\rm ET}=2.71\times10^{-5}$ times charge-plus-discharge energy divided by twice rated capacity. The cycle proxy is $\sum_j f_{\rm CB}d_j^{2.03}n_j$, with $f_{\rm CB}=5.24\times10^{-4}$, normalized SOC range $d_j$, and rainflow full/half-cycle count $n_j$. These coefficients follow \citet{humiston2026degradation} without recalibration to the commercial packs. Throughput and rainflow fades are annualized by observed duration.
+
+BLAST-Lite 1.1.1 uses \texttt{Lfp\_Gr\_SonyMurata3Ah\_Battery}. Each SOC and completed-hour ambient-temperature trace is tiled and truncated to 365 days, avoiding linear scaling of short-window calendar fade while introducing repetition and boundary discontinuities. Ambient temperature proxies cell temperature; thermal management, chemistry differences, aging feedback, and stochastic long-term cycling are unmodeled. These columns describe model sensitivities under fixed dispatch, rather than calibrated pack-lifetime forecasts.
+
+\begin{table}[htbp]
+\centering\small
+\input{tables/degradation}
+\caption{Mean across four 20-home window sensitivities (Beryl, derecho, August heat, and regular window w10). ET and rainflow columns are annualized capacity-loss percentages; BLAST repeats each trace to one year. Equal weighting across these windows is a reporting convention, not a representative annual climate mix. Mean SOC is a percentage. Lower predicted fade is preferable within a model; values across model classes are not interchangeable.}
+\label{tab:aging}
+\end{table}
+\FloatBarrier

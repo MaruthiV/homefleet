@@ -3,7 +3,8 @@ train_years: [2019, 2020, 2021, 2022, 2023]
 val_years: [2024]
 test_years: [2025]
 post_rtcb_start: "2025-12-05"
-hazard_train_years: [2014, 2015, 2016, 2017, 2018, 2019, 2020]
+hazard_train_years: [2014, 2015, 2016, 2017, 2018, 2019]
+hazard_calibration_year: 2020
 zones: [LZ_HOUSTON, LZ_NORTH, LZ_SOUTH]
 metros:
   houston: {zone: LZ_HOUSTON, counties: ["48201"]}

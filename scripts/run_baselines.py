@@ -1,16 +1,26 @@
 import argparse
 import json
+import hashlib
 import time
+from pathlib import Path
+from functools import lru_cache
 from multiprocessing import Pool
 import numpy as np
 import pandas as pd
 import yaml
+import homefleet
 from homefleet.paths import DATA_PROC, EXPERIMENTS, CONFIGS
 from homefleet.env import FleetData, HomeFleetEnv
 from homefleet.control.baselines import run_controller
 from homefleet.eval.episode import summarize
 
 TZ = "America/Chicago"
+CODE_ROOT = Path(homefleet.__file__).resolve().parent
+CORE_FILES = ['env.py', 'control/baselines.py', 'control/dp.py', 'control/dp_compiled.py', 'control/qp_layer.py',
+              'sim/battery.py', 'sim/profiles.py', 'sim/tariff.py', 'sim/outage.py', 'eval/episode.py',
+              'eval/degradation_report.py', 'sim/degradation.py']
+REPLAY_CODE_SHA = hashlib.sha256(b''.join((CODE_ROOT / name).read_bytes() for name in CORE_FILES)).hexdigest()
+POLICY_CODE_SHA = hashlib.sha256((REPLAY_CODE_SHA + hashlib.sha256((CODE_ROOT / 'rl/ppo.py').read_bytes()).hexdigest()).encode()).hexdigest()
 MODES = {
     "B0_fixed": dict(mode="fixed"),
     "B0_fixed10": dict(mode="fixed", fixed_frac=0.10),
@@ -26,32 +36,44 @@ MODES = {
 }
 
 
+def is_regular_window(name):
+    """Regular partitions are wNN; named events such as wind_mar_2025 are separate."""
+    return isinstance(name, str) and name.startswith('w') and name[1:].isdigit()
+
+
 def windows_for_year(d, year, weeks=2, events=None):
     # contiguous 2-week windows covering the year plus named event windows
     out = []
     n = 96 * 7 * weeks
-    for s in range(96 * 28, d.T - n, n):
-        out.append((f"w{s // n:02d}", s, n))
+    for k, s in enumerate(range(d.evaluation_start, d.T, n)):
+        out.append((f"w{k:02d}", s, min(n, d.T - s)))
     if events:
         for name, ev in events.items():
             st = pd.Timestamp(ev["start"], tz=TZ)
             if st.year != year:
                 continue
             s = d.index.get_indexer([st])[0]
-            if s > 0:
-                out.append((name, int(s), min(n, d.T - s)))
+            if s >= 28 * 96:
+                end = pd.Timestamp(ev['end'], tz=TZ)
+                count = int(((d.index >= st) & (d.index < end)).sum())
+                out.append((name, int(s), count))
     return out
+
+
+@lru_cache(maxsize=2)
+def cached_data(path):
+    return FleetData(path)
 
 
 def _job(args):
     bundle, start, n_steps, homes, presets, seed, S, spec, kw, wname, vname = args
-    d = FleetData(bundle)
+    d = cached_data(bundle)
     env = HomeFleetEnv(d)
     env.reset(start, n_steps, homes, presets, seed=seed, tiers_h=None)
     t = time.time()
     res = run_controller(env, S=S, **{**spec, **kw})
-    s = summarize(res, env.dt, params=env.params, soh=env.soh)
-    s.update({"window": wname, "start": str(d.index[start]), "controller": vname, "sec": round(time.time() - t, 1)})
+    s = summarize(res, env.dt, params=env.params, soh=env.soh, initial_energy=env.initial_energy)
+    s.update({"window": wname, "start": str(d.index[start]), "controller": vname, "sec": round(time.time() - t, 1), 'protocol': d.protocol, 'controller_revision': 'reserve-minimum-v3', 'source_sha256': REPLAY_CODE_SHA})
     return s
 
 
@@ -68,20 +90,22 @@ def main():
     ap.add_argument("--windows", default="all", help="all | events | wNN,...")
     ap.add_argument("--out", default=None)
     ap.add_argument("--procs", type=int, default=6)
+    ap.add_argument('--data-dir', type=Path, default=DATA_PROC / 'revised')
     a = ap.parse_args()
     sp = yaml.safe_load(open(CONFIGS / "splits.yaml"))
-    d = FleetData(DATA_PROC / f"{a.metro}_{a.year}.npz")
+    d = FleetData(a.data_dir / f"{a.metro}_{a.year}.npz")
     wins = windows_for_year(d, a.year, events=sp["events"])
     if a.windows == "events":
-        wins = [w for w in wins if not w[0].startswith("w")]
+        wins = [w for w in wins if not is_regular_window(w[0])]
     elif a.windows != "all":
         keep = set(a.windows.split(","))
         wins = [w for w in wins if w[0] in keep]
     rng = np.random.default_rng(a.seed)
     homes = rng.integers(0, d.N_pool, a.n)
     presets = list(rng.choice(["gen2_single", "gen2_double", "core"], a.n, p=[0.6, 0.2, 0.2]))
-    out = EXPERIMENTS / (a.out or f"baselines_{a.metro}_{a.year}_n{a.n}_s{a.seed}.csv")
-    bundle = DATA_PROC / f"{a.metro}_{a.year}.npz"
+    out = EXPERIMENTS / (a.out or f"revised/baselines_{a.metro}_{a.year}_n{a.n}_s{a.seed}.csv")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    bundle = a.data_dir / f"{a.metro}_{a.year}.npz"
     jobs = []
     for wname, start, n_steps in wins:
         for mname in a.modes:
@@ -93,13 +117,16 @@ def main():
                 variants = [(f"{mname}_eps{e:g}", {"eps_cc": e}) for e in a.eps_grid]
             for vname, kw in variants:
                 jobs.append((bundle, start, n_steps, homes, presets, a.seed, a.S, spec, kw, wname, vname))
-    rows = []
+    rows = pd.read_csv(out).to_dict('records') if out.exists() else []
+    rows = [r for r in rows if isinstance(r.get('daily_cash_margin_per_home'), str) and r.get('protocol') == 'causal-v3' and pd.notna(r.get('promise_unserved_kwh_per_home')) and r.get('controller_revision') == 'reserve-minimum-v3' and r.get('source_sha256') == REPLAY_CODE_SHA]
+    completed = {(r['window'], r['controller']) for r in rows}
+    jobs = [j for j in jobs if (j[-2], j[-1]) not in completed]
     with Pool(a.procs) as pool:
         for s in pool.imap_unordered(_job, jobs):
             s.update({"metro": a.metro, "year": a.year, "n": a.n, "seed": a.seed})
             rows.append(s)
             print(s["window"], s["controller"], round(s["margin_per_home_week"], 2), round(s["unserved_kwh_per_home"], 2), round(s["promise_rate"], 3), s["sec"], flush=True)
-            pd.DataFrame(rows).to_csv(out, index=False)
+            pd.DataFrame(rows).sort_values(['window', 'controller']).to_csv(out, index=False)
     print(out)
 
 

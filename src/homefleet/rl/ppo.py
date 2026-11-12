@@ -1,11 +1,15 @@
 import json
 import time
+import hashlib
+import platform
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
 from homefleet.env import FleetData, HomeFleetEnv
 from homefleet.sim.outage import event_windows
+from homefleet.paths import ROOT
 
 
 class RunningStat:
@@ -61,6 +65,8 @@ class EpisodeSampler:
     # random training episodes across bundles; half start near an outage event window; holdout windows are never sampled
     def __init__(self, bundles, episode_steps, n_range, presets, rng, event_frac=0.5, dropout_max=0.1, cfg=None, holdouts=None):
         self.data = [FleetData(b) for b in bundles]
+        if not self.data or any(d.protocol != 'causal-v3' for d in self.data):
+            raise ValueError('training requires causal-v3 bundles; archived inputs must not be relabelled')
         self.holdouts = []
         for i, d in enumerate(self.data):
             for h in (holdouts or []):
@@ -84,15 +90,17 @@ class EpisodeSampler:
         return any(hi == i and start < b and start + self.ep > a for hi, a, b in self.holdouts)
 
     def new_env(self, seed):
-        for _ in range(100):
+        for _ in range(1000):
             if self.events and self.rng.random() < self.event_frac:
                 i, s = self.events[self.rng.integers(len(self.events))]
-                start = max(0, min(s - self.rng.integers(0, 96 * 3), self.data[i].T - self.ep - 1))
+                start = max(28 * 96, min(s - self.rng.integers(0, 96 * 3), self.data[i].T - self.ep - 1))
             else:
                 i = self.rng.integers(len(self.data))
                 start = self.rng.integers(96 * 28, self.data[i].T - self.ep - 1)
             if not self._overlaps_holdout(i, start):
                 break
+        else:
+            raise RuntimeError("could not sample a training episode outside event holdouts")
         d = self.data[i]
         n = int(self.rng.integers(self.n_range[0], self.n_range[1] + 1))
         homes = self.rng.integers(0, d.N_pool, n)
@@ -110,6 +118,15 @@ def train(bundles, out_dir, total_steps=2_000_000, n_envs=16, rollout=256, epoch
     rng = np.random.default_rng(seed)
     torch.manual_seed(seed)
     sampler = EpisodeSampler(bundles, episode_steps, n_range, list(presets), rng, cfg=cfg, holdouts=holdouts)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    settings = dict(total_steps=total_steps, n_envs=n_envs, rollout=rollout, epochs=epochs, minibatch=minibatch, lr=lr,
+                    gamma=gamma, gae_lambda=lam, clip=clip, ent=ent, vf=vf, lam_r=lam_r, episode_steps=episode_steps,
+                    n_range=n_range, presets=presets, seed=seed, reserve_mode=reserve_mode, promise_cost=promise_cost,
+                    holdouts=holdouts, threads=threads, protocol='causal-v3', python=platform.python_version(),
+                    numpy=np.__version__, torch=torch.__version__, bundles=[str(b) for b in bundles])
+    settings['source_sha256'] = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT / 'src').rglob('*.py')}
+    settings['bundle_sha256'] = {Path(b).name: hashlib.sha256(Path(b).read_bytes()).hexdigest() for b in bundles}
+    (out_dir / 'config.json').write_text(json.dumps(settings, indent=2) + '\n')
     envs = [sampler.new_env(seed * 1000 + i) for i in range(n_envs)]
     obs_dim = envs[0].obs().shape[0]
     agent = Agent(obs_dim, 2).to(device)
@@ -193,9 +210,11 @@ def train(bundles, out_dir, total_steps=2_000_000, n_envs=16, rollout=256, epoch
         if upd % log_every == 0:
             rec = {"update": upd, "steps": gstep, "ep_return_mean": float(np.mean(ep_returns[-20:])) if ep_returns else None, "sec": round(time.time() - t0, 1)}
             hist.append(rec)
+            with open(out_dir / 'progress.jsonl', 'a') as progress:
+                progress.write(json.dumps(rec) + '\n')
             print(json.dumps(rec), flush=True)
     out_dir.mkdir(parents=True, exist_ok=True)
-    torch.save({"state_dict": agent.state_dict(), "obs_mean": ostat.mean, "obs_var": ostat.var, "obs_dim": obs_dim, "lam_r": lam_r, "reserve_mode": reserve_mode, "promise_cost": promise_cost}, out_dir / "policy.pt")
+    torch.save({"state_dict": agent.state_dict(), "obs_mean": ostat.mean, "obs_var": ostat.var, "obs_dim": obs_dim, "lam_r": lam_r, "reserve_mode": reserve_mode, "promise_cost": promise_cost, 'protocol': 'causal-v3'}, out_dir / "policy.pt")
     json.dump(hist, open(out_dir / "train_log.json", "w"))
     return agent, ostat
 
@@ -205,23 +224,25 @@ def load_policy(path, device="cpu"):
     agent = Agent(ck["obs_dim"], 2).to(device)
     agent.load_state_dict(ck["state_dict"])
     agent.eval()
+    agent.protocol = ck.get('protocol', 'submitted-v1')
     st = RunningStat((ck["obs_dim"],))
     st.mean, st.var = ck["obs_mean"], ck["obs_var"]
     return agent, st
 
 
 def run_policy(env, agent, ostat, deterministic=True, lam_r=5.0, reserve_mode="learned", guardrail=False):
+    if getattr(agent, 'protocol', 'submitted-v1') != env.d.protocol:
+        raise ValueError('policy and bundle protocols differ; use the matching data and checkpoint')
     o = env.obs()
     done = False
     while not done:
         x = torch.as_tensor(ostat.norm(o).astype(np.float32))
         with torch.no_grad():
             mean = agent.actor_mean(x)
-            a = mean.numpy() if deterministic else agent.act(x)[0].numpy()
+            a = mean.numpy() if deterministic else agent.act(x[None, :])[0][0].numpy()
         ea = to_env_action(a)
         override = None
-        if guardrail and env.alert[env.k].any():
-            # storm-mode clamp: alert active -> hold near full capacity, like storm watch
-            override = 0.9 * env.params.energy_kwh * env.soh
+        if guardrail:
+            override = np.where(env.alert[env.k], 0.9 * env.params.energy_kwh * env.soh, env.emin())
         o, r, done, _ = env.rl_step(ea, lam_r=lam_r, reserve_mode=reserve_mode, floor_override=override)
     return env.results()

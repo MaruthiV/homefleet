@@ -1,0 +1,13 @@
+{
+  "presets": [
+    "gen2_single",
+    "gen2_double",
+    "core"
+  ],
+  "worst_charge_hours": [
+    2.0,
+    4.0,
+    2.0
+  ],
+  "assumption": "continuous connection and full inverter availability; initial physical minimum; SOH 1"
+}

@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage[preprint]{neurips_2026}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{placeins}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,
+  pdftitle={Adaptive Reliability Reserves for Residential Battery Fleets},
+  pdfauthor={Maruthi Vemula and Neeraj Praneeth Gajula}}
+\newtheorem{proposition}{Proposition}
+\input{authors}
+\input{numbers}
+\title{Adaptive Reliability Reserves\\for Residential Battery Fleets}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+In a Houston 2024 replay, replacing a fixed 20\% battery reserve with a county-risk threshold raises observed five-hour backup coverage from \FixedPromise\ to \ThresholdPromise\ and adds \$\ThresholdGain\ in modeled annualized margin per home (paired 95\% interval: \$\ThresholdLow\ to \$\ThresholdHigh). The paired coverage-gain interval includes zero. This is a conditional simulation result, not measured company reliability. Residential batteries face this tradeoff because market discharge consumes energy also needed for household outages. We release HomeFleet-ERCOT, combining observed prices and county outages with identified simulated homes and causal controller inputs. We compare independent-home optimization with 21 proximal policy optimization (PPO) training runs; ten promise-cost candidates span \PromiseSeedLow--\PromiseSeedHigh\ backup coverage. Of these, \PromiseNegativeMarginCount\ have lower modeled margin than fixed 20\%, and \PromiseBelowFixedCount\ also have lower coverage. Chronological, geographic, fleet, and storm tests examine transfer. An alert charging override has a conditional energy-and-power sufficiency guarantee, but only \AlertLeadCoverage\ of \MassEvents\ county mass-outage episodes provide enough continuous warning for every battery preset. Synthetic tests include short, missed, and false warnings, load uplift, capacity loss, and dropout. A static AC audit retains existing feeder violations; aging comparisons expose model sensitivity. The release includes individual profiles, controllers, checkpoints, splits, and result-generation code. Fixed penalties and feasible battery actions remain distinct from household reliability guarantees.
+\end{abstract}
+
+\section{Introduction}
+
+A residential battery can reduce electricity costs while the grid is available and supply its household when the grid fails. The two uses compete for stored energy. Public operating descriptions illustrate the practical controls: Base Power describes retaining at least 20\% charge, while Tesla's Storm Watch charges toward maximum capacity during qualifying weather alerts~\citep{basecharge2026,teslastormwatch}. Those descriptions motivate our reference policies; our simulator does not reproduce either company's proprietary controller or customer outcomes.
+
+We ask how much modeled market value a reserve can retain while protecting a short household backup commitment, and whether a learned decision rule continues to do so outside its training conditions. The reserve is the energy target retained while connected. The commitment is assessed separately: an outage episode succeeds if the battery serves its first five hours, or until earlier restoration, without unserved demand. A physically feasible trading action can still leave too little energy for this commitment.
+
+Historical timing motivates adaptation without establishing its safety. Across 1,826 days in 2021--2025, 107 days reached at least \$1,000/MWh in one of five ERCOT load zones, 28 reached at least 250,000 reported customers out statewide, and four met both thresholds; the four joint days occurred during Uri (Figure~\ref{fig:context}). This aggregate observation does not imply independence at a household, predict future storms, or bound the cost of charging during an alert. The rare joint event is precisely where an adaptive controller needs scrutiny.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/orthogonality.pdf}
+  \caption{Historical price/outage context, 2021--2025. Each point is one local day. Dashed lines mark the two descriptive thresholds; both axes use logarithmic scales. The prices span Houston, North, South, Austin Energy, and CPS load zones. Statewide outage totals are not the household replay's reliability metric.}
+  \label{fig:context}
+\end{figure}
+
+Our contributions are three empirical and methodological pieces. First, we distinguish a per-household unserved-energy budget from the fixed-penalty surrogate actually implemented, and distinguish attainable battery constraints from outage-service guarantees. Second, HomeFleet-ERCOT supplies a versioned replay linking observed market/county records with identified simulated homes and causal controller inputs. Third, paired comparisons, complete seed reporting, named storms, synthetic warnings, and physical/accounting audits examine when a reserve policy's apparent advantage survives changes in conditions. The policy network and allocation mechanism are established components, rather than the claimed novelty.
+
+The grid-facing setting is deliberately limited. The provider trades at exogenous zone prices, and its connected household dispatch changes distribution-level power exchange. We examine that exchange with static AC power flow. We do not model bulk-grid dynamics, endogenous market prices, or a network-constrained dispatch controller. This distinction makes the grid result and its limits assessable.
+
+\section{Relation to prior work}
+
+Residential storage's backup and economic uses have been studied under electricity tariffs~\citep{gorman2025backup}. Weather-informed home storage and microgrid control also precede this work~\citep{schmitz2020proactive,gutierrezrojas2021weather}. \citet{anunrojwong2026pooling} study coordination across residential batteries while preserving household backup commitments, using household telemetry and model predictive control. Here, household loads and interruptions are simulated from public sources, and the implemented optimization reference solves independent-home dynamic programs. We do not present it as a reproduction of their pooled controller. Learned storage reachability and terminal charge targets provide another related reserve mechanism~\citep{tapia2026reachability}.
+
+Our learned controller uses proximal policy optimization (PPO)~\citep{schulman2017ppo} and a priority allocation/feasibility layer. Projection and correction of learned energy actions have extensive precedents~\citep{chen2021prof,ceusters2023safe,stanojev2023safe,karimimadahi2024control,markgraf2025projection}; realizable battery aggregation likewise requires individual power and energy accounting~\citep{elsaadany2026realizability}. These techniques motivate enforcing immediate operating constraints. They do not by themselves establish a household outage-service probability.
+
+SustainGym emphasizes realistic energy-control evaluation under distribution shifts~\citep{yeh2023sustaingym}. Our benchmark focuses on the additional interaction between market dispatch, a local backup promise, and warning availability. Forecast assessment includes downstream economics and service outcomes, alongside classification metrics, because prediction accuracy alone need not determine decision value~\citep{lin2025accuracy}. Aging is assessed separately from dispatch, following the model-comparison motivation of \citet{humiston2026degradation}, with rainflow-based cycling~\citep{xu2018rainflow} and an SOC/temperature-dependent LFP model~\citep{blastlite}.
+
+\input{methods}
+\input{results}
+
+\section{Discussion and limits}
+
+This replay supports comparisons conditional on its input records and simulator. It does not estimate the reliability of an operating battery company. County outage fractions cannot identify which sampled buildings failed, missing county reports are treated as zero, and a repeated 2018 building profile does not represent storm-specific heating behavior. Synthetic load uplift tests one consequence of that mismatch without reconstructing historical Uri demand. The fixed modeled-customer denominator and evolving reporting coverage add further uncertainty. Warning mapping uses a single April 2026 zone/county crosswalk across historical years, so boundary changes can affect the coverage audit.
+
+The replay's input lags define assumed availability, rather than verify every historical publication vintage. Weather comes from retrospective model/reanalysis products, and warning intervals use archived issue/expiry fields rather than every as-issued message. Actual reporting delays, revisions, and operational weather feeds remain untested.
+
+The reliability budget is a useful statement of the desired service, but a shared fixed penalty and a common learned reserve multiplier do not enforce it for every household. The learned action parameterization, fleet summary observations, one PPO implementation, and finite training budget restrict the conclusions to this controller family. A failure here does not establish that all learned reserve policies must fail. Conversely, selecting one candidate from ten on a validation year does not remove selection uncertainty; all candidate outcomes remain visible.
+
+Economic comparisons omit capital, hedging, subscriptions, ancillary-service revenues and performance obligations, and aging costs. Repeated two-week initializations can support different behavior from continuous operation, even with a terminal inventory adjustment. Bootstrap intervals reflect recorded-window variation under one replay seed, rather than uncertainty in the household outage model or future event frequencies. Prices after the RTC+B redesign provide a chronological stress test, not an estimate of the redesign's causal effect.
+
+The alert proposition states conditions that can be checked in a specified model. Real warning lead and charging availability often fail those conditions. Neither favorable replay outcomes nor a conditional proposition validates unattended deployment. The feeder audit likewise shows why individual battery feasibility is insufficient to establish network acceptability: loads, placement, voltage behavior, thermal ratings, and protection need their own calibrated assessment. Continuous-year replay, household outage telemetry, operational weather forecasts, household-specific risk enforcement, and network-aware control would address distinct limitations left open here.
+
+\section*{Data and code availability}
+
+The public repository is \url{https://github.com/MaruthiV/homefleet}. Release v0.2.0 contains code and hash-identified data, checkpoint, and result archives. A packaged eight-home example runs without a download. The data card distinguishes observations from simulations and records source terms; the reproducibility guide maps commands to each result. The named preprint uses protocol \texttt{causal-v3}; its outputs should not be pooled with the original workshop submission. The repository records the substantive scientific corrections.
+
+\section*{LLM usage disclosure}
+
+Language models assisted with implementation, analysis scripts, source checking, and prose editing. The released code, assumptions, input manifests, numerical outputs, and manuscript-generation scripts make those contributions inspectable.
+
+\FloatBarrier
+\bibliographystyle{plainnat}
+\setlength{\bibsep}{2pt}
+\bibliography{refs}
+\clearpage
+\appendix
+\input{appendix}
+\end{document}

@@ -7,4 +7,5 @@ def test_rainflow_simple():
     cyc = rainflow_cycles(soc)
     assert sum(c for _, c in cyc) > 0
     assert cycle_based(soc) > 0
-    assert np.isclose(energy_throughput(1000.0, 25.0), 2.71e-5 * 40)
+    # One full 25 kWh charge/discharge cycle transfers 50 kWh.
+    assert np.isclose(energy_throughput(50.0, 25.0), 2.71e-5)

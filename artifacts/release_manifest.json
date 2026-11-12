@@ -1,0 +1,38 @@
+{
+  "version": "v0.2.0",
+  "protocol": "causal-v3",
+  "assets": [
+    {
+      "group": "bundles",
+      "name": "homefleet-bundles-v0.2.0.tar.gz",
+      "sha256": "ae15336431f9b63b0227b0bf12d05b92a3767fc9d83d6dee98653b6f41486544",
+      "bytes": 618634713,
+      "url": "https://github.com/MaruthiV/homefleet/releases/download/v0.2.0/homefleet-bundles-v0.2.0.tar.gz",
+      "files": 23
+    },
+    {
+      "group": "raw",
+      "name": "homefleet-raw-v0.2.0.tar.gz",
+      "sha256": "9a7605feb2fc04ca41587c5326afef2c22a1c9a897c4c6e4a4d41d385327b9d3",
+      "bytes": 257029389,
+      "url": "https://github.com/MaruthiV/homefleet/releases/download/v0.2.0/homefleet-raw-v0.2.0.tar.gz",
+      "files": 117
+    },
+    {
+      "group": "checkpoints",
+      "name": "homefleet-checkpoints-v0.2.0.tar.gz",
+      "sha256": "58df001e96614b6fb122defad76de1bd7c973cda3afbb9e9b92e9a10ac9c3e61",
+      "bytes": 12379207,
+      "url": "https://github.com/MaruthiV/homefleet/releases/download/v0.2.0/homefleet-checkpoints-v0.2.0.tar.gz",
+      "files": 63
+    },
+    {
+      "group": "results",
+      "name": "homefleet-results-v0.2.0.tar.gz",
+      "sha256": "b69bb0fd694b9fcdb8a303ecf1a9107df8da2c669ee8510cbcdeb3a0da08d8bc",
+      "bytes": 4138098,
+      "url": "https://github.com/MaruthiV/homefleet/releases/download/v0.2.0/homefleet-results-v0.2.0.tar.gz",
+      "files": 953
+    }
+  ]
+}

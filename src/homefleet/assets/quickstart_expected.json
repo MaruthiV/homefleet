@@ -1,0 +1,16 @@
+{
+  "fixed_20": {
+    "margin_per_home_week": 10.557679421713178,
+    "promise_rate": 0.9473684210526316,
+    "unserved_kwh_per_home": 21.355872868143244,
+    "physical_violations": 0,
+    "reachable_floor_violations": 0
+  },
+  "hazard_reserve": {
+    "margin_per_home_week": 9.008555041738605,
+    "promise_rate": 0.9473684210526316,
+    "unserved_kwh_per_home": 19.011264861411995,
+    "physical_violations": 0,
+    "reachable_floor_violations": 0
+  }
+}

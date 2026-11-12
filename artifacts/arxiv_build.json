@@ -1,0 +1,117 @@
+{
+  "title": "Adaptive Reliability Reserves for Residential Battery Fleets",
+  "pages": 22,
+  "clean_rebuild_matches_text": true,
+  "pdf_sha256": "fe6f810a07e0384f11590ad243ce652de2db216753f57dd4b3f9314fc84d5330",
+  "source_zip_sha256": "723a5cdc4d4388bead750d12f10310f5aec5ef67382d3879a1d3254312404c52",
+  "source_files": [
+    {
+      "path": "appendix.tex",
+      "sha256": "3fa9354b2f4e538e119d2c2210d41b013e3b8847a5425ed0a632d2f1e0c5de48"
+    },
+    {
+      "path": "authors.tex",
+      "sha256": "1fda5af34a558cbc60db9fcab8ceffb8624c811e40806cb652074c53dda10f33"
+    },
+    {
+      "path": "figs/event_traces.pdf",
+      "sha256": "9db578aa19cba8f9e712ef0fe6dfa41c58e1c1904e656a59ce880820e1af0137"
+    },
+    {
+      "path": "figs/frontier.pdf",
+      "sha256": "14d34e4503a2a27022800fad2506f934801553a515657add1d30509bac0ae047"
+    },
+    {
+      "path": "figs/orthogonality.pdf",
+      "sha256": "422b2852b718dc036c020968437dbf57b319367ce0d39345b37f435290a00207"
+    },
+    {
+      "path": "figs/stress.pdf",
+      "sha256": "3c706e22762e362ed8c4715348c9196209a80a28a412365c70c40abf39697d6f"
+    },
+    {
+      "path": "figs/transfer.pdf",
+      "sha256": "45076bc7c25ecfe94b4e53dad530f4d22f8649486ad831548877caa7fa64d7b6"
+    },
+    {
+      "path": "main.bbl",
+      "sha256": "b4e4218563ad1baea2e1c75e9d65d5d9ed954e15e42472199b7d2381f6e59e50"
+    },
+    {
+      "path": "main.tex",
+      "sha256": "091248edcfefcbe612c85b7a0ecfe281e3060c990d09dc2af4d8666fff86e48a"
+    },
+    {
+      "path": "methods.tex",
+      "sha256": "75aaa9878699faaf35213de84b5d88c229833c03f37e2d3509cbaa43b51d7cce"
+    },
+    {
+      "path": "neurips_2026.sty",
+      "sha256": "c3fc2894e83d2517ca18b66741d6c595986d97957dc08ec08bb2125a7ec4555a"
+    },
+    {
+      "path": "numbers.tex",
+      "sha256": "16dabef05a86b3bb47c1f8dcb5c25986a98eeda594343bb46b9a42593603bb9d"
+    },
+    {
+      "path": "refs.bib",
+      "sha256": "f63b36df955513b5286dc98cccb07fee14f52fdc606cc0685429a5a828adfe2d"
+    },
+    {
+      "path": "results.tex",
+      "sha256": "46d93446bb602becf3730c5e324cba4e28f5e0c07508947922a1393d6099467b"
+    },
+    {
+      "path": "tables/ac.tex",
+      "sha256": "267177d7b5668e626794d28166cc9415793ec7f5ae57163306c4a86d96224425"
+    },
+    {
+      "path": "tables/alert_coverage.tex",
+      "sha256": "e2be9301d1bc230f52057ad8ff5f7641590761d5fc361c2473dd3b0a10e39190"
+    },
+    {
+      "path": "tables/degradation.tex",
+      "sha256": "7850604c9045a4d354798e7f50845cbdf9e1c501d1312976799648bf529c2d4a"
+    },
+    {
+      "path": "tables/economic_tails.tex",
+      "sha256": "73acee8bd5b1e9bda3c021ef3d16bfa34e9f4e8a7826c949249f057eff0628d0"
+    },
+    {
+      "path": "tables/events.tex",
+      "sha256": "5f68fd6768922141fbbc961dee2ee0a8f8e357e944e4dd6c2602a2bb26909b35"
+    },
+    {
+      "path": "tables/frontier.tex",
+      "sha256": "5b3c25c874bca9b4658c76a2ead8728160eae3bb98dc43d82d8fdd5f2c56610d"
+    },
+    {
+      "path": "tables/hazard.tex",
+      "sha256": "8b6f3690ef2d9c49be3ea2bc5d8bed9ecd809fcb322497ab26b5b76e43ee04ee"
+    },
+    {
+      "path": "tables/households.tex",
+      "sha256": "9127e7eb122c07cfa30f5d3c021033f27eaf128f8461c5cc967b70e343f3659c"
+    },
+    {
+      "path": "tables/latency.tex",
+      "sha256": "4240787a8013f3d41becbb099ab7947072d46a629c81e3daf334c9c90bc3e34a"
+    },
+    {
+      "path": "tables/other_seeds.tex",
+      "sha256": "cd5182d2c016e02952dd57a58978095f26d20924ddea7584bba72e2f49540c87"
+    },
+    {
+      "path": "tables/promise_seeds.tex",
+      "sha256": "1c751cb07b1e5d5520199ef1975d73412c6cf8b2eed64772263c5f497d99671a"
+    },
+    {
+      "path": "tables/seasonal.tex",
+      "sha256": "db4aecc08a5ae81b40cce30fc02ec42ac74f8657dca83232629a6b9a32ee2e8a"
+    },
+    {
+      "path": "tables/structure.tex",
+      "sha256": "95e421e4c5139d7aa5029afdd8183554ddadd2e32c6601f75042d0629be53726"
+    }
+  ]
+}

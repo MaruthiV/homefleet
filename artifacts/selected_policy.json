@@ -1,0 +1,10 @@
+{
+  "run": "ppo_pc_lam5_s4",
+  "controller": "B6_ppo_pc_lam5_s4",
+  "path": "experiments/revised/ppo_pc_lam5_s4/policy.pt",
+  "protocol": "causal-v3",
+  "source_sha256": "4de329986ef263fa0e1cefbe84ed798ebc7f2a31c4c18f1e859de6a6b04a6c6c",
+  "policy_sha256": "12cfa5379cd083e4774e67449ea83afad47cccd20947303239b3cb1476fdc2c8",
+  "criterion": "Houston 2024 annualized margin minus $20/kWh of first-five-hour unserved energy",
+  "validation_score": 426.08536757821025
+}

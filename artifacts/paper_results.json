@@ -1,0 +1,191 @@
+{
+  "protocol": "causal-v3",
+  "selection": {
+    "run": "ppo_pc_lam5_s4",
+    "controller": "B6_ppo_pc_lam5_s4",
+    "path": "experiments/revised/ppo_pc_lam5_s4/policy.pt",
+    "protocol": "causal-v3",
+    "source_sha256": "4de329986ef263fa0e1cefbe84ed798ebc7f2a31c4c18f1e859de6a6b04a6c6c",
+    "policy_sha256": "12cfa5379cd083e4774e67449ea83afad47cccd20947303239b3cb1476fdc2c8",
+    "criterion": "Houston 2024 annualized margin minus $20/kWh of first-five-hour unserved energy",
+    "validation_score": 426.08536757821025
+  },
+  "macros": {
+    "FixedPromise": "75.0\\%",
+    "FixedDelta": "+0.0",
+    "FixedLow": "+0.0",
+    "FixedHigh": "+0.0",
+    "FixedUnserved": "204.0",
+    "ThresholdPromise": "86.5\\%",
+    "ThresholdDelta": "+10.2",
+    "ThresholdLow": "+1.7",
+    "ThresholdHigh": "+21.7",
+    "ThresholdUnserved": "195.2",
+    "RiskPromise": "93.3\\%",
+    "RiskDelta": "-25.4",
+    "RiskLow": "-37.7",
+    "RiskHigh": "-15.2",
+    "RiskUnserved": "191.8",
+    "LearnedPromise": "96.3\\%",
+    "LearnedDelta": "-26.1",
+    "LearnedLow": "-91.2",
+    "LearnedHigh": "+57.9",
+    "LearnedUnserved": "172.7",
+    "GuardedPromise": "96.3\\%",
+    "GuardedDelta": "-25.5",
+    "GuardedLow": "-90.3",
+    "GuardedHigh": "+58.1",
+    "GuardedUnserved": "172.7",
+    "PromiseSeedLow": "31.1\\%",
+    "PromiseSeedHigh": "96.3\\%",
+    "PromiseSeedMedianDelta": "-99.5",
+    "PromiseCandidateCount": "10",
+    "PromiseBelowFixedCount": "3",
+    "PromiseNegativeMarginCount": "10",
+    "ThresholdGain": "10.2",
+    "ThresholdPromiseDelta": "11.4",
+    "ThresholdPromiseDeltaLow": "+0.0",
+    "ThresholdPromiseDeltaHigh": "+16.7",
+    "SelectedRun": "\\texttt{ppo\\_pc\\_lam5\\_s4}",
+    "TestFixedPromise": "95.8\\%",
+    "TestThresholdDelta": "+5.1",
+    "TestThresholdPromise": "93.7\\%",
+    "TestLearnedDelta": "-90.6",
+    "TestLearnedPromise": "98.6\\%",
+    "TestGuardedDelta": "-95.0",
+    "TestGuardedPromise": "98.6\\%",
+    "PartialFixedPromise": "--\\%",
+    "PartialThresholdDelta": "+9.7",
+    "PartialThresholdPromise": "--\\%",
+    "PartialLearnedDelta": "-66.1",
+    "PartialLearnedPromise": "--\\%",
+    "PartialGuardedDelta": "-71.3",
+    "PartialGuardedPromise": "--\\%",
+    "DFWFixedPromise": "88.4\\%",
+    "DFWThresholdPromise": "89.5\\%",
+    "DFWThresholdDelta": "+12.3",
+    "DFWEpisodes": "95",
+    "SanAntonioFixedPromise": "97.7\\%",
+    "SanAntonioThresholdPromise": "90.9\\%",
+    "SanAntonioThresholdDelta": "+20.0",
+    "SanAntonioEpisodes": "44",
+    "UriFixedPromise": "90.9\\%",
+    "UriFixedMargin": "-865.1",
+    "UriRiskPromise": "94.4\\%",
+    "UriRiskMargin": "-845.4",
+    "UriLearnedPromise": "69.7\\%",
+    "UriLearnedMargin": "-908.6",
+    "UriGuardedPromise": "98.0\\%",
+    "UriGuardedMargin": "-785.4",
+    "MassEvents": "41",
+    "AlertCoverage": "85.4\\%",
+    "AlertLeadCoverage": "19.5\\%",
+    "SufficientTests": "74",
+    "FalseAlertWorstCost": "105.3",
+    "FalseAlertAfterDifference": "1.1",
+    "ACConvergence": "100.0\\%",
+    "FixedETFade": "0.54\\%",
+    "FixedBLASTFade": "4.40\\%",
+    "HoldETFade": "0.39\\%",
+    "HoldBLASTFade": "5.75\\%"
+  },
+  "readme_sha256": "5165ba3f397f46ee186683789f522914aa02c8fdfce7e08958521ccbd1525ef1",
+  "generated": [
+    {
+      "file": "paper/figs/event_traces.pdf",
+      "sha256": "9db578aa19cba8f9e712ef0fe6dfa41c58e1c1904e656a59ce880820e1af0137"
+    },
+    {
+      "file": "paper/figs/event_traces.png",
+      "sha256": "8869854a6bad5d2a27baee14c1645e3c5cfe75d2ee1eb4b0daf641642fbc6688"
+    },
+    {
+      "file": "paper/figs/frontier.pdf",
+      "sha256": "14d34e4503a2a27022800fad2506f934801553a515657add1d30509bac0ae047"
+    },
+    {
+      "file": "paper/figs/frontier.png",
+      "sha256": "cd3b233e5f033b5fac5579a0e510e90a22b2dcbaab0da32dd4a815df7ad7692b"
+    },
+    {
+      "file": "paper/figs/orthogonality.pdf",
+      "sha256": "422b2852b718dc036c020968437dbf57b319367ce0d39345b37f435290a00207"
+    },
+    {
+      "file": "paper/figs/orthogonality.png",
+      "sha256": "d315b4c4287144a606ea77aeec80b02ac1143f7bb005557ef9cb74d206873d82"
+    },
+    {
+      "file": "paper/figs/stress.pdf",
+      "sha256": "3c706e22762e362ed8c4715348c9196209a80a28a412365c70c40abf39697d6f"
+    },
+    {
+      "file": "paper/figs/stress.png",
+      "sha256": "d7bac71a2101bc0985bd057b3c416d7ea48092d76035b3566b3a7c0f8ef90a96"
+    },
+    {
+      "file": "paper/figs/transfer.pdf",
+      "sha256": "45076bc7c25ecfe94b4e53dad530f4d22f8649486ad831548877caa7fa64d7b6"
+    },
+    {
+      "file": "paper/figs/transfer.png",
+      "sha256": "3ec4914d648c01929c30b991b6f61536ec4e94d038ff7b73a67cc5a7b9659fe3"
+    },
+    {
+      "file": "paper/numbers.tex",
+      "sha256": "16dabef05a86b3bb47c1f8dcb5c25986a98eeda594343bb46b9a42593603bb9d"
+    },
+    {
+      "file": "paper/tables/ac.tex",
+      "sha256": "267177d7b5668e626794d28166cc9415793ec7f5ae57163306c4a86d96224425"
+    },
+    {
+      "file": "paper/tables/alert_coverage.tex",
+      "sha256": "e2be9301d1bc230f52057ad8ff5f7641590761d5fc361c2473dd3b0a10e39190"
+    },
+    {
+      "file": "paper/tables/degradation.tex",
+      "sha256": "7850604c9045a4d354798e7f50845cbdf9e1c501d1312976799648bf529c2d4a"
+    },
+    {
+      "file": "paper/tables/economic_tails.tex",
+      "sha256": "73acee8bd5b1e9bda3c021ef3d16bfa34e9f4e8a7826c949249f057eff0628d0"
+    },
+    {
+      "file": "paper/tables/events.tex",
+      "sha256": "5f68fd6768922141fbbc961dee2ee0a8f8e357e944e4dd6c2602a2bb26909b35"
+    },
+    {
+      "file": "paper/tables/frontier.tex",
+      "sha256": "5b3c25c874bca9b4658c76a2ead8728160eae3bb98dc43d82d8fdd5f2c56610d"
+    },
+    {
+      "file": "paper/tables/hazard.tex",
+      "sha256": "8b6f3690ef2d9c49be3ea2bc5d8bed9ecd809fcb322497ab26b5b76e43ee04ee"
+    },
+    {
+      "file": "paper/tables/households.tex",
+      "sha256": "9127e7eb122c07cfa30f5d3c021033f27eaf128f8461c5cc967b70e343f3659c"
+    },
+    {
+      "file": "paper/tables/latency.tex",
+      "sha256": "4240787a8013f3d41becbb099ab7947072d46a629c81e3daf334c9c90bc3e34a"
+    },
+    {
+      "file": "paper/tables/other_seeds.tex",
+      "sha256": "cd5182d2c016e02952dd57a58978095f26d20924ddea7584bba72e2f49540c87"
+    },
+    {
+      "file": "paper/tables/promise_seeds.tex",
+      "sha256": "1c751cb07b1e5d5520199ef1975d73412c6cf8b2eed64772263c5f497d99671a"
+    },
+    {
+      "file": "paper/tables/seasonal.tex",
+      "sha256": "db4aecc08a5ae81b40cce30fc02ec42ac74f8657dca83232629a6b9a32ee2e8a"
+    },
+    {
+      "file": "paper/tables/structure.tex",
+      "sha256": "95e421e4c5139d7aa5029afdd8183554ddadd2e32c6601f75042d0629be53726"
+    }
+  ]
+}

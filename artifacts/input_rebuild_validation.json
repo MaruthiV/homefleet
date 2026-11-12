@@ -1,0 +1,379 @@
+{
+  "protocol": "causal-v3",
+  "files": [
+    {
+      "file": "dfw_2019.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 500340,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "69b2a3e91fd88135f783c95fbcac2e82fee1452cca74273548650bf9fc4cdadd"
+    },
+    {
+      "file": "dfw_2020.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 504704,
+      "steps": 35136,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "f8f3b78426166a7d1f2ed1e39ce47a1c6b957cdb8727d94fba1f9d33813f5cc5"
+    },
+    {
+      "file": "dfw_2021.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 502586,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "3e4852da7870ec5849d1f7ee7a3b716eb31ff6989a20736e3754e23112a86372"
+    },
+    {
+      "file": "dfw_2022.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 502230,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "93ca44d00ce6421a4c1a349f51d413cca6d87786ba4680c4b4c0547492ddcdd8"
+    },
+    {
+      "file": "dfw_2023.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 501316,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "9b54b01e851019d58a72c93aeda339359e4fdb224f934f68cf92a994ca7ed07b"
+    },
+    {
+      "file": "dfw_2024.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 504584,
+      "steps": 35136,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "f93e0e9f09b2ebebe4d4461b7a61062ce17a38e6c588393b94f5e5ca337f3cfc"
+    },
+    {
+      "file": "dfw_2025.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 500204,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "59eadd356a5d45c1ee5a36bf5e69385f408c536601e7732cd54668c3b54c1c05"
+    },
+    {
+      "file": "houston_2019.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 504412,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "3e45250fc6b67d06953f2e0065fad365be67f9c8a10de79b0741d9f6b957e5c1"
+    },
+    {
+      "file": "houston_2020.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 508592,
+      "steps": 35136,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "88bc06ae0b34d3f00ff7e668948defca0cc385bf43c1b9018b8b4d3fd29efd8e"
+    },
+    {
+      "file": "houston_2021.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 506844,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "eaefda1707a96dcdac401e4463c64b9f430e91f650b03958f46fbf7d82aacf73"
+    },
+    {
+      "file": "houston_2022.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 505324,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "fc27c267763506d1f1a9d9f58136992457a442498ab587bf31987fa720d0e26f"
+    },
+    {
+      "file": "houston_2023.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 504412,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "1e4fc7816dd1b8cc9a384b8a19f850125e5bd027adfa5296f178c4d9c240582e"
+    },
+    {
+      "file": "houston_2024.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 509124,
+      "steps": 35136,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "5f090a3927a86ae967405502604fa0c42049f6403906d6ce8343aa9bcb2cf83d"
+    },
+    {
+      "file": "houston_2025.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 504716,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "61cf1235690505105be227a3dfe8d25f9a4db1d77c614d623f18f9546cf8d8d3"
+    },
+    {
+      "file": "houston_2026.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 263720,
+      "steps": 21788,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "ec528f705c91da2c9d90e73c40674cdc5b9fe23e81de5a9e0080fac9c2c7647d"
+    },
+    {
+      "file": "san_antonio_2019.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 503196,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "65534f1bc2d86823dac74e76f177ab71e119c1dbf3c58177037817a9a8127b18"
+    },
+    {
+      "file": "san_antonio_2020.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 508288,
+      "steps": 35136,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "0f752742b4d92f1a397b28131b3a2ab226cd1ccbddc1eb5f731d6fdf938bd3de"
+    },
+    {
+      "file": "san_antonio_2021.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 505932,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "9c3d38447a0166cac9f83fa0aaeb8cd9b9fc690a97c86daddd81916c1969b6e4"
+    },
+    {
+      "file": "san_antonio_2022.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 505248,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "2bb78690f73949d667a39a07744a1aa89e04843ee1db476cc9cf3aff79b71caf"
+    },
+    {
+      "file": "san_antonio_2023.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 503804,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "3934505e37791901936cf8bb97975785f5405a9161a1fbae01340e7d3eef5556"
+    },
+    {
+      "file": "san_antonio_2024.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 507984,
+      "steps": 35136,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "f0d9472c3bb9c6f543a379f4cb152cc9b3f5aafb188ba0449b5fee289b58c4d4"
+    },
+    {
+      "file": "san_antonio_2025.npz",
+      "unchanged_fields": [
+        "price_rt",
+        "price_da",
+        "load_kw",
+        "frac",
+        "alert",
+        "home_fips",
+        "home_kw_dc",
+        "fips_list"
+      ],
+      "pv_values_changed": 504412,
+      "steps": 35040,
+      "weather_clock_protocol": "utc-unix-v1",
+      "sha256": "fae63e5c58afe14bda5b4d76e2015aceea8ec55287ee8fafda9b027728f47eaa"
+    }
+  ]
+}

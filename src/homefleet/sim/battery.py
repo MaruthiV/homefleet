@@ -30,12 +30,13 @@ def make_fleet(preset_names, presets=None):
 
 def clip_power(e, pc, pd_, params, soh, avail, floor, dt):
     # clip requested charge/discharge to inverter, availability, and energy bounds
-    pc = np.clip(pc, 0, params.p_charge_kw * avail)
-    pd_ = np.clip(pd_, 0, params.p_discharge_kw * avail)
     emax = params.energy_kwh * soh
-    room = np.maximum(emax - e, 0) / (dt * params.eta_c)
-    spare = np.maximum(e - floor, 0) * params.eta_d / dt
-    return np.minimum(pc, room), np.minimum(pd_, spare)
+    floor = np.clip(floor, params.soc_min * params.energy_kwh, emax)
+    pc_max, pd_max = envelope(e, params, soh, avail, floor, dt)
+    required = np.minimum(pc_max, np.maximum(floor - e, 0) / (dt * params.eta_c))
+    upper = np.where(required > 0, -required, pd_max)
+    p = np.clip(np.asarray(pd_) - np.asarray(pc), -pc_max, upper)
+    return np.maximum(-p, 0), np.maximum(p, 0)
 
 
 def step_energy(e, pc, pd_, params, dt):

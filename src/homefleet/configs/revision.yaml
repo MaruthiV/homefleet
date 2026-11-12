@@ -1,0 +1,28 @@
+protocol: causal-v3
+seed: 0
+homes: 100
+dp_grid_points: 32
+episode_days: 14
+terminal_energy_value_usd_kwh: 0.03
+training_steps: 3000000
+train_years: [2019, 2020, 2021, 2022, 2023]
+promise_penalties: [5, 20]
+promise_seeds: [1, 2, 3, 4, 5]
+selection:
+  candidates: promise_cost_runs
+  split: [houston, 2024]
+  evaluation_lambda_usd_per_kwh: 20
+  criterion: terminal_adjusted_margin_minus_first_five_hour_unserved_cost
+evaluation:
+  - [houston, 2024]
+  - [houston, 2025]
+  - [houston, 2026]
+  - [dfw, 2024]
+  - [san_antonio, 2024]
+events:
+  - [houston, 2021]
+  - [houston, 2022]
+  - [houston, 2023]
+  - [dfw, 2021]
+  - [dfw, 2022]
+  - [san_antonio, 2021]

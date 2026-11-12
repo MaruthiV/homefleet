@@ -1,0 +1,1910 @@
+{
+  "protocol": "causal-v3",
+  "complete": true,
+  "verification_errors": 0,
+  "source_files": [
+    {
+      "file": "experiments/revised/baselines_houston_2024.csv",
+      "sha256": "24668c04667064deae3329774ac2a7e41a08f20ecd0dd444093eef456850cac5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_houston_2024.csv",
+      "sha256": "c7e2bb10f2f1d37749ad7fb64c7ccc9c8b101efa5f2566a7d704a2ab907a5474"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_houston_2024.csv",
+      "sha256": "9665f284c207f95b34d562f1b7b80412fa0b36946cf0208f7ca38e8dbfc31557"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_houston_2024.csv",
+      "sha256": "9d38906efb5cbe019c5fb39654c7f20cd4a2dec7ffe5bf186473ec68cb8e0294"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_houston_2024.csv",
+      "sha256": "b5ff7cea0a16bef91f3932ca2d882f6309e4b733508e3877f0031f18feac408c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_houston_2024.csv",
+      "sha256": "e4d78390f14f47d208843ef109699eee61cdde5e232e7b2f552c3bb73076229c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_houston_2024.csv",
+      "sha256": "531b0ede5f4ad34af88bb39dae446ec2b3b8be4c35ea0252b5dc7fcb42885e38"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_houston_2024.csv",
+      "sha256": "e85df3dbfee12e27373ecf1d5037dfda42c768826edb8e09e969e8adc697d130"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_houston_2024.csv",
+      "sha256": "82ee96721cc2604d9f307e47c1d4bbc13ae860cb40937a1054b1620cf8143d2a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_houston_2024.csv",
+      "sha256": "d9b6700b4832ecb76e017026141e6a50eebee12a72ecc6e4fdaf2a2c2c93fda3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_houston_2024.csv",
+      "sha256": "7bfb422499073ebe058b1e6c11130a22c54c5d16d186cdec608731f9432c668d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_houston_2024.csv",
+      "sha256": "9788da73abd5116cd29702e990d49ded4327808790fcf6f9692d5bdfe289c632"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_houston_2024.csv",
+      "sha256": "760bd24727e2da0784d21ff3c7d3185650d68552ccd41083bd485e802c779eb1"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_houston_2024.csv",
+      "sha256": "871b9389614647d87fcc2bee29e736a4e4cce19bf47c15aaa3e58418548fbd29"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_houston_2024.csv",
+      "sha256": "ef81b04d36c9446527e49ae3f1904566efaed820a92e9cea1ddd6f53fadfc616"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_houston_2024.csv",
+      "sha256": "55ff25e99a992215a0e722a61525535c4314c0a8b763e0a71e25581db2816448"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_houston_2024.csv",
+      "sha256": "9f4c98bb423033396972c197ed97dedff1df9f52d2c86dbeee95338c9fd35cba"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_houston_2024.csv",
+      "sha256": "df007269ff08c40c6dc5593d8509abf4b372878949b27dd6d9e3cca261c149da"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_houston_2024.csv",
+      "sha256": "d7a97938da61b8b9d654500b5b5c507c4e54142c5e12eef6065c099de871dedb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_houston_2024.csv",
+      "sha256": "3349ad1a8aedf826408333e31d5ff71fa4b3dc976110e6ce89c2d6a3ea47bbf1"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_houston_2024.csv",
+      "sha256": "f3f4b3f0ec5f1f15b403702d478f86d03636431240f074ea2b11310e25df5158"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_houston_2024.csv",
+      "sha256": "b64dacd109ee3d2ad5db8e007f6539a68f8edf4ae18bfe4555e1bde38eb97839"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_houston_2024.csv",
+      "sha256": "fee6ee433530d5b82d0c2e559036aef19604b0458862c7c04c75054f8a79ae4d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_houston_2024.csv",
+      "sha256": "f888a78bf0daa8e3c84c69043dae2a2b226800e4423bf0b797da4d8ed5d0faa3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_houston_2024.csv",
+      "sha256": "8872a6a3fed45b29134d1ec746fd7a0978f4cdfb2f585e940513056e56c93b50"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_houston_2024.csv",
+      "sha256": "378c3b0d63b9aa32963623d0cf892e93d5b920b6e9a98730b9424b14a1f45e11"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_houston_2024.csv",
+      "sha256": "5a1af1f768e815da62428bcd3172db8e95e8285320ede27a2f6195d77e935048"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_houston_2024.csv",
+      "sha256": "fb82a9ac1f978dff4c271c0cf4b8afe6847cc1fd3470052731478970f9a0ad40"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_houston_2024.csv",
+      "sha256": "d91add33112ae997275c02352bae9c7d567a49842e7fa719e7ffd048c96e9fd6"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_houston_2024.csv",
+      "sha256": "cdc068d40c87eb2b359a85e0f1d401ff109da43648491bbb814d1178adfb25cd"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_houston_2024.csv",
+      "sha256": "caba84d2866fe3cfcd5149463d48ded012a8fca671c6ea26031651fae8b08e18"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_houston_2024.csv",
+      "sha256": "d736d2d1a0ec2e37e95c9fc410784b61fc2210bd141ca4098134b82b41b2c574"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_houston_2024.csv",
+      "sha256": "3320e664651053b1ca6a7df4af993afb3d2434d7148106b7712fb97f868efe8e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_houston_2024.csv",
+      "sha256": "b93ae679e636918afefccdc84ea1659ec3ff64dd287fe7b19fefd54d89a45daf"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_houston_2024.csv",
+      "sha256": "5e36dafcee7abbd9863589d07d4952bde297c3380633cf44069adf4aec3235db"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_houston_2024.csv",
+      "sha256": "463e71203637ea0a6b54d82a08e574c9312d6c377beb8cd9119f6055e01e4988"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_houston_2024.csv",
+      "sha256": "1763a82dcfcb2fa5a0caa7c63f4af97ccfadc38710a2651ab8d54f6fe6a18772"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_houston_2024.csv",
+      "sha256": "cfb9e21ac41fe921a373b96c7986f67ac8933ec535c1af43ea368d87fa23a46d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_houston_2024.csv",
+      "sha256": "983a950eb20f75127d3db88e0b2b1b78b2f4968a93a5784873a3382f10c28eb8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_houston_2024.csv",
+      "sha256": "1fb3baa5377eb5622a3ac1e857b49cc5e2204d12bda40b7bde19d20a19529ce3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_houston_2024.csv",
+      "sha256": "dcc88a503efec25bda1b4d1dca542a41bca7b1dcbfae97773dda6549b976af82"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_houston_2024.csv",
+      "sha256": "e1d922e4b1afc26d05a1d68011c4b13902fda69b6de5e6d5a14e3790b7aee83a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_houston_2024.csv",
+      "sha256": "ab8eca0f406483d0e4294d302744022d84ac6cf98772a7ee7bf868566bd36182"
+    },
+    {
+      "file": "experiments/revised/baselines_houston_2025.csv",
+      "sha256": "409466e287500460777bf3f87aa251d1089f357da307e50883d414a73835459c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_houston_2025.csv",
+      "sha256": "c5e3da8b53bf6b582fa7b44b43d30949edb38dd3da8c9a945b74164b525d5007"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_houston_2025.csv",
+      "sha256": "3256b7d46775e4ae081c1650564ca798f627347c384ebc67525c2a1ca238b500"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_houston_2025.csv",
+      "sha256": "e24d2899466ddd48c392f0de01107c97cdce014120b108c87ae0b6e0f088006b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_houston_2025.csv",
+      "sha256": "ab9da658f30157e12262a0f2974ccc18b2f0432f7d77d91b0a2c8ce6fb0e43e2"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_houston_2025.csv",
+      "sha256": "3786fc46c9ebc5db8e74007c78b9fc31af0d55d9900156b8e80d1646433c513c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_houston_2025.csv",
+      "sha256": "a7b839b2b0b3c1e478da113cca8dbea6264a8c7257a2236c332011a449ed64f8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_houston_2025.csv",
+      "sha256": "b88dd7ec847e2bf8bf6ec4e5cf46b8c98ba12fdac39fd8419b74dcb5d288388e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_houston_2025.csv",
+      "sha256": "451f7c74dee2fd53648f2b5d831d30f29eaa3db23a2098d31b13a7e1f4824bd3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_houston_2025.csv",
+      "sha256": "84dabc7bedb75763cbcaa4eb6a62964b9ca5dc83260031a500a195c7d83dd784"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_houston_2025.csv",
+      "sha256": "6482a887031670b31270b42109dea18ce48cf87222bb7e09bd215621f228049d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_houston_2025.csv",
+      "sha256": "9921a170d591ff46f7663777bbccc00b3297a29191978067373466efad741ac7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_houston_2025.csv",
+      "sha256": "c8f1ee0134775fbc289705aa47ff1ca744e9ca10347cbc2c01b2f12adfe094ef"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_houston_2025.csv",
+      "sha256": "2eb58aa344ecd99a60c0b12599a1f102d02eb279eb5b339d9202abc548b7163b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_houston_2025.csv",
+      "sha256": "82b29a2103d06dd6c38d791510dc2fd511a9b314450e21dd6f1dbcd0ab607453"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_houston_2025.csv",
+      "sha256": "19fbadb3363df7368902079d99773bedd6ea1f93bcacdc8a98d65ea7e797d42e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_houston_2025.csv",
+      "sha256": "425d668288430d6ad7ab628c3174d5d6263d7c25996f680ac771dec1da6f8b58"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_houston_2025.csv",
+      "sha256": "ba6b2a27bbb27108f482c835d224a6bcb1ca39b6249daa857294fb16035c9275"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_houston_2025.csv",
+      "sha256": "74bd205f7bdce8b1358703eec402d9269a2a0fe485a5bc9d8c9c59e28fe2f047"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_houston_2025.csv",
+      "sha256": "d3bf174de9ef90bf2fca9c3f69850009f55577623cad43ef00354ff046e1746d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_houston_2025.csv",
+      "sha256": "04e1dc9d35a85806cbfb8a6924d24bb07e019f63d6ac72afde72b3e369764b2d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_houston_2025.csv",
+      "sha256": "35a1efd9bd4cf0cbfa60c0351579304d4f6f536ff4e1d0d604a22d47df26d5bd"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_houston_2025.csv",
+      "sha256": "0476f273b2d1491529afe511ade20113a0e5412811ad9301a842f77469722cda"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_houston_2025.csv",
+      "sha256": "d15c7eec7ea60a68bbb27a6db7130e4a7658b8581114d103826890d26130bdac"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_houston_2025.csv",
+      "sha256": "0d90978be3c5ecba9b51ac672e0a2e9805c74b9bea37d9c09bfbc3e83023e574"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_houston_2025.csv",
+      "sha256": "4667324b0325c9f01b7c16d316d935516197fe5cb94fb69989e6cb48c6614bd8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_houston_2025.csv",
+      "sha256": "ef6f4ff9b5b36cbc18eaf10ef2b82f77ffb34771f6bfcd34cc4f84404f6e9581"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_houston_2025.csv",
+      "sha256": "31e92664346c30472e4ba932860076a398c2a3c711d2b0b6bd2a7b4de98b5551"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_houston_2025.csv",
+      "sha256": "6a56b3d7f4aa12cba261c703437c8ed3358943404c8de5f9ee5ddc41aa1961e5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_houston_2025.csv",
+      "sha256": "736db1143f9f720787be9f78ed57b0e3936522988851a54b634529164a679f88"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_houston_2025.csv",
+      "sha256": "2a9cf151a0a4ff7edaad10183d6bc640254fe1bdb2c4817afe50d657a338e99b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_houston_2025.csv",
+      "sha256": "7789d3252a8e8d9d456a1ecbec4f3ca6fee564b15a7a2317c116da7f592604eb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_houston_2025.csv",
+      "sha256": "0e199e000f79546cda9988873c449806714cb2bd30a10e68f3e9da3ef30d8640"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_houston_2025.csv",
+      "sha256": "96b9788c385eb7f674cad07760b8012e93167b6e37720842ff88b9f8f5cfde9e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_houston_2025.csv",
+      "sha256": "41c470dafb3ac7b2a8e6ea6f5bde13a003652ae35cba688e26b5f1dc9798dcb4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_houston_2025.csv",
+      "sha256": "11d3f20ed56aee460493ecaf663a1da4d1048b72805e7cefa5e5c291fcdfbb53"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_houston_2025.csv",
+      "sha256": "571dcfcc6cc1427b97f6c8f5698e5def5ed88e6e71f6450ce0d18cf93e4ad335"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_houston_2025.csv",
+      "sha256": "84062e54aec49d18a8105056736abfe3793fd4f2de6ee1124507654e00414bd6"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_houston_2025.csv",
+      "sha256": "0e8e81a8d840177b7799787fbb712ae46b55ed9eb70f5cd46060ee12c0637632"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_houston_2025.csv",
+      "sha256": "eb8d3a16aac9975785ce907d6043067f7cdc4c43b312193ad501231b7e1c20d1"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_houston_2025.csv",
+      "sha256": "8934ada55c670a1ebb453e27780b059edf2bd4eff20f7a72f4261ec1743d9f02"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_houston_2025.csv",
+      "sha256": "614040493bf873b324df7d4a6a7a3fcee3a2755e64cb78a07650cb1fa608d686"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_houston_2025.csv",
+      "sha256": "51cb3870943a6644c50b44880ee596bda64f1a8699a744bce228bac4db0348f9"
+    },
+    {
+      "file": "experiments/revised/baselines_houston_2026.csv",
+      "sha256": "7c7499a0a15ffa7490b3fdb67d4470f6c4ef3363d92405a7f13c00c6e508690f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_houston_2026.csv",
+      "sha256": "e723c796f42f491926ed515db70096444487c6ae087537a2a71cad56796488be"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_houston_2026.csv",
+      "sha256": "94776cbbf7a8d4cea70e9ce72b07614f0ec5e8518be3cac43bc2f244435c5ece"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_houston_2026.csv",
+      "sha256": "c943fb7d142867b196369b07c9ce5a55681a6f1a4b25caa63134c4748ed53521"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_houston_2026.csv",
+      "sha256": "a7eda54d17282e973ef526ea442f187c59f4a6a11616c3e400105af22e377725"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_houston_2026.csv",
+      "sha256": "102eb9753035abaaef87377ab9bcab01a0ad066edc822f6fbbf70308c19e1e35"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_houston_2026.csv",
+      "sha256": "0b5fab0e0124b6862807ed30258c94b176a09e858dffece1eab63396cb962412"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_houston_2026.csv",
+      "sha256": "7b59b22e03e42dd1130c34b381f950556477853bdff8be731b4f1603b65434ed"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_houston_2026.csv",
+      "sha256": "49095bf11199aff95d4ab137e5c0f95af17abe8f17b6036ae683b4147b80f956"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_houston_2026.csv",
+      "sha256": "cfc7b855482908e1ffe1977dd9b720994e677a99c0ecf3c032d4bdb81789a1e5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_houston_2026.csv",
+      "sha256": "a6c617e256a57e0299c1e2c5e84cd0dc6e0cf9cf2c07b4430b6894132e0c8398"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_houston_2026.csv",
+      "sha256": "e7112efc424a2f87833aacc6889f8dd872818606c158eb26a13958dbd37c710d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_houston_2026.csv",
+      "sha256": "5c6e7091d19c8b3a123ebb19c556c3e1be88c275982ffc96c2354a5621d7d748"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_houston_2026.csv",
+      "sha256": "49e5414b01f5402badeafe1a4148fa5c326b5d266ca1b6be82c9b2d613a5f2ac"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_houston_2026.csv",
+      "sha256": "0891cfa42d510237786f5ae9ec9ba325e9643952dfe2e1e29db4cafb136e2c58"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_houston_2026.csv",
+      "sha256": "9fbe0e655b50eabb73fef3fc9730b911f2c1ed002e45e68fbcf476732edf81d7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_houston_2026.csv",
+      "sha256": "143b54634cca243f12090647fa19397ba37d54d43fcef873c5182cd78fc6fbcb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_houston_2026.csv",
+      "sha256": "edd7c88345fa89cd35b66efc6757e93dd81c09721802828bf591c328c0330bd3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_houston_2026.csv",
+      "sha256": "d697cc4e6dad1ddbd9e8c666e58ea5bba92828d7e4c65faa2ccbc7270da4f58d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_houston_2026.csv",
+      "sha256": "1b2e6e39de3ec71288bc21283aad08adcda906a0cd2368f1a9e08f34d340bf8b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_houston_2026.csv",
+      "sha256": "342e2210ca8d721403dbe574ba239391feef8dae88425a4295b4eccd2a900770"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_houston_2026.csv",
+      "sha256": "dbfec890de007d535c6f7e71cb943e7c7bffecb517692c68e3d34700a0a68372"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_houston_2026.csv",
+      "sha256": "684f1549d39db1b7c0d9f50548873a846f407d83f2d00bfac58201da5f2aa7a4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_houston_2026.csv",
+      "sha256": "ca752b4c354defdd2839de810292076b24be5a9e006a05f5892f4e584fb427b7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_houston_2026.csv",
+      "sha256": "44839fe62f1e77c1f9fed8dde885a679c423f4fabd84b525f752b99aba447153"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_houston_2026.csv",
+      "sha256": "aec7b1ddd8e730a8b979430f76b6703b6acbfedfedc451b8c98dc4fb206cb51b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_houston_2026.csv",
+      "sha256": "c319af3b572c850d2448e26b54a205a50b66a8fd9eb9af0b9c350961d607264b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_houston_2026.csv",
+      "sha256": "a460fe5acb7350c89e07be69eb9f25e81081253fa6b9c2190d056e70e37eb340"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_houston_2026.csv",
+      "sha256": "a0efb239874f71ff6e6687a66cbe3f268061359150369c12ab218692d0a816b4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_houston_2026.csv",
+      "sha256": "9e2e7beb5a7a8fcb3fc85da3e36138a92bd0cd974368f42582eabe4a54dbdb78"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_houston_2026.csv",
+      "sha256": "757b2264da26477437e1365d1571b04e5be383988de2f8d10e1b34dfc41659d4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_houston_2026.csv",
+      "sha256": "9a52e2274ede77d49052241a4158916529f4207a8ddb81f7ab66afa80071d1eb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_houston_2026.csv",
+      "sha256": "a05dcdc6920298afee7c02457c928a8d3ef3178ef5bade43a340defea42714f8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_houston_2026.csv",
+      "sha256": "f66ecdec901fff26dc090ca836e8bedbde1245f8881a84546f17cb6034ad0e84"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_houston_2026.csv",
+      "sha256": "fa12bc6f1d4237739e3d088333fd4a605d1b40c6cc14ec6459cc3f9c2d194ada"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_houston_2026.csv",
+      "sha256": "fc39e1bc8d3552706375fbc33920d94e486e8ac5a4a8d47538fa048ecfc13497"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_houston_2026.csv",
+      "sha256": "fd000301bbedf9ec9a605ce47f9fd43ca6f9abfa0f6e379a7b3a70840f7ceed3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_houston_2026.csv",
+      "sha256": "7cdcb83ed395440df43c03d3b93925d437accb6b32394dc625816670c7d688bd"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_houston_2026.csv",
+      "sha256": "21e10a2d0d1387fe9c8f032d797c7017c433935e69773d12a6087a8bc6c59986"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_houston_2026.csv",
+      "sha256": "020ba357c2cc9e3e577ae1ba1f2fdc5baeea22c5f849cc026f18ff38ae3cea71"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_houston_2026.csv",
+      "sha256": "12990a146f91bda201bfbce0e424a16ce953ba769b2e00beb64c47c1f482c28f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_houston_2026.csv",
+      "sha256": "9f1d2d119f83a7941bb542eca95ea49bbe12b4abdb660162d8310b7465f63226"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_houston_2026.csv",
+      "sha256": "303255a31a2792027d6bbd02a6190f93471e94e238a9b66749e2acced2fee5cd"
+    },
+    {
+      "file": "experiments/revised/baselines_dfw_2024.csv",
+      "sha256": "0a5949a194fe3f119bfbc76f315d7717f841addddedc86f582e42867d0b32107"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_dfw_2024.csv",
+      "sha256": "519d9e8c83aef5a20a5499ced4f5ed5c3cb67ef4ba89c7f17b69d1b1d09cef34"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_dfw_2024.csv",
+      "sha256": "283f654399be9c734a0626283992a168f229ae02a6a8a3d34cd53c8407b4e278"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_dfw_2024.csv",
+      "sha256": "3179950758e81a41569767ec78c81ae047f4604e7e06c0bac209843486c6793c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_dfw_2024.csv",
+      "sha256": "21c73ad1938d51140dadd2492127c5d089006cceada14a656b7297cbeeeb0456"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_dfw_2024.csv",
+      "sha256": "b9815e46923cc887d4a261d2fda7d400626193647bc60a7048d224bc85f97f3c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_dfw_2024.csv",
+      "sha256": "0db16c091222bd541f6ad88adc6e734daac29785d399f010fcf4df08c065410c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_dfw_2024.csv",
+      "sha256": "196cbb20eeafd9fbe5914d90fc9a3569cdebc3fdadd010ea1553487c94165a66"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_dfw_2024.csv",
+      "sha256": "454043ba7da57dbe31dee40cf42c346fd559f3e924236f2c222bd7d2a2374cc9"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_dfw_2024.csv",
+      "sha256": "d14d98c7c74b76e704d9ff86a853a4eb9568acbeac213d731e1e03394ec41ca4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_dfw_2024.csv",
+      "sha256": "2edcfe555e0e0a6709aafd96b8bbe33b7b33bd91b212557247d69ca5a6357c6b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_dfw_2024.csv",
+      "sha256": "517a63dd218663f3c78ba954a67a4644f7b84495a6b3a8867088415b9174720f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_dfw_2024.csv",
+      "sha256": "688aaab2c844452cfd789e7315594aa7248604436ada6ab8ab7c8a8770b459f0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_dfw_2024.csv",
+      "sha256": "09f64b24027cf12b13dffc6b84e0d83eeb496fd8602973e137616b5fd79f87b3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_dfw_2024.csv",
+      "sha256": "2ff615b2b62f991dd4e359ed6d9a46fcebb1a99bb306472e9cb1abe1d802c5ec"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_dfw_2024.csv",
+      "sha256": "c445cbda740e6880429c3bd7807d313ca25bfeb72817449b457e73d34853c830"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_dfw_2024.csv",
+      "sha256": "1b9392d07e2e667bb122b7e70b4915d8fb4d0aa83dbfaed61f31b6d1212d354d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_dfw_2024.csv",
+      "sha256": "27700961dd4e991ba52d2de3a90fd1e243b08f9e5b74d8ba9dbfb6a2df942e9c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_dfw_2024.csv",
+      "sha256": "a6103f111b44b085922dce9a3ca5ab5407a0c9e792a0201d303efdb6fe33f48c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_dfw_2024.csv",
+      "sha256": "ae1f910f317d777412f068d9f61d3cdf92d3958d710ec4dd76a596fcbe2769b3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_dfw_2024.csv",
+      "sha256": "fffb8608fa6271589985a63671996f31a25212c229bdeb2452cbe3949dda18f4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_dfw_2024.csv",
+      "sha256": "39220f762cc51c319e1130322379f3d3cd626cdb3d4ece77ecd7277ff8f9e48d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_dfw_2024.csv",
+      "sha256": "8353690b362da5d76937abb2063479ba17984ce4f57cd1c303c1a33f3c024544"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_dfw_2024.csv",
+      "sha256": "72a1e5a8d87afb84b94c612782ae5043d7b9736a5bb926112eaa797c84ac85f5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_dfw_2024.csv",
+      "sha256": "8893cd8cfe5e18106c0fa4940df018ac1bb18ebc99ad21758c73df27ed376357"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_dfw_2024.csv",
+      "sha256": "40414ceb155e14e15facce96a41e3b4793ce906db0ad4f51ef9b1a8228b839d0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_dfw_2024.csv",
+      "sha256": "f78cff70c41f36acb67503d150b63916bce047b4c12daf10c824d74221c66d3f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_dfw_2024.csv",
+      "sha256": "643a332345087ae2146e6d8dc4a4a0d7d66e23a74604e61537b5bb482aa0db54"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_dfw_2024.csv",
+      "sha256": "d2d11744703e8afa94a1e947826a0575cc2f5a79a8416876813dd97893cf86f7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_dfw_2024.csv",
+      "sha256": "dc68daeae8075bb4cb179c77e9369b57ecb766cf159f9d0d6bc102b4c05cb701"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_dfw_2024.csv",
+      "sha256": "27dda862f367236775b9ff190aaefe207bfd0ec550b82dbee9c853ee31ce2172"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_dfw_2024.csv",
+      "sha256": "8dd5965cc87c191cb3ea2e418ec18291e17b016709627852843259b039e1b931"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_dfw_2024.csv",
+      "sha256": "a058ace177cb66192ed99a5e6a85503baa86845465137f5dc4030fb5fa0a794d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_dfw_2024.csv",
+      "sha256": "ce32800962889c9b8a5a22f23222dcbd9b4f66530ccea0ee89cd31d703f0e405"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_dfw_2024.csv",
+      "sha256": "e93d862cd7865ad65ba2acf6677cb936b03449357920f5a90b4cf7a5a920c8e7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_dfw_2024.csv",
+      "sha256": "dc5d86c3a18dcb7d918613bf450f6d04bb8332217751adfa766e8746c4c6753c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_dfw_2024.csv",
+      "sha256": "deeac47e61c31fb3487571d14d15815c3add2032e21e77098e4347e53107da6f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_dfw_2024.csv",
+      "sha256": "a4c90958687a8c7f233f8d10f0e8b6776b071b30bf53d6b563308aa503efbced"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_dfw_2024.csv",
+      "sha256": "91da5d36da864b8fae208d0303f4a365185c0aefb9136cb53eaba3ddc7a8d3ac"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_dfw_2024.csv",
+      "sha256": "ebfc9a44c729fd2e91d551891d90ae7e583a041ffa183347befae5bc586dca79"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_dfw_2024.csv",
+      "sha256": "e05258e88f1771ad2666216ab7c3af5ce73a546cbbe6b0fc521a90f87fbf5094"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_dfw_2024.csv",
+      "sha256": "b2661e0383ff6fb64d9039439bad7a3a62889534949e383339b9fc02ff3a88e5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_dfw_2024.csv",
+      "sha256": "e7fd5a1880d5fb05057ed58762a480e81778b581f215db49a5f8932f7665240a"
+    },
+    {
+      "file": "experiments/revised/baselines_san_antonio_2024.csv",
+      "sha256": "faea854e4560379873f706697d095f6ff9fad7e3525fafcf2f497af89b0ea284"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_san_antonio_2024.csv",
+      "sha256": "480beccdc720217a959305f9fc835c8822971f043341213d39877af42df44873"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_san_antonio_2024.csv",
+      "sha256": "2af4f7f68dd0a6447dcaa3e135af5a0171e62d1d07c69d78a95ee2749d2391da"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_san_antonio_2024.csv",
+      "sha256": "b023b3189d3c27a484f8f705d669ea46266e03b01928d3bcb4b8b0aa26fe9284"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_san_antonio_2024.csv",
+      "sha256": "001628a708fbade4019746395c18e0a36a4ab09e4ebafc6a82e4c1acdb9c464b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_san_antonio_2024.csv",
+      "sha256": "6e0a7cc3f4cf4bd16e4b46bb5eba4bd6acd6d022817cb750389431edbff06d81"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_san_antonio_2024.csv",
+      "sha256": "73a9d609066e4ff91558ac6fe558e6c756e8ca936440a4dc9c93072ca01edf80"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_san_antonio_2024.csv",
+      "sha256": "6792508e20538ddd29649e2f8dcdc0d94916c5e5f4e39214a7c76570cbf85135"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_san_antonio_2024.csv",
+      "sha256": "38c1b643f10a5a8a266c53d9145e92fbde45aeafa65f5d9bb4bea160cb8ba6c1"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_san_antonio_2024.csv",
+      "sha256": "2c2f10d6aa74783d4786370b3ddc3df3d1f866cac10aeee374a3533f8b50c13a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_san_antonio_2024.csv",
+      "sha256": "6f2e37370496554eb99b6aca97677e1956ce68106eee97293fd6587f0f1a24c7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_san_antonio_2024.csv",
+      "sha256": "87cf0b6e54d48484e0456879dd1b6626481868fd991ce6e1e7740041c1e3431a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_san_antonio_2024.csv",
+      "sha256": "d145459935da4a0707a201d9eec11bc3ba9af280e5205a150900a293cdc40fde"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_san_antonio_2024.csv",
+      "sha256": "9825c7b3643d6d5451c51e49dfc1ba4e92242ff04c075a920e027a3514ceea11"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_san_antonio_2024.csv",
+      "sha256": "a5ea19e3a72fccf55f9ee9bd232fcbc92e7dd6b1b7533403af1f6cbb4d5fc544"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_san_antonio_2024.csv",
+      "sha256": "8410759c2bd84e41e6a937dc82f0febf0f8b27999257165b1ad891e32f572ea2"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_san_antonio_2024.csv",
+      "sha256": "7d74c1b72b5cd6aca6a337337b7a5b0988cbe74cb397a1d7f25ef1d6ab2f8b46"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_san_antonio_2024.csv",
+      "sha256": "f27a5f00b7c5be92b0e24500e2e61f408fe3225cc6cf58fd0e5d6bc54907d69e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_san_antonio_2024.csv",
+      "sha256": "d4b5d2f420e2a9953fb9cc380f6b588380979ce81d7664868b000a17c3fc9e0d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_san_antonio_2024.csv",
+      "sha256": "cce3943ed8fb1eb05913b9392ebedc20ad8f80e7a70b5d83fe97593f098a2ccb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_san_antonio_2024.csv",
+      "sha256": "29d720cfb31ae0ed67821d259270774cca949ea702c9ac6075cbbb0244c444b7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_san_antonio_2024.csv",
+      "sha256": "9c60fa8f01b42fc24ba92805a6273463f827ebe0ec0f6a1ff2b81fa0f58339c3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_san_antonio_2024.csv",
+      "sha256": "40201a2a667f6b37929b855e80f51f62d3156923200cb65c1586ece3b6d685f2"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_san_antonio_2024.csv",
+      "sha256": "b3d01078970cf3183d4a75c8c8b1c49eb4dfac8d8387fa0d5ba21ec8ac23e0f9"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_san_antonio_2024.csv",
+      "sha256": "0449ea99eba3ad2c9e90231bf07a23b6d9bb80ef43a051d1a52b59a27002906e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_san_antonio_2024.csv",
+      "sha256": "0c23d5eabd92d10a5b69616815e86af1f7b70cb7c129c1c1ac9bb80e490bd0f3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_san_antonio_2024.csv",
+      "sha256": "42a880f3958915d6326aa3d08a54da65a8a832dbce1820f0357c18aaec3e30cb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_san_antonio_2024.csv",
+      "sha256": "12ebba60b10f9160d046366ffb420865b9ac2881e87751c575de89edbe2280b0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_san_antonio_2024.csv",
+      "sha256": "82a6cd8d17588a72e02d8b27827d881548b7b6b383fd939b4bd59de8d1b58ede"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_san_antonio_2024.csv",
+      "sha256": "263465f13946aca925f7faf68c70a6bd7d7098b36b1725b385133773af4091ea"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_san_antonio_2024.csv",
+      "sha256": "2c2b670ab337c198b43770afcd5dc5556922c95ddae8ddbe09c5e66e2ee45783"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_san_antonio_2024.csv",
+      "sha256": "a5d0fa12d8d7820a1f50a7de698a5fc1ea194601ea728532558c47971112773a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_san_antonio_2024.csv",
+      "sha256": "ec06d4796bedf4264e6cc78232a143592d9aaa1e2daae4b409fc647228acc23d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_san_antonio_2024.csv",
+      "sha256": "2c316b7c36b509b5fced7beed55f5c29e456f6258f34acd443d714bd50345147"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_san_antonio_2024.csv",
+      "sha256": "9bbef4d859694e571ad30b7b1c374d996b45a382685b33b5288125d1c5059f81"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_san_antonio_2024.csv",
+      "sha256": "d764d89a5a8ad70b154e4049147c2ec4dbba30f76cba6fbcca5de2af0cb712e0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_san_antonio_2024.csv",
+      "sha256": "f96dddf7401dc19be7439ba57c30968e361caa110bcfa4fb309a48d59ac7ca4d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_san_antonio_2024.csv",
+      "sha256": "f6276af5fc44f3a224364458e5863a639157b64a9d2a2f052b50cd6a10ca4067"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_san_antonio_2024.csv",
+      "sha256": "f852bd9a88793b4ebc5a8d3553fa8ee2f95bf02b739416494447f8ed80e17a50"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_san_antonio_2024.csv",
+      "sha256": "612f7b6668d3cd94c3d61b6566ee2f2be13fdeddb6d03537784e7d04bc351831"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_san_antonio_2024.csv",
+      "sha256": "a73545a149a00fcc2c4e97a9dc59fb5f75115457316453ef17bd85e3884d0728"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_san_antonio_2024.csv",
+      "sha256": "53c06ed20164f569836e5c5271275c0caff85d930a9e67003ef244801348e795"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_san_antonio_2024.csv",
+      "sha256": "fcf64d92e3d17943150faef7e96da1110e4e33eadf12eec9cc18b559bc6593e8"
+    },
+    {
+      "file": "experiments/revised/baselines_houston_2021.csv",
+      "sha256": "e9cabf908e490bd4338e31ce3a70ba4d53a64d742f692d4dbd270e3ee3d72480"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_houston_2021.csv",
+      "sha256": "2b4b341443b5eb2ffcf4f8a2746daa23e0c753199a75feaf7fff75c3af6d4baf"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_houston_2021.csv",
+      "sha256": "dde5c4e8f2e68a318977ddcd530a35f1f18ff9e4f9c88f7be65079426d1a554a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_houston_2021.csv",
+      "sha256": "5e7edc1d77bb2c4cbb9f780bc79b768e3ee3efb8bb7daa3d4ec52ef2c7b85e65"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_houston_2021.csv",
+      "sha256": "f10a215082f29d3d4019e25b5dbc92b86b06b8209cd63c3fa2c0eba61fff1b58"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_houston_2021.csv",
+      "sha256": "9d973ae966cd0d102bc85d0aabe1911fc9230a41116acd975b056f800a8005b0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_houston_2021.csv",
+      "sha256": "8d9a8cb063e4c7ab4e863634e005dd6befe73a402a7227457f876beab31d761b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_houston_2021.csv",
+      "sha256": "dc393b140aba1df238464339a79b85781a2d25346befe85d88cf1841e7acdf11"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_houston_2021.csv",
+      "sha256": "e0396c27731c2076ac8b6ef4b75c151e1111af907a463faf6e5fd204d0f23cd5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_houston_2021.csv",
+      "sha256": "e8c74a5ee91fba9eb55722674b3db45d0d5cef4b0c1bbbe6423c4eaf8f28f65e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_houston_2021.csv",
+      "sha256": "c8cf0156cab426e5a0e0ddcb2f2d760e44ec70881e9cfbcc8e75a2bd40ffd1c4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_houston_2021.csv",
+      "sha256": "7415c3a9cc0032b9c55bec814f96f371761e62edbf792f2dd2a8ac53cc85f88a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_houston_2021.csv",
+      "sha256": "dffbc0c03fa6f875d35ba881907e0c377619735bdcce9039c5e9e29be0463ebf"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_houston_2021.csv",
+      "sha256": "08ef4771682df323142f00f9fd0c00a9dcd19091a15f4e76aa62c4ee6963a513"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_houston_2021.csv",
+      "sha256": "dd85919be153d64229336b45e7ccb0cb1dc045e6773fe98f27e0ef466d7e38b4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_houston_2021.csv",
+      "sha256": "020271896ec8e37b8e0e4f7644e4d9016e7c323effa587a8106499e6e52ba6ea"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_houston_2021.csv",
+      "sha256": "683a5051307bd015914dd0ef08c025baa4c9b97bdea02977c5781402b1bad557"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_houston_2021.csv",
+      "sha256": "30b455406adcd8ffe7a67f5548bd8ac5020b007b3eee239c203229a05bd2c78d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_houston_2021.csv",
+      "sha256": "e1c53dd7250ac7af6fb8934035a407a51955cec44ff5d3739c5c8c57ed95eff4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_houston_2021.csv",
+      "sha256": "15ab059873b1c1a16fd9a8df994de3a893c021eb50e5c22e2dc397c93eafce04"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_houston_2021.csv",
+      "sha256": "982f8a83770992586d34ebca07ba3c58b8b5ba081d4cb519b2bce5181c580fac"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_houston_2021.csv",
+      "sha256": "3d1c5370d4439166e86ea05c31b49e87c06dcb516498b54d5a25db3e04bfa1da"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_houston_2021.csv",
+      "sha256": "6008b18ff440daeacbb9bfb1b8c775db8e9b9e5116e4b77655e18913059014e2"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_houston_2021.csv",
+      "sha256": "f7cd09bbf185e379101f77ea772603615dc499093c83de7fc998db7771682864"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_houston_2021.csv",
+      "sha256": "4513385a6d348c70914add1ddc59040d26bd21fa39d69522839eb39382371aac"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_houston_2021.csv",
+      "sha256": "daee89b384d0cc87cedfadd321d0dcb9d7631ba0306d0208abe0c2d952fcda29"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_houston_2021.csv",
+      "sha256": "1600a9088e38f5bae451328a8d20c1bd2205827fa79f893d3f5b108127b61ad7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_houston_2021.csv",
+      "sha256": "8cb97be47986d4fe4e2d246db722358a5bb21d6911955e4de7db7c214fd59c8d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_houston_2021.csv",
+      "sha256": "65a7d76b13f417253f8f4019389c355eb17e92b79aaa86f991cbad308e028414"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_houston_2021.csv",
+      "sha256": "c9946f80672e2d3439c71f02b51945bf4b7240d8255fd435c8b1ab9d2c029447"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_houston_2021.csv",
+      "sha256": "05b9a011628fb09439034a28a61a924057544c3217de8cbe98c30d813301020b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_houston_2021.csv",
+      "sha256": "b671bf723984d9067077d0ea23ed0b0c3ef8bcd1f665f387dcb5b62898ecac26"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_houston_2021.csv",
+      "sha256": "c9369ca02d0d154474ee12efb5a88efe95f58d2b21e8a443d0f1432eaa909be1"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_houston_2021.csv",
+      "sha256": "c1791c92c04bdc898b0fa0d4bd442b577d0f315f94995ce889de6cf07c941e4f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_houston_2021.csv",
+      "sha256": "3a5ab76a918e925494cf86f0a4613b38d9ea651b1a81e432d4e91533cfb6b4be"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_houston_2021.csv",
+      "sha256": "51c18f8cf9bbd85930c23fd690efb2c317147d062b87ef71feb37f06a36ef5c5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_houston_2021.csv",
+      "sha256": "49483b704580c5cbba9bda2c2f9fa9e435fed37e9e8907d014614a725a45f230"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_houston_2021.csv",
+      "sha256": "d18e1afdab9373f693fb9533921c2990cd8ae8d740013aeca9f82172c4f86ca0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_houston_2021.csv",
+      "sha256": "6584bcc05925cca0ba6b63ddaff00348bec89510db453a84eb6baf959f3da8df"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_houston_2021.csv",
+      "sha256": "84d74a40de3f715740ee7f162b2cbcdc86a3369a0dd0540199427eaff7b6a0c3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_houston_2021.csv",
+      "sha256": "a82a11f2e8af8c6cc46d604d7586aaaffa180eb2f6ae2ecc39c8c42af724f5a5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_houston_2021.csv",
+      "sha256": "47caeda05a65146be6cf38c0bc2d25c0d35dfefec017d7b76d128ab69cd22b1c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_houston_2021.csv",
+      "sha256": "0d73e0543f9955bba04cc2c2b9fb63532b062bbe484b9301b8daae499a342d19"
+    },
+    {
+      "file": "experiments/revised/baselines_houston_2022.csv",
+      "sha256": "62797deef76033542459aefd03b6870468fe7697a6f8219687b8614c737bc1f3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_houston_2022.csv",
+      "sha256": "13da9326209c6238ed29f72e4dfc5089eb4a26fc657bf6000cf86dbfe69c51f0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_houston_2022.csv",
+      "sha256": "2c316fc8aca8bd77d58fc5776be6922787226d6aa0482fdf82ad8546fb918ee4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_houston_2022.csv",
+      "sha256": "0779a2f79b886cf0bebda97778a91995f00fd98cdc47fb5c503a2b5a914e9ccd"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_houston_2022.csv",
+      "sha256": "39c8e31056abffcf0c7c519e9b3eb2f3cfd0ddfe94969d7b644e63b3e95468e0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_houston_2022.csv",
+      "sha256": "f86b168dc1e9cc1c0562f603f4cf45a9f92656a5b403d43dd4d93a2d0b323d16"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_houston_2022.csv",
+      "sha256": "60744171c266e0c3c81315c45e22e73f2f696d6a7afcb14ccce3a20e63017909"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_houston_2022.csv",
+      "sha256": "ab731ec1ea807c4cc1d5773a6910eb59f0666b441e32e3b2b8b99a1482639480"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_houston_2022.csv",
+      "sha256": "3b3f4d2fa9c7ca95fe0b920e90f8231e06b40917053056c3487ff7aedd7dcad5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_houston_2022.csv",
+      "sha256": "36daace367df4fd620fbd94c1cbeeeb0470aa5cb46d62a56c94f9352999c1088"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_houston_2022.csv",
+      "sha256": "aa2386d88fad536134ac27cc5a1088afed277935df3dd71c09efcc8100e9fa0f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_houston_2022.csv",
+      "sha256": "099f74fa694e7928ea8e8c22f1e644442e779e83661f3f7c9e55a1b96d90eae5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_houston_2022.csv",
+      "sha256": "108ba22781cda2263ed72f779aca35cba3ee2d5f3e14febb6d334e6e6cdb2946"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_houston_2022.csv",
+      "sha256": "7976de649007043069ee6f7a343bb6fdc50be19ad77af3e38fea44df2b9f0565"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_houston_2022.csv",
+      "sha256": "4b94ba57725f1ce76a18d8c36198ff2bef97156a8ab4136776ce4be04fce172d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_houston_2022.csv",
+      "sha256": "a5b6d4a9ce79d5f445dfad36f3c144a84d7d0aa7005acfb77e282f33ff52ee00"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_houston_2022.csv",
+      "sha256": "59f7b9b839d241bfe039ee065cc8b9e52a313bfe6eeb92e32e6e8c5abbb7f5df"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_houston_2022.csv",
+      "sha256": "4508daf1a7725882a9b9a5bd4617d9154d2fe5227ee43a5a4a3686dd7caa4b2c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_houston_2022.csv",
+      "sha256": "1fedeb4f48eb00d7cf41abe94f2c9471b3965f4d9f5803f5dd1674d9b6b81281"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_houston_2022.csv",
+      "sha256": "6a3db78179e126ca8f87356974d8c2db27f24d85c22b07b69b67e2a09d3f1ec1"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_houston_2022.csv",
+      "sha256": "50547fb203ff315bd329351f8fcc5e95ecae77826f34c92223fd34ec58e44605"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_houston_2022.csv",
+      "sha256": "bb9440078bf8d5dff9871fa5c0a73839a60deef24b7ce8132c87fcb3d581c102"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_houston_2022.csv",
+      "sha256": "c6faa307c7c9ace5f6bfbded8703fac10bae7d5fde16a358c36fc271be7fb97c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_houston_2022.csv",
+      "sha256": "6fe3d1b83a9dc131f6bab67f9a729386348135def13eddfb5ca321acde7f5caf"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_houston_2022.csv",
+      "sha256": "6d49a6091995f294918c90ab1927eca9409af1c230c3fb13d022d7f73cd6a7d7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_houston_2022.csv",
+      "sha256": "23332dfb52c7fb757d46885e721e8225c5d42c191ee6c38e28544dd76e9175f5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_houston_2022.csv",
+      "sha256": "c815ad5c545ba668d40c78f52cd94ca757894bf20b332e19a293ef81ba66ed6b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_houston_2022.csv",
+      "sha256": "7e3d2d762acd9d318de389b6a225ef9578e6a93fe53dede4cf16b7e296061ea8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_houston_2022.csv",
+      "sha256": "1f062d9ae7d85123ab98114c75981f7e14363e6fba0f811698c82b974d708fec"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_houston_2022.csv",
+      "sha256": "0e8682e41b54d4bc4096876ebdb740719b7b05c763f8086734158a912545fdc9"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_houston_2022.csv",
+      "sha256": "e4ec03f7525827c06065163fd8fd57d17cc3f1669ac41f020874148473f8045e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_houston_2022.csv",
+      "sha256": "6b7043adb28b9b87b46265b9c8db3fd5956cc6dca9ce86fafd5e447cfb14bc6b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_houston_2022.csv",
+      "sha256": "1d932c5c209d2ecf9d43297e2696ac56bb412f0af46ba5bba99acf79f3d8f4f1"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_houston_2022.csv",
+      "sha256": "3f35e6fbbcbb73ed7cfdf9da8007eefab0d1e6cb963c7f9c508d0bb80331aba9"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_houston_2022.csv",
+      "sha256": "b78853fba8b7c71a94a6b127b69a947d5cd5cbff76d18697b62217abf18b216f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_houston_2022.csv",
+      "sha256": "f06e4b6455a3298596015a0b37606ce41bd63c667ab23c4e9bad441888b36f25"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_houston_2022.csv",
+      "sha256": "dd2e274f8148c6fd48b4287bb24d0ceffded2ff828079a77183b54d54da3b603"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_houston_2022.csv",
+      "sha256": "89ccb1aac7adf8112d24293a98dd266fb638d6ff2ad0003331fd4dfe3d90a937"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_houston_2022.csv",
+      "sha256": "0ba681bcc134d5949fcb0d9565f92168004e0d3ba65028433024473232338b5d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_houston_2022.csv",
+      "sha256": "be9d0c33d32d52f56acd5e1e359286f41b99b3086fc90bda88eb24d851f86ca4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_houston_2022.csv",
+      "sha256": "0587ca4942fb1242c952ad332911fd5975ca3956e04fa453e96e14510ad06b1f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_houston_2022.csv",
+      "sha256": "baa274023077aba41e41b2f449b26d575a1bc1845e4642d9dd132c3b4e68e1fa"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_houston_2022.csv",
+      "sha256": "2ed0828c93fccabf5bf0397e2f5d76874d3976c320dc4f039b58e476b8e3c926"
+    },
+    {
+      "file": "experiments/revised/baselines_houston_2023.csv",
+      "sha256": "b597e18b39048e57e1de5e44e42d85e8b2c4073732c8129e1c5fa88aed224b23"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_houston_2023.csv",
+      "sha256": "f2b7cc2511abf30a03581cf2eac6f0e02746248178abfe6131bfd733b0e02b83"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_houston_2023.csv",
+      "sha256": "17d1fb5a54eaa5d193d6551d4b623b5c40f4885757337356a812e75095280ba3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_houston_2023.csv",
+      "sha256": "9fcd9f0a70699751d6842ccd686f147d2d535de0f86148e061ae8258730c01b3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_houston_2023.csv",
+      "sha256": "3a02abe41715f3bf2dd620b827837b1cc53ae515bd30f2b9437fb480239b08d0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_houston_2023.csv",
+      "sha256": "d86faaa03128c31427826f9a43a04bdf06dd6e9e75f5560f9614882d436b2012"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_houston_2023.csv",
+      "sha256": "4b5d955f665f2266a27440f56b47b659c9388d12b3fd58ee94ba47acc86ee627"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_houston_2023.csv",
+      "sha256": "4b0fec0b958dc3be866e2129538b35bf6ea7650f6d183e69f98b1537b8360fc9"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_houston_2023.csv",
+      "sha256": "17ad60e3e3930c919b4b145a4e754882f3edbbd1c5ff164703675f6a4f43fac5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_houston_2023.csv",
+      "sha256": "545a42cb92cdd1ad47e557ee7784c2e2ff6ba6658c6cb1f29bf8201a1ded7449"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_houston_2023.csv",
+      "sha256": "be9df26e543491d38cc94faf4a3b2e4ae623125d1de8e87864420cfe61fe9dff"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_houston_2023.csv",
+      "sha256": "0fff9d26174c8776cc847857b0277f593df723df80063420501f00e35dcffdda"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_houston_2023.csv",
+      "sha256": "44fea0deadf37445c2d29a2d1ebde3c1b769c20c96d69d24de4e8a5214410200"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_houston_2023.csv",
+      "sha256": "22e059a2b372de6a69008a6b151ed67567f4f33e044e097dcfc7cf2860c285e5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_houston_2023.csv",
+      "sha256": "108d3e92ffcf0d8eb438821f892b3d7c5168f01331fb2784dac5a4734bc65028"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_houston_2023.csv",
+      "sha256": "bfccfbc2c8130e385001613ae744c3e29ae8528e629f4ad540058635e7384209"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_houston_2023.csv",
+      "sha256": "2ac47274f6640382ce0e274a16bbefcb472288b2be798777a1bb00f2ddc3cced"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_houston_2023.csv",
+      "sha256": "f62c76c4bb15bddd211282cc4ff8b73ba2f156df1cc95d1f4ae2a6cca8cc4446"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_houston_2023.csv",
+      "sha256": "c5be30d72bb6cc0fdea415517a1c75fbc08b5f77b8bde9d68fcfb2e32c6df214"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_houston_2023.csv",
+      "sha256": "edfda84451249ba3fe73d4b7984510cc0d380e3ff63a3a2a012577bc6ed760cd"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_houston_2023.csv",
+      "sha256": "82021e0cdf8ac9c839dfff9ecc4b59ff82aa92f0f4622d0a1286815a8317835e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_houston_2023.csv",
+      "sha256": "97a1aad09a6f7f6aa698999f1bcc3f7115884b1a5fead6624e6a6b3d921d4250"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_houston_2023.csv",
+      "sha256": "82396816b378f209c700793a59b09fa43c713694eba64ee1d35a97e1f9bfe972"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_houston_2023.csv",
+      "sha256": "c1fdfb0e916a66da42f4336b9317b014c8bfe709172fd010c9a9e6c02ac6c31d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_houston_2023.csv",
+      "sha256": "20c3a360191417bd4a92f1c8cae3b79980dd93cc5e9e18270c99ec717bb849a8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_houston_2023.csv",
+      "sha256": "0ac99edc0f94b4f569ac530c9dab73559c84ac3505382569c2bf13093e89d322"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_houston_2023.csv",
+      "sha256": "39b5a5d4208bf6df2a145c9a9e8e370c772c1968d39482bfe2adf5a312839083"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_houston_2023.csv",
+      "sha256": "42d2bc8b876ba93868a14215ed4a0e352fe1c93b6ebfe38afebae0c5898e72af"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_houston_2023.csv",
+      "sha256": "ae43d3f5ef5b222cdb713b49752fc8f80b5f305ff7d15e30a2754d0011891a54"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_houston_2023.csv",
+      "sha256": "313ed3355d0edac6574ed5bceb8ccc85c2e798c91651a547c90688e881604942"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_houston_2023.csv",
+      "sha256": "1161b4137b8cf2ab841458d2c2c12d494f599d3ce04896e22e065158b57d63ad"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_houston_2023.csv",
+      "sha256": "a01a83b762e2cc2db1e1bc47c5f33ccae56e49314e596cf322d0ce90ab969557"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_houston_2023.csv",
+      "sha256": "3adc7eba3d2c654ae8b35c047634cce98602575c54f9b56519d22cc3a935bd09"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_houston_2023.csv",
+      "sha256": "f4a3da781121f0192e8c715e4463063f7231141b613025cfe12397941e53b98f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_houston_2023.csv",
+      "sha256": "d2d3374df0d261734bb6ba04a44f1fbfea849ecfc5217ce0bedd2db8dff140d2"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_houston_2023.csv",
+      "sha256": "31b868b86d4ab31f856a7a44f22d71cc0bcb288c378279b4f21e715ab6e82af8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_houston_2023.csv",
+      "sha256": "34e41b69d9b81e297249def1007e486fa9dbf952eab7eda384a1878b62669969"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_houston_2023.csv",
+      "sha256": "f00c3b87118af84af08ed4a62ed36c4600d782799ce90d31b3f96bfa80e6ce1c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_houston_2023.csv",
+      "sha256": "27be9770fbcaef4ae07bd5642503fcc84a280f7a0f02529a1892fbc97871097e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_houston_2023.csv",
+      "sha256": "f960e7e886d7e34de4c0d18c6a832202afada806daa5645f67a2886542790fb6"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_houston_2023.csv",
+      "sha256": "323dd2bbf87f62863175f7968e192726357e4e2c96726ec5d39caa57bfd4194f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_houston_2023.csv",
+      "sha256": "0ec5e4c9b67d8934f8c1812440adbab54a9b034209242354694af15827a34467"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_houston_2023.csv",
+      "sha256": "5ea6819e88ca9a9f8c36adf74a55a11a29247a70b5f23ec9983637257dbf1062"
+    },
+    {
+      "file": "experiments/revised/baselines_dfw_2021.csv",
+      "sha256": "9943a4f8efadca6da5b4b1133dcc2646740e2cf1d368342b1ec1a4ec26230f2d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_dfw_2021.csv",
+      "sha256": "bcaf3ce84852506373388485d4fc83b21032b0475cd0b300c3a505dd23eb0b34"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_dfw_2021.csv",
+      "sha256": "47a3bbbbcfd2e105091c0a7b7f66badad57e61caf90edd70fe9219526754afca"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_dfw_2021.csv",
+      "sha256": "d514cdbb71462fe9bea3d2bbc642e8f6655df06a7485d8a081afb179860c56c6"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_dfw_2021.csv",
+      "sha256": "c7dcfaab78273efb93980f58ac3b15dae7e6800215a6088a4766410d7eda0fd5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_dfw_2021.csv",
+      "sha256": "77f8e453e1509705838539f3b87ab96ea71e042eb94f301526fda8dd8b57e77e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_dfw_2021.csv",
+      "sha256": "3b2ca3cd41a2e8018c24b74e5e9af54ef6ada6490d93e9889ab809888e43cbcf"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_dfw_2021.csv",
+      "sha256": "48531842f4454549f8eb1bae41874fc75666623f9e65d84cf1d9102507a9b641"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_dfw_2021.csv",
+      "sha256": "8e225fdb6be295ac61169cdceddea43c273e24ee7776f1c47ec4e63a253fc058"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_dfw_2021.csv",
+      "sha256": "db72b69d0f68f681c214bc08946fe3d45edb34e02e40e15c098f0d72e64f711c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_dfw_2021.csv",
+      "sha256": "2af38967564fd1a3f2c6d4f27e00d4b0e498016542a752b82e84becb55cf9e43"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_dfw_2021.csv",
+      "sha256": "b78339ea6325cf0a44f0b24bad9e4c30de824040e07d3155f6f11d7c56571a67"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_dfw_2021.csv",
+      "sha256": "efe0e7928919ab4b5c7feccc0c44b9737136ee2d4ae4abb34defc1ae8ef54c6b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_dfw_2021.csv",
+      "sha256": "b79fc3f042608851ee60b86f815691769e379e60952018bb0599e07bea3d91fb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_dfw_2021.csv",
+      "sha256": "d6e7bba24f9ed4c32a8b6b42a16091e2f852e2cb0ee8149abcaf762530e553e2"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_dfw_2021.csv",
+      "sha256": "9422c998a06dad20742e63039cc13d9c105d334b59ab4033683fa4272955c248"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_dfw_2021.csv",
+      "sha256": "4d4b52ff932c6a33ef2c4b95e80e33ae11ccb6421406089aa3c1d0bf4b30d41f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_dfw_2021.csv",
+      "sha256": "5b8932b8544593a7ab829ee43fd006c4ef2c734e7a377533f80ce210819afd85"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_dfw_2021.csv",
+      "sha256": "03c22d7a07eadc1b75450e0ccbd92bbfc0115e6128cff9e0022c3dad776425b8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_dfw_2021.csv",
+      "sha256": "d16ca1fcaed216bd8978025892068a8832536705eda4ee382c1fe57f54c0722e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_dfw_2021.csv",
+      "sha256": "a941030d32d6c6b11627cf6f8e3732e7ba49a0a1a1856904edd6de5ddf57e8ec"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_dfw_2021.csv",
+      "sha256": "1404bb4ed542f30218963ed499a999433f5d203af4eacd60befffac0e1ec97e1"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_dfw_2021.csv",
+      "sha256": "823088f7f1c3f30f8781eb155c14ce24ec51207bfd83d64e8a1ed9698db4258a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_dfw_2021.csv",
+      "sha256": "9a5e05ba05e8f7cf28a7e6d5178e4f7bf5a1880a9492f218b53459bbedeb9886"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_dfw_2021.csv",
+      "sha256": "1fc1153c5b15a3db43afd1af2756a0977a8381a1b1ddbbf3199b18e446f33cdb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_dfw_2021.csv",
+      "sha256": "aeabfd1866c7d24aae8545411e4d18e819409619b45de39b555cecc84efe0bdb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_dfw_2021.csv",
+      "sha256": "281c89c288d5f3f377e866fa449a6c2d82d57ca3c9695864e240260383ede259"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_dfw_2021.csv",
+      "sha256": "c7ae6a87140daaac089257d9ea5e8753865302ff3a20834018796eb5985d6650"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_dfw_2021.csv",
+      "sha256": "2155eadc0350a505c2fa33a75879da522eecc138d58e4c4fb7788713401be6d7"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_dfw_2021.csv",
+      "sha256": "040a70baaafe60a02aa436f146d361574527d3118cb9d961cb7e9306dd96fb2e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_dfw_2021.csv",
+      "sha256": "20c9849223c3e578f06c0c930e5db1949d5184ba0666eef40c182bcfab879cf4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_dfw_2021.csv",
+      "sha256": "3565716e374f05761109270683611978cfb399282d84ef9e9d97f558284d9f15"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_dfw_2021.csv",
+      "sha256": "3aad3f738c6d2b29a0dfeba8c33b37dd6c33b4020f303ee8cac9ff070b535a94"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_dfw_2021.csv",
+      "sha256": "26354b92d0168fc8757c8398c14ff4f60421034fd7b296d8cc7ffea564b71f23"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_dfw_2021.csv",
+      "sha256": "8aaa7df86177fcd2ba1d7f5dd7ca9a4f25b2b1f8fad71c2cf469b6a65d730e20"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_dfw_2021.csv",
+      "sha256": "32b8e0fc804905823e7021adf429adb629a4e95b078747240336e67779987935"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_dfw_2021.csv",
+      "sha256": "25245cb8a4aab8b29984c9da17d36dc0870e4ed21153f766e3a609186552818b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_dfw_2021.csv",
+      "sha256": "0d18f8c280df983158ff930b6308b4e8f19a8f7dd9bdfe93347727feb03ef994"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_dfw_2021.csv",
+      "sha256": "d4def2f358321000727bf11c3f687fa194f0911568781ad6a4ee02df912539fb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_dfw_2021.csv",
+      "sha256": "7e4900d89313356a2a570ba4271654cb45d0b9a1f424abd13fdfb72347871788"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_dfw_2021.csv",
+      "sha256": "7132a79534a5be563345a8b0b66290e9df60ef0f3a157fd257fff9797ff5c601"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_dfw_2021.csv",
+      "sha256": "fa0aebefb9bdda43bf708e04100e41d9ea444a54dfab8d94019749d38c028ebc"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_dfw_2021.csv",
+      "sha256": "d7d5ae05479543d6c8a2880a9fbbf104ca91eeeb60a9ae9d16c40ec52dcdc35e"
+    },
+    {
+      "file": "experiments/revised/baselines_dfw_2022.csv",
+      "sha256": "dc3bfab090d31f2ea8cac00bb2e7b57b19df70050490964c47e40234315a32e4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_dfw_2022.csv",
+      "sha256": "222173182c55d18739c03b503bf87426699ef0510af3c861353e2b591c97b8e3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_dfw_2022.csv",
+      "sha256": "dbdff7a2bbb806439ea2fa11f9f4e902f1d2b5c2fee5f5012709156da153301e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_dfw_2022.csv",
+      "sha256": "31a8746c52a21aa3001597c26ae9ec79e3c4dd405f82b4c2eb526be3c4785b6d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_dfw_2022.csv",
+      "sha256": "e710e0a962dac0457d31ba7658d88b6b601e7d761779b6df7203de84440a9964"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_dfw_2022.csv",
+      "sha256": "7df1f7300c21eb445bc96e9e7dc1a4ba3b5985edacadcc1922195d1b1cffcb2b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_dfw_2022.csv",
+      "sha256": "1725729571f63caff15f84002de4aad68a658e8f73390143778371b2f12936a4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_dfw_2022.csv",
+      "sha256": "03302bfe7d653e492d4fb016dfcacc30e79e78e7bbad213ad76ffb333575fb83"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_dfw_2022.csv",
+      "sha256": "64742a94103dd62b06ada0b2b5cbbc4e43927d235e87bf96fe559a2ed873d767"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_dfw_2022.csv",
+      "sha256": "5ed118d06e512672ffa3be3347b38a8338c215c25f486496fe8a55605a6de7e0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_dfw_2022.csv",
+      "sha256": "3b043a05955473bdc02031195aab3ac97aaa926adccb561ccffcc3930beabb04"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_dfw_2022.csv",
+      "sha256": "70e860cf1929edd04fbcada7daa9f6ed81a4c0b076dfe1391e9357106f986a4b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_dfw_2022.csv",
+      "sha256": "77ce17cb6cf400125c924eaec755e34dc9cfd0d56ecc99b348dfe0fed524998e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_dfw_2022.csv",
+      "sha256": "568621517e3d44ab7c17ed22db3a85c4c83ec6a8d03ca48532c1f11adee18a84"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_dfw_2022.csv",
+      "sha256": "ed464e886a75410f5d44eecfc36738f66da112bde30388b36cd37e71305dfea3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_dfw_2022.csv",
+      "sha256": "7b2e39ae1739060cfcdc0eb0c384fd4abeae2c5037a3c95f551ac72469e02d48"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_dfw_2022.csv",
+      "sha256": "5c0ad5d297d476e72767ca15b5211ec66fb27a1571c423c255b5941cac4a3d40"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_dfw_2022.csv",
+      "sha256": "a7e45c5238d83e05c828f15a87c66447ec0c2e95ec8873919cfe53b101a55254"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_dfw_2022.csv",
+      "sha256": "1e0923629ea8c9584ae7454bf5dbdee0aac1ba94e7e354fc1fd862303470a810"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_dfw_2022.csv",
+      "sha256": "c22082438860566196c90968461a40dcb59ae3c926e4f375c4cd50acb480976c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_dfw_2022.csv",
+      "sha256": "890fca670e7ae96ebdee6faa25e175dbf8372bedb704977f5466feb089a3aa77"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_dfw_2022.csv",
+      "sha256": "fc5eb245aa5a0710dc8f56499207c81452478d390bf5b6a90a70667efb52c452"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_dfw_2022.csv",
+      "sha256": "721721eb7658761992f2d0160ffd9dccb3dbd756db83a4018e04a396afb94d7e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_dfw_2022.csv",
+      "sha256": "166a6b36c1ddc9b646d10085745d72ed37d13d86d6f16aa77b81062f2f03ab89"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_dfw_2022.csv",
+      "sha256": "29e3b10b75e7e53a8ee4c58a36f6beb7d9a90904b5d28ac9c1284cafc0681fb6"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_dfw_2022.csv",
+      "sha256": "0fa4ec5bae16778f8dba2693f4f57d709c139972592a9845ddcdfcb9b5aa5975"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_dfw_2022.csv",
+      "sha256": "50acdbd7299665212c269571ead8236458b125f566eeb52bcbf75f1a22272201"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_dfw_2022.csv",
+      "sha256": "ee7646d23912df27cd00a9f74274c41ffe57f7d723c269dfe8d287711800d1d2"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_dfw_2022.csv",
+      "sha256": "19c689430c16f102045aba6d464d29befee6b5cc63e8c9399e9e2456d7d27965"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_dfw_2022.csv",
+      "sha256": "f11c9990d0d45dd82c873a45bafa3887f50d5dcdbafdf8783660d036b1089595"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_dfw_2022.csv",
+      "sha256": "9591b94f74a628f9651632d54644b2a1ad70db7677ec25987b8c2c27beacccf1"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_dfw_2022.csv",
+      "sha256": "44f3de022fe337359ea4bd63923cae86d9e1069e1fd113de89a5ee3eb571376a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_dfw_2022.csv",
+      "sha256": "dcecd4ae99c8f02d86d400b396ea7b90dffff40f23b36176e044fa8fcc4c83bb"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_dfw_2022.csv",
+      "sha256": "73e54e53b1ef3d15c282d85046915270bde430baef5179ca391f4a2b7328a5f5"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_dfw_2022.csv",
+      "sha256": "82500eef10755fa6500b76c4d60df71660cf5f0071e9f3edec0921ff0e2a3967"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_dfw_2022.csv",
+      "sha256": "437fe1fe714becb5b1131ae070e90a4aeddcf4f52c8b191b940c08001180cad6"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_dfw_2022.csv",
+      "sha256": "eceeb3c5aee0df1f03a92e81962d223f633176bc03cab0e37ca3a6ac35e1840c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_dfw_2022.csv",
+      "sha256": "7027148cf1d957465e5e8426e7019c4a2a27a0866cc28c00a31dc8858bb53398"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_dfw_2022.csv",
+      "sha256": "258970d0d62e8c2e90bd5693f285ec67334ed29bd4e66215a80ed09d1cc571ad"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_dfw_2022.csv",
+      "sha256": "392727d2cea7dafc89094c9e8b533d31825b8c7b14fb08009c28e95bfe50f6c9"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_dfw_2022.csv",
+      "sha256": "752bf05dca2431f9d4277e93ffc29591cf659d33e17fc273b2dd405d3fa56ae4"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_dfw_2022.csv",
+      "sha256": "dd508bfeb7a863261028207aca3d032701f5aa27ea524e535bffc3aece4da88e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_dfw_2022.csv",
+      "sha256": "8cc7316922b326645267a4dc16619f6514a6e879fae8095bb30f90fb8ce7a92c"
+    },
+    {
+      "file": "experiments/revised/baselines_san_antonio_2021.csv",
+      "sha256": "fd081573ebb80d631d1d0436ca948b37cf4943b7c9c5823e977225d8aba10cc0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_san_antonio_2021.csv",
+      "sha256": "4ce3a4ffcc6804f7ad7ed562efe8f6d14d9a19a00b43184b361c1db1c4353804"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s1_guard_san_antonio_2021.csv",
+      "sha256": "71f3e832c1cb57eaa754b3af0bff6349fc3c6f612276b95444fee7edd3a25581"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_san_antonio_2021.csv",
+      "sha256": "9e98e5d06bb488a5b9ee7b9f1fffed2d4d8c182e88c4e1acb7b72533c02f0921"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s2_guard_san_antonio_2021.csv",
+      "sha256": "adb30f971a44dd1ea62d8e92629b07fb48d3bf8542ea60cf2e9151720a60bcbd"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_san_antonio_2021.csv",
+      "sha256": "e14e010d763eea720179c4aa96a0b2dacd78fa8de89d38b894e0990b92018748"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s3_guard_san_antonio_2021.csv",
+      "sha256": "7e93cab1b40c3e9d20949775b481ab8590102b5f28c87f89b079b4076f39e869"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_san_antonio_2021.csv",
+      "sha256": "44e03378ab99eb8a13f35d57b6104e58d40a32e1b79f025feb68f0993bda494f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s4_guard_san_antonio_2021.csv",
+      "sha256": "812b675cfdac497c7bf30364242eb066e15845a4c01446136bbcfa6c42e6be64"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_san_antonio_2021.csv",
+      "sha256": "b8637e54a4dc9c42389bf8354adc4da6cba192a9563f1e549328b98f04b3422d"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam5_s5_guard_san_antonio_2021.csv",
+      "sha256": "1ff7f9e610e0d98e1cab9db7b37ffcb3f7a33bd5a36ab46bd8c33c21b0e3014e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_san_antonio_2021.csv",
+      "sha256": "19aaf718bf20e8094f4e28e301768fd8d940dd05cafbc014d750e1fe9ae463d0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s1_guard_san_antonio_2021.csv",
+      "sha256": "bd9879495c8365a824bcba3aafd61ad1f27885d7204ebeb7a4cec8d3f6dfab0e"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_san_antonio_2021.csv",
+      "sha256": "83553051d6f8b9652bfbb08a41d4cf198553c5e7d0e25745a6f7e3ac283723bf"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s2_guard_san_antonio_2021.csv",
+      "sha256": "ac4fbc9937278a684e507b1586561d0b3bb58e245dec1baaae49d7e9ea8df9ef"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_san_antonio_2021.csv",
+      "sha256": "da1eca3493283d61a7846d4b7dc85c97c5985fa7e2c4a706045c8bec5c1c13d0"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s3_guard_san_antonio_2021.csv",
+      "sha256": "956f2067b8ba4de9f01d5faaabb81b0adabd55e486f368b58fc39996ff5f138c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_san_antonio_2021.csv",
+      "sha256": "226ff690b0feeace2650a18d5bc64b16bbbccef96c6ad1f4e53d766621b2d36a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s4_guard_san_antonio_2021.csv",
+      "sha256": "eef4234a56a421004a2bbfbecf8e6e85b3d466b3287ee865a2ad6cfe498da5e3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_san_antonio_2021.csv",
+      "sha256": "facaa27e3473226f9e1b6ae6c6883e0ac199c3bd8f7498c292f2eba8488f9384"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_pc_lam20_s5_guard_san_antonio_2021.csv",
+      "sha256": "27406a5840e6bab0a0442cfbe3d438b037dba062de69e9fee13987b646c3a4ed"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_san_antonio_2021.csv",
+      "sha256": "13e51f2ab1934d836040780ebdd701831ae4095c5bdca986c7323c0480d8d4f8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s0_guard_san_antonio_2021.csv",
+      "sha256": "98fe6aa2c826c8e91f54c53de80889a604d79252cb84c575c2b6df11dbccf4a8"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_san_antonio_2021.csv",
+      "sha256": "054d94f483792bb5b7b717e69a19d9e24ff4a357e0942f979c05609ff7b67841"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam1_s1_guard_san_antonio_2021.csv",
+      "sha256": "74433e0c8b07f115210f79dfc6f5246e3b1c64e521f32b0fa7089b70883b4467"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_san_antonio_2021.csv",
+      "sha256": "fb1ae679c0c733f5adbd4a24c9935d7533f932dbeca66a3090fc3c250870f329"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s0_guard_san_antonio_2021.csv",
+      "sha256": "8f97acfae128e5689bb93859e64ec56add61ee5079b4d0d950b510bf16f8ee34"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_san_antonio_2021.csv",
+      "sha256": "3ec07dee2dd8812b4ee9e56df74c7229966b4bcc3ea2d1d936acf4f42855037c"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s1_guard_san_antonio_2021.csv",
+      "sha256": "0d292072849a18c1e0b32367bbc8774d7b888a090faf185ab6f4182441759728"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_san_antonio_2021.csv",
+      "sha256": "1a41434563ea6b826699cb4437d2aaa85493dc6680cdaad381fdb505213e3602"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam5_s2_guard_san_antonio_2021.csv",
+      "sha256": "364042e9c7f355b88280fd1bec8c26659f25b593e258d798189f9272a9c7ee0b"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_san_antonio_2021.csv",
+      "sha256": "824edcedc1f37fd0fab6c7296c6e4eda1499cde47cb692f329bde54620f7902a"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s0_guard_san_antonio_2021.csv",
+      "sha256": "07236fe58702d2c1d613bdfa51a1e0b01e982c7fe48456ed19da025a354860a3"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_san_antonio_2021.csv",
+      "sha256": "a9fd07676eb55b3c0682b67afde120c4d4f0a6b819ef5b42bcb6bcab93613608"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_learned_lam20_s1_guard_san_antonio_2021.csv",
+      "sha256": "4dd2fdcd79ffdbccdd0337b5e91bba089e99d7994f95c88fc5c05ec1525c6856"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_san_antonio_2021.csv",
+      "sha256": "5fa63241fd9444019a9887b03217d0ee23878d8b52becede4decb758a88dad12"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s0_guard_san_antonio_2021.csv",
+      "sha256": "86ad83577606331ba137e7cdc52c35ecbabceb8ba4ba765f4068beeb81f8406f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_san_antonio_2021.csv",
+      "sha256": "a5f3bba6f921e277de72e151a79b861c5cd82b75273de243228bdc9102dd6e85"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_fixed_lam5_s1_guard_san_antonio_2021.csv",
+      "sha256": "9b5c059855d53f2bb1d4554d6025d29a2762530d33d590d7cdb1320f1e17232f"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_san_antonio_2021.csv",
+      "sha256": "2c81737c6a74f4f66ffef3c4a8874a3c2fe67851f1bec0fcff9745649a1ef833"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s0_guard_san_antonio_2021.csv",
+      "sha256": "cc7d0b06453681c5719d0c5f533974618075adb74c37a9101725ec46db46acad"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_san_antonio_2021.csv",
+      "sha256": "2fd32e34f761dfdfa29cd0d094dff48a8322ebf28f27fb4c11290c80310e2887"
+    },
+    {
+      "file": "experiments/revised/policy_ppo_none_lam5_s1_guard_san_antonio_2021.csv",
+      "sha256": "c60073bde4e63bc08111c303acd7bbe5237fb6f989e3c2a0f1e4bcd4c3c8517b"
+    }
+  ],
+  "selected_policy": {
+    "run": "ppo_pc_lam5_s4",
+    "controller": "B6_ppo_pc_lam5_s4",
+    "path": "experiments/revised/ppo_pc_lam5_s4/policy.pt",
+    "protocol": "causal-v3",
+    "source_sha256": "4de329986ef263fa0e1cefbe84ed798ebc7f2a31c4c18f1e859de6a6b04a6c6c",
+    "policy_sha256": "12cfa5379cd083e4774e67449ea83afad47cccd20947303239b3cb1476fdc2c8",
+    "criterion": "Houston 2024 annualized margin minus $20/kWh of first-five-hour unserved energy",
+    "validation_score": 426.08536757821025
+  },
+  "seasonal_definition": "Whole regular windows grouped by the season of their first America/Chicago timestamp: DJF, MAM, JJA, SON. Boundary-crossing windows remain whole; annualized values are standardized cohort rates, not exact calendar-season totals."
+}

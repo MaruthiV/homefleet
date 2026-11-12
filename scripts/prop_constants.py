@@ -1,55 +1,46 @@
+import json
 import numpy as np
 import pandas as pd
-from homefleet.paths import DATA_PROC as PROCESSED
+from homefleet.paths import DATA_PROC, EXPERIMENTS
+from homefleet.env import FleetData
+from homefleet.sim.outage import episodes
+from homefleet.sim.battery import make_fleet
 
 
-def episodes(mask, index, merge_h=4):
-    on = np.flatnonzero(mask)
-    if len(on) == 0:
-        return []
-    gaps = np.diff(on) > merge_h * 4
-    starts = np.r_[on[0], on[1:][gaps]]
-    ends = np.r_[on[:-1][gaps], on[-1]]
-    return list(zip(starts, ends))
+def main():
+    output = EXPERIMENTS / 'revised'
+    output.mkdir(exist_ok=True, parents=True)
+    params = make_fleet(['gen2_single', 'gen2_double', 'core'])
+    worst_charge_h = .25 * np.ceil((.9 - params.soc_min) * params.energy_kwh / (params.eta_c * params.p_charge_kw * .25))
+    rows, duty = [], []
+    for metro in ['houston', 'dfw', 'san_antonio']:
+        for year in range(2019, 2026):
+            data = FleetData(DATA_PROC / 'revised' / f'{metro}_{year}.npz')
+            for j, fips in enumerate(data.fips_list):
+                alert = data.alert.iloc[:, j].to_numpy(dtype=bool)
+                fraction = data.frac.iloc[:, j].to_numpy()
+                calendar = data.index.year == year
+                duty.append(dict(metro=metro, year=year, fips=fips, duty=float(alert[calendar].mean()),
+                                 alert_spike_hours=float(((data.price_rt >= 1000) & alert & calendar).sum() * .25)))
+                for threshold in [.01, .05]:
+                    for start, end in episodes(fraction >= threshold, merge_gap=16):
+                        if data.index[start].year != year:
+                            continue
+                        first = start
+                        if alert[start]:
+                            while first > 0 and alert[first - 1]: first -= 1
+                        lead = (start - first) * .25
+                        rows.append(dict(metro=metro, year=year, fips=fips, threshold=threshold,
+                                         onset=str(data.index[start]), duration_h=(end - start) * .25,
+                                         peak_fraction=float(fraction[start:end].max()), active_at_onset=bool(alert[start]),
+                                         recent_alert_24h=bool(alert[max(0, start - 96):start + 1].any()),
+                                         continuous_lead_h=lead, lead_covers_worst_charge=bool(alert[start] and lead >= worst_charge_h.max())))
+    pd.DataFrame(rows).to_csv(output / 'guardrail_constants.csv', index=False)
+    pd.DataFrame(duty).to_csv(output / 'alert_duty.csv', index=False)
+    (output / 'guardrail_hardware.json').write_text(json.dumps(dict(presets=['gen2_single', 'gen2_double', 'core'],
+        worst_charge_hours=worst_charge_h.tolist(), assumption='continuous connection and full inverter availability; initial physical minimum; SOH 1'), indent=2) + '\n')
+    print(pd.DataFrame(rows).groupby('threshold')[['active_at_onset', 'lead_covers_worst_charge']].mean())
 
 
-def main(metro="houston", years=range(2019, 2026), thr=0.05):
-    rows = []
-    for y in years:
-        d = np.load(PROCESSED / f"{metro}_{y}.npz", allow_pickle=True)
-        idx = pd.DatetimeIndex(d["index"])
-        alert = d["alert"][:, 0].astype(bool)
-        frac = d["frac"][:, 0]
-        price = d["price_rt"]
-        eps = episodes(frac >= thr, idx)
-        for s, e in eps:
-            lb = max(0, s - 96)
-            covered = alert[lb:s + 1].any()
-            lead_h = np.nan
-            if covered:
-                a_on = np.flatnonzero(alert[lb:s + 1])
-                first = lb + a_on[0]
-                # walk back to the start of that alert run
-                while first > 0 and alert[first - 1]:
-                    first -= 1
-                lead_h = (s - first) * 0.25
-            rows.append(dict(year=y, onset=idx[s], dur_h=(e - s) * 0.25, peak_frac=frac[s:e + 1].max(),
-                             covered=covered, lead_h=lead_h))
-        d_duty = alert.mean()
-        spike = price >= 1000
-        hi = price >= np.quantile(price, 0.9)
-        print(f"{y}: duty={d_duty:.4f}  alert&spike/alert={spike[alert].mean() if alert.any() else 0:.4f}  "
-              f"alert&top-decile/alert={hi[alert].mean() if alert.any() else 0:.4f}  episodes>={thr:.0%}: {len(eps)}")
-    t = pd.DataFrame(rows)
-    if len(t):
-        print(f"\nmass-outage episodes (frac>={thr:.0%}, {metro} {min(years)}-{max(years)}): n={len(t)}")
-        print(f"recall r = {t.covered.mean():.3f}  ({t.covered.sum()}/{len(t)})")
-        print(f"lead hours (covered): min={t.lead_h.min():.1f} median={t.lead_h.median():.1f}")
-        print(t.to_string(index=False))
-    return t
-
-
-if __name__ == "__main__":
-    import sys
-    thr = float(sys.argv[1]) if len(sys.argv) > 1 else 0.05
-    main(thr=thr)
+if __name__ == '__main__':
+    main()

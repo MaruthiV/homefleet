@@ -1,0 +1,7 @@
+# a&z firm margin params, usd per kwh
+p_ret: 0.09
+c_tdsp: 0.05
+beta_solar_credit: 0.04
+subscription_usd_month:
+  single: 19.0
+  double: 29.0

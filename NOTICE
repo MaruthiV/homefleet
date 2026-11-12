@@ -1,0 +1,18 @@
+The MIT license covers the HomeFleet source code authored in this repository.
+It does not replace the terms governing third-party datasets or software.
+
+HomeFleet combines ERCOT settlement prices, ORNL EAGLE-I county outage records,
+NREL ResStock simulated building loads, NREL SMART-DS synthetic feeder models,
+Open-Meteo historical weather, and the Iowa Environmental Mesonet NWS VTEC
+archive. The accompanying data card identifies versions, transformations,
+source links, and attribution. EAGLE-I v4 and Open-Meteo weather data are
+distributed under CC BY 4.0. Open-Meteo attribution and data-license terms:
+https://open-meteo.com/en/licence
+
+HomeFleet housing profiles are simulations from ResStock. They are not
+telemetry from Base Power or any other battery operator. Hardware and tariff
+parameters reproduce a publicly described setting; no affiliation or
+endorsement by Base Power, ERCOT, ORNL, NREL, or the data providers is implied.
+
+BLAST-Lite is a separate third-party dependency with its own license. The
+NeurIPS style file retains its original copyright and distribution terms.

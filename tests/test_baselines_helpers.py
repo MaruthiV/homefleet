@@ -11,7 +11,7 @@ def test_hazard_step_probs_sums_to_cum():
 def test_slot_median_forecaster_causal():
     slots = np.tile(np.arange(96), 40)
     x = np.tile(np.arange(96, dtype=float), 40)[:, None]
-    f = SlotMedianForecaster(x, slots, days=7)
+    f = SlotMedianForecaster(x, slots, days=7, start=96 * 7)
     f.update_to(96 * 30)
     fc = f.forecast(96 * 30, 96)
     assert np.allclose(fc[:, 0], np.arange(96))

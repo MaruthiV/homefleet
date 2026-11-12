@@ -1,0 +1,24 @@
+{
+  "protocol": "causal-v3",
+  "all_static_references_resolve": true,
+  "labels": 37,
+  "citations": 28,
+  "pdf_verified": true,
+  "numerical_claims_verified": true,
+  "note": "Final named22-page PDF compiled and independently rebuilt from the minimal source ZIP; every rendered page visually checked, with byte-identical PNG inheritance recorded. All77 generated numerical macros independently validated against canonical results.",
+  "pdf_sha256": "fe6f810a07e0384f11590ad243ce652de2db216753f57dd4b3f9314fc84d5330",
+  "source_zip_sha256": "723a5cdc4d4388bead750d12f10310f5aec5ef67382d3879a1d3254312404c52",
+  "sources": {
+    "paper/main.tex": "091248edcfefcbe612c85b7a0ecfe281e3060c990d09dc2af4d8666fff86e48a",
+    "paper/methods.tex": "75aaa9878699faaf35213de84b5d88c229833c03f37e2d3509cbaa43b51d7cce",
+    "paper/results.tex": "46d93446bb602becf3730c5e324cba4e28f5e0c07508947922a1393d6099467b",
+    "paper/appendix.tex": "3fa9354b2f4e538e119d2c2210d41b013e3b8847a5425ed0a632d2f1e0c5de48",
+    "paper/authors.tex": "1fda5af34a558cbc60db9fcab8ceffb8624c811e40806cb652074c53dda10f33",
+    "paper/refs.bib": "f63b36df955513b5286dc98cccb07fee14f52fdc606cc0685429a5a828adfe2d"
+  },
+  "proofs": [
+    "artifacts/manuscript_claim_validation.json",
+    "artifacts/manuscript_visual_validation.json",
+    "artifacts/arxiv_build.json"
+  ]
+}

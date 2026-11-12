@@ -1,5 +1,5 @@
 import numpy as np
-from homefleet.sim.battery import envelope
+from homefleet.sim.battery import envelope, clip_power
 
 
 def priority_disaggregate(p_target, e, params, soh, avail, floor, dt):
@@ -27,10 +27,6 @@ def priority_disaggregate(p_target, e, params, soh, avail, floor, dt):
             left -= take
             if left <= 0:
                 break
+    pc, pd_ = clip_power(e, pc, pd_, params, soh, avail, floor, dt)
     shield = p_target - (pd_.sum() - pc.sum())
     return pc, pd_, shield
-
-
-def qp_disaggregate(p_target, e, params, soh, avail, floor, dt, rho_soc=1e-3, rho_w=1e-4, sens=None, v0=None):
-    # todo: cvxpy/osqp version with equal-capability term and linearized feeder bounds (formulation sec 9)
-    raise NotImplementedError
