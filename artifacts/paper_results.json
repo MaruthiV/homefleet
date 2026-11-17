@@ -89,7 +89,7 @@
     "HoldETFade": "0.39\\%",
     "HoldBLASTFade": "5.75\\%"
   },
-  "readme_sha256": "5165ba3f397f46ee186683789f522914aa02c8fdfce7e08958521ccbd1525ef1",
+  "readme_sha256": "f24a7675c176d6088c12fe78fb2123755a2f00bf44c5ad4a05766eb2271fd3ab",
   "generated": [
     {
       "file": "paper/figs/event_traces.pdf",

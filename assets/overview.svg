@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="330" viewBox="0 0 1200 330" role="img" aria-labelledby="title description">
+  <title id="title">HomeFleet-ERCOT evaluation pipeline</title>
+  <desc id="description">Observed market, outage, weather, and warning records are combined with simulated household loads, PV, and interruptions. Fixed, risk-adaptive, and learned reserve policies are compared through paired battery simulations and evaluated on economics, backup service, transfer, storms, power flow, and aging.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#8b9ba9"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="1198" height="328" rx="16" fill="#ffffff" stroke="#d8e1e8"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="600" y="38" text-anchor="middle" fill="#182b3a" font-size="23" font-weight="650">HomeFleet-ERCOT evaluation pipeline</text>
+    <g stroke="#8b9ba9" stroke-width="2" fill="none" marker-end="url(#arrow)">
+      <path d="M 296 174 H 318"/>
+      <path d="M 588 174 H 610"/>
+      <path d="M 880 174 H 902"/>
+    </g>
+    <g>
+      <rect x="32" y="64" width="260" height="216" rx="12" fill="#f3faf9" stroke="#bfdad5"/>
+      <text x="52" y="91" fill="#087f73" font-size="12" font-weight="700" letter-spacing="1.4">01 / DATA</text>
+      <text x="52" y="122" fill="#182b3a" font-size="20" font-weight="650">Public + simulated inputs</text>
+      <text x="52" y="153" fill="#344d5f" font-size="16" font-weight="600">Observed records</text>
+      <text x="52" y="177" fill="#344d5f" font-size="16">Prices · county outages</text>
+      <text x="52" y="200" fill="#344d5f" font-size="16">Weather · issued alerts</text>
+      <text x="52" y="232" fill="#344d5f" font-size="16" font-weight="600">Simulated households</text>
+      <text x="52" y="256" fill="#344d5f" font-size="16">Loads · PV · interruptions</text>
+    </g>
+    <g>
+      <rect x="324" y="64" width="260" height="216" rx="12" fill="#f5f8fc" stroke="#c8d7e9"/>
+      <text x="344" y="91" fill="#315e97" font-size="12" font-weight="700" letter-spacing="1.4">02 / CONTROL</text>
+      <text x="344" y="122" fill="#182b3a" font-size="20" font-weight="650">Reserve policies</text>
+      <text x="344" y="159" fill="#344d5f" font-size="16">Fixed and historical targets</text>
+      <text x="344" y="190" fill="#344d5f" font-size="16">Risk-adaptive optimization</text>
+      <text x="344" y="221" fill="#344d5f" font-size="16">Learned power and reserve</text>
+      <text x="344" y="252" fill="#344d5f" font-size="16">Alert charging override</text>
+    </g>
+    <g>
+      <rect x="616" y="64" width="260" height="216" rx="12" fill="#f8f6fc" stroke="#d8cfe9"/>
+      <text x="636" y="91" fill="#74519e" font-size="12" font-weight="700" letter-spacing="1.4">03 / REPLAY</text>
+      <text x="636" y="122" fill="#182b3a" font-size="20" font-weight="650">Paired comparisons</text>
+      <text x="636" y="159" fill="#344d5f" font-size="16">Shared homes and outages</text>
+      <text x="636" y="190" fill="#344d5f" font-size="16">Battery and tariff accounting</text>
+      <text x="636" y="221" fill="#344d5f" font-size="16">Causal controller inputs</text>
+      <text x="636" y="252" fill="#344d5f" font-size="16">Physical constraint checks</text>
+    </g>
+    <g>
+      <rect x="908" y="64" width="260" height="216" rx="12" fill="#fffbf3" stroke="#e9d9b6"/>
+      <text x="928" y="91" fill="#99661e" font-size="12" font-weight="700" letter-spacing="1.4">04 / EVALUATE</text>
+      <text x="928" y="122" fill="#182b3a" font-size="20" font-weight="650">Value and backup</text>
+      <text x="928" y="159" fill="#344d5f" font-size="16">Profit · five-hour service</text>
+      <text x="928" y="190" fill="#344d5f" font-size="16">Year, metro, and fleet shifts</text>
+      <text x="928" y="221" fill="#344d5f" font-size="16">Real and synthetic storms</text>
+      <text x="928" y="252" fill="#344d5f" font-size="16">AC power flow · aging</text>
+    </g>
+    <text x="600" y="309" text-anchor="middle" fill="#536b7c" font-size="15">One reproducible protocol connects forecast inputs, reserve decisions, and service outcomes.</text>
+  </g>
+</svg>

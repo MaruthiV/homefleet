@@ -82,8 +82,8 @@
     "UriRiskPromise"
   ],
   "numbers_tex_sha256": "16dabef05a86b3bb47c1f8dcb5c25986a98eeda594343bb46b9a42593603bb9d",
-  "paper_results_sha256": "09259c19432d0e9f7a6b085c8634d9e90dde2225a6cecb7a7e2fcdcdeb296cf4",
-  "readme_sha256": "5165ba3f397f46ee186683789f522914aa02c8fdfce7e08958521ccbd1525ef1",
+  "paper_results_sha256": "2cd19e70b11806a0316ac8dea84c9681f641ae4bd1d3bc2994c0c31265bff887",
+  "readme_sha256": "f24a7675c176d6088c12fe78fb2123755a2f00bf44c5ad4a05766eb2271fd3ab",
   "historical_context_matches": true,
   "guardrail_charge_times_match": true,
   "source_reports": [
@@ -91,5 +91,6 @@
     "artifacts/training_validation.json",
     "artifacts/paper_results.json"
   ],
-  "presentation_refresh_note": "Final presentation regeneration preserves the independently checked numbers.tex bytes, all77 macro definitions, all953 numerical release members, and current README; all24 generated artifact hashes match."
+  "presentation_refresh_note": "Final presentation regeneration preserves the independently checked numbers.tex bytes, all77 macro definitions, all953 numerical release members, and current README; all24 generated artifact hashes match.",
+  "readme_refresh_note": "November17 research README redesign: both generated findings and compute blocks reproduce byte for byte from the checked results/logs. All77 numerical macros and24 generated scientific artifacts remain unchanged."
 }
