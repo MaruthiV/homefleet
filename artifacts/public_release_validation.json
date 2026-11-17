@@ -1,0 +1,50 @@
+{
+  "protocol": "causal-v3",
+  "version": "v0.2.0",
+  "checked_utc": "2026-11-17T04:31:10.989133+00:00",
+  "repository_url": "https://github.com/MaruthiV/homefleet",
+  "release_url": "https://github.com/MaruthiV/homefleet/releases/tag/v0.2.0",
+  "release_source_commit": "cc31e68915f75051281c9a29f101d76766330d49",
+  "publicly_published": true,
+  "release_assets": 12,
+  "all_server_side_asset_hashes_match": true,
+  "fresh_public_tag_clone_matches": true,
+  "public_unauthenticated_download_verified": true,
+  "all_four_archives_extracted_and_verified": true,
+  "all22_bundles_raw_inputs_verified": true,
+  "saved_risk_model_reconstructs_all12_counties": true,
+  "risk_prediction_max_abs_error": 0.0,
+  "full_result_verifier_passed": true,
+  "verification_scope": {
+    "main_csv_files": 473,
+    "checkpoints": 21,
+    "structure_rows": 150,
+    "aging_rows": 24,
+    "ac_rows": 21,
+    "selected_synthetic_rows": 344,
+    "runtime_rows": 36
+  },
+  "installed_public_wheel_replays_match": true,
+  "replay_cases": 6,
+  "replay_max_abs_error": 2.842170943040401e-14,
+  "replay_absolute_tolerance": 1e-12,
+  "fresh_minimal_public_wheel_demo_passed": true,
+  "minimal_environment_has_no_torch": true,
+  "all50_pinned_research_dependencies_match": true,
+  "research_environment_note": "Fresh public-wheel virtualenv reuses48 base distributions whose versions exactly match the lock and installs the two pinned accelerator dependencies. The separately tested fresh minimal environment does not inherit system packages.",
+  "released_source_ci": {
+    "url": "https://github.com/MaruthiV/homefleet/actions/runs/44016368047",
+    "conclusion": "success",
+    "tests_passed": 49,
+    "tests_skipped": 5,
+    "demo_passed": true
+  },
+  "final_pdf_sha256": "fe6f810a07e0384f11590ad243ce652de2db216753f57dd4b3f9314fc84d5330",
+  "arxiv_source_zip_sha256": "723a5cdc4d4388bead750d12f10310f5aec5ef67382d3879a1d3254312404c52",
+  "arxiv_source_clean_rebuild_matches": true,
+  "arxiv_submitted": false,
+  "remaining_author_actions": [
+    "Review and approve the paper",
+    "Upload the prepared source ZIP to arXiv, confirm metadata and license, review its generated PDF and submit"
+  ]
+}

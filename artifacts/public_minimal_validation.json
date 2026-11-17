@@ -1,0 +1,17 @@
+{
+  "public_downloaded_wheel_installed": true,
+  "wheel_version": "0.2.0",
+  "fresh_virtualenv": true,
+  "system_site_packages": false,
+  "torch_installed": false,
+  "all41_installed_package_files_match_downloaded_wheel": true,
+  "demo_check_passed": true,
+  "demo_evidence": "homefleet.demo --check completed successfully outside the original checkout; output: Reference results match.",
+  "versions": {
+    "numpy": "2.5.5",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "26.0.1"
+  }
+}

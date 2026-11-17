@@ -67,6 +67,9 @@
       "files": 117
     }
   ],
-  "public_unauthenticated_download_tested": false,
-  "all_extracted_bundles_and_saved_model_verified": true
+  "public_unauthenticated_download_tested": true,
+  "all_extracted_bundles_and_saved_model_verified": true,
+  "public_release_evidence": "artifacts/public_release_validation.json",
+  "public_replay_evidence": "artifacts/public_replay_validation.json",
+  "public_replay_max_numeric_error": 2.842170943040401e-14
 }

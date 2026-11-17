@@ -1,0 +1,65 @@
+{
+  "protocol": "causal-v3",
+  "checked_utc": "2026-11-17T04:28:55.836985+00:00",
+  "installed_public_downloaded_wheel": true,
+  "pythonpath_unset": true,
+  "outside_original_checkout": true,
+  "all41_package_members_match_downloaded_wheel": true,
+  "source_sha256": "88981b43c48a33ad9e065d1459614dd97a432a51764b9c2f9e3e0eec7df0ee16",
+  "policy_source_sha256": "4de329986ef263fa0e1cefbe84ed798ebc7f2a31c4c18f1e859de6a6b04a6c6c",
+  "all_cases_match": true,
+  "max_abs_error": 2.842170943040401e-14,
+  "cases": [
+    {
+      "controller": "B0_fixed",
+      "window": "houston_2024/w00",
+      "numeric_fields_checked": 31,
+      "array_fields_checked": 4,
+      "max_abs_error": 2.220446049250313e-16,
+      "absolute_tolerance": 1e-12
+    },
+    {
+      "controller": "B3b_chance_eps0.02",
+      "window": "houston_2024/w00",
+      "numeric_fields_checked": 31,
+      "array_fields_checked": 4,
+      "max_abs_error": 4.440892098500626e-16,
+      "absolute_tolerance": 1e-12
+    },
+    {
+      "controller": "B3b_chance_eps0.1",
+      "window": "houston_2024/w00",
+      "numeric_fields_checked": 31,
+      "array_fields_checked": 4,
+      "max_abs_error": 2.842170943040401e-14,
+      "absolute_tolerance": 1e-12
+    },
+    {
+      "controller": "B6_ppo_pc_lam5_s1",
+      "window": "houston_2024/w00",
+      "numeric_fields_checked": 31,
+      "array_fields_checked": 4,
+      "max_abs_error": 2.220446049250313e-16,
+      "absolute_tolerance": 1e-12,
+      "checkpoint_sha256": "082306add1f687a006c62580566292dd32be734276ffb15bcdff57e9f1c04fb1"
+    },
+    {
+      "controller": "B6_ppo_pc_lam5_s4",
+      "window": "houston_2024/w00",
+      "numeric_fields_checked": 31,
+      "array_fields_checked": 4,
+      "max_abs_error": 2.220446049250313e-16,
+      "absolute_tolerance": 1e-12,
+      "checkpoint_sha256": "12cfa5379cd083e4774e67449ea83afad47cccd20947303239b3cb1476fdc2c8"
+    },
+    {
+      "controller": "B6_ppo_pc_lam5_s4_guard",
+      "window": "houston_2024/w00",
+      "numeric_fields_checked": 31,
+      "array_fields_checked": 4,
+      "max_abs_error": 2.220446049250313e-16,
+      "absolute_tolerance": 1e-12,
+      "checkpoint_sha256": "12cfa5379cd083e4774e67449ea83afad47cccd20947303239b3cb1476fdc2c8"
+    }
+  ]
+}

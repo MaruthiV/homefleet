@@ -1,0 +1,149 @@
+{
+  "protocol": "causal-v3",
+  "version": "v0.2.0",
+  "checked_utc": "2026-11-17T04:21:35.654150+00:00",
+  "release_url": "https://github.com/MaruthiV/homefleet/releases/tag/v0.2.0",
+  "public_unauthenticated_download_tested": true,
+  "session_trust_env": false,
+  "authorization_or_cookie_sent": false,
+  "initially_empty_download_cache": true,
+  "actual_downloader_used": true,
+  "downloaded_assets": [
+    {
+      "name": "homefleet-bundles-v0.2.0.tar.gz",
+      "bytes": 618634713,
+      "sha256": "ae15336431f9b63b0227b0bf12d05b92a3767fc9d83d6dee98653b6f41486544"
+    },
+    {
+      "name": "homefleet-raw-v0.2.0.tar.gz",
+      "bytes": 257029389,
+      "sha256": "9a7605feb2fc04ca41587c5326afef2c22a1c9a897c4c6e4a4d41d385327b9d3"
+    },
+    {
+      "name": "homefleet-checkpoints-v0.2.0.tar.gz",
+      "bytes": 12379207,
+      "sha256": "58df001e96614b6fb122defad76de1bd7c973cda3afbb9e9b92e9a10ac9c3e61"
+    },
+    {
+      "name": "homefleet-results-v0.2.0.tar.gz",
+      "bytes": 4138098,
+      "sha256": "b69bb0fd694b9fcdb8a303ecf1a9107df8da2c669ee8510cbcdeb3a0da08d8bc"
+    },
+    {
+      "name": "homefleet-0.2.0-py3-none-any.whl",
+      "bytes": 160069,
+      "sha256": "0717408a4a861d46ada5dda51022f8b6de4d81a692dcff2faf9ddf19133158d0"
+    },
+    {
+      "name": "adaptive-reliability-reserves.pdf",
+      "bytes": 441359,
+      "sha256": "fe6f810a07e0384f11590ad243ce652de2db216753f57dd4b3f9314fc84d5330"
+    },
+    {
+      "name": "homefleet-arxiv-source.zip",
+      "bytes": 177474,
+      "sha256": "723a5cdc4d4388bead750d12f10310f5aec5ef67382d3879a1d3254312404c52"
+    },
+    {
+      "name": "submission-metadata.json",
+      "bytes": 2596,
+      "sha256": "0d5c34b413714fbdbdd250efdb908d4beef328003217dec492dd43102b815cc2"
+    },
+    {
+      "name": "build-report.json",
+      "bytes": 3858,
+      "sha256": "b4ef56284e96ce67eb573d868d8a93d0223ef42a392bde2200803fa57b885521"
+    },
+    {
+      "name": "release_manifest.json",
+      "bytes": 1378,
+      "sha256": "5ead25df5e640335da126ae816e3712cec015c2bed1e0dcdb9f1a730c0a05983"
+    },
+    {
+      "name": "abstract.txt",
+      "bytes": 1601,
+      "sha256": "19367ee5d6da7bd58a2f0316ba49dcca9b5569b0edaebcef7ea8a3e1cc8ab3b4"
+    }
+  ],
+  "checksum_asset_verified": true,
+  "http_requests": [
+    {
+      "name": "homefleet-0.2.0-py3-none-any.whl",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "adaptive-reliability-reserves.pdf",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "homefleet-arxiv-source.zip",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "submission-metadata.json",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "build-report.json",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "release_manifest.json",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "abstract.txt",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "SHA256SUMS",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "homefleet-bundles-v0.2.0.tar.gz",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "homefleet-raw-v0.2.0.tar.gz",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "homefleet-checkpoints-v0.2.0.tar.gz",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    },
+    {
+      "name": "homefleet-results-v0.2.0.tar.gz",
+      "status": 200,
+      "authorization_present": false,
+      "cookie_present": false
+    }
+  ],
+  "extracted_groups": [
+    "bundles",
+    "raw",
+    "checkpoints",
+    "results"
+  ]
+}

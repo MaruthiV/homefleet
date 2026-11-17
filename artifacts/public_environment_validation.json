@@ -1,0 +1,8 @@
+{
+  "all_pinned_versions_match": true,
+  "distributions": 50,
+  "installed_wheel_version": "0.2.0",
+  "wheel_import_from_fresh_virtualenv": true,
+  "system_site_packages": true,
+  "note": "Fresh public-wheel virtualenv reuses48 base distributions whose versions exactly match the lock and installs the two pinned accelerator dependencies. The separately tested fresh minimal environment does not inherit system packages."
+}

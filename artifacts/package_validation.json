@@ -29,5 +29,8 @@
   "installed_package_files_match_wheel": true,
   "packaged_files": 41,
   "attribution_notice_in_wheel": true,
-  "note": "Tests and CLI scripts copied outside checkout; imports use the installed wheel. Optional Torch/Numba/DSS tests skip in the minimal environment. Research suite and input reconstruction also use the locked environment."
+  "note": "Tests and CLI scripts copied outside checkout; imports use the installed wheel. Optional Torch/Numba/DSS tests skip in the minimal environment. Research suite and input reconstruction also use the locked environment.",
+  "public_downloaded_wheel_verified": true,
+  "public_release_evidence": "artifacts/public_release_validation.json",
+  "public_minimal_demo_without_torch_passed": true
 }
