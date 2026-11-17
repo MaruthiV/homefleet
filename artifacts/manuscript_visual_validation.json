@@ -1,5 +1,5 @@
 {
-  "pdf_sha256": "fe6f810a07e0384f11590ad243ce652de2db216753f57dd4b3f9314fc84d5330",
+  "pdf_sha256": "7a90fd58f6bb23e70a53812a099061a05be33549b2cff2b05e9cd91bd82bd638",
   "pages": 22,
   "dpi": 110,
   "all_pages_visually_reviewed": true,
@@ -29,7 +29,6 @@
   ],
   "identical_render_inheritance": {
     "pages": [
-      1,
       2,
       3,
       4,
@@ -44,21 +43,22 @@
       13,
       14,
       15,
-      16
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
     ],
-    "from_pdf_sha256": "00960e1686e326b34a294e859edf96d99ea7a0082ada504316074519717880ac"
+    "from_pdf_sha256": "fe6f810a07e0384f11590ad243ce652de2db216753f57dd4b3f9314fc84d5330"
   },
   "direct_latest_review_pages": [
-    17,
-    18,
-    19,
-    20,
-    21,
-    22
+    1
   ],
-  "findings": "No clipped text, table overlap, orphan section headings, ambiguous coincident policy markers, or crowded storm date labels remain. Named author block and preprint footer verified.",
+  "findings": "Revised abstract closing visually checked on page1: contribution and practical impact end the abstract, with clean spacing and no clipping. All other21 pages are byte-identical rendered PNGs to the previously reviewed PDF.",
   "page_png_sha256": {
-    "1": "327eb557ddaec812984dbeed174517dd5ca3e2f1d7d5dff0648960b15ac45b99",
+    "1": "72008f1882f377ab80641f478167aacfc3a253cfc7a926316ac19105191f3352",
     "2": "a4b49537dddb8ac4ae81b67daa72f9bd961cba3cb6f7e9fcfd1780615a5cf00a",
     "3": "337f5d6a0f89e725680b9543c96858d43ac53b8992d655efadb32e1250f2e822",
     "4": "c2291e9ca5b7a79b96160ac9ea041e6937d1631a30291e7b5ce39377015db18e",

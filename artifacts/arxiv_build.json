@@ -2,8 +2,8 @@
   "title": "Adaptive Reliability Reserves for Residential Battery Fleets",
   "pages": 22,
   "clean_rebuild_matches_text": true,
-  "pdf_sha256": "fe6f810a07e0384f11590ad243ce652de2db216753f57dd4b3f9314fc84d5330",
-  "source_zip_sha256": "723a5cdc4d4388bead750d12f10310f5aec5ef67382d3879a1d3254312404c52",
+  "pdf_sha256": "7a90fd58f6bb23e70a53812a099061a05be33549b2cff2b05e9cd91bd82bd638",
+  "source_zip_sha256": "b65ca7eee258f5587f30778ccd616cde26249449e118b945b5c4061220b0f9cd",
   "source_files": [
     {
       "path": "appendix.tex",
@@ -39,7 +39,7 @@
     },
     {
       "path": "main.tex",
-      "sha256": "091248edcfefcbe612c85b7a0ecfe281e3060c990d09dc2af4d8666fff86e48a"
+      "sha256": "265d35725780269a95d53440f8cdfd7c7e005ae1d26962b2d6c4155d723bb912"
     },
     {
       "path": "methods.tex",

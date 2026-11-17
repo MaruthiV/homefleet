@@ -1,0 +1,47 @@
+{
+  "protocol": "causal-v3",
+  "revision": "preprint-2026-11-17",
+  "experimental_release": "v0.2.0",
+  "scope": "Only the final two abstract sentences changed; contribution and practical impact now close the abstract.",
+  "previous_pdf_sha256": "fe6f810a07e0384f11590ad243ce652de2db216753f57dd4b3f9314fc84d5330",
+  "pdf_sha256": "7a90fd58f6bb23e70a53812a099061a05be33549b2cff2b05e9cd91bd82bd638",
+  "source_zip_sha256": "b65ca7eee258f5587f30778ccd616cde26249449e118b945b5c4061220b0f9cd",
+  "changed_source_files": [
+    "paper/main.tex"
+  ],
+  "all_other26_source_package_files_unchanged": true,
+  "numerical_macros_unchanged": 77,
+  "generated_scientific_artifacts_unchanged": 24,
+  "page_count": 22,
+  "all_pages_visually_verified": true,
+  "identical_render_pages": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "directly_reviewed_pages": [
+    1
+  ],
+  "clean_source_rebuild_matches": true,
+  "abstract_characters": 1635,
+  "abstract_text_and_metadata_match": true,
+  "arxiv_submitted": false
+}
